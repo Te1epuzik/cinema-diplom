@@ -31,7 +31,7 @@ export const getSessionsData = ({ url }: TProps) => {
   }, [url]);
 
   useEffect(() => {
-    fetchData();
+			fetchData();
   }, []);
 
   return { data, error, isLoading };
