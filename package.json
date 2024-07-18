@@ -2,6 +2,7 @@
   "name": "cinema-diplom",
   "private": true,
   "version": "0.0.0",
+	"homepage": "https://tonki.github.io/cinema-diplom/",
   "type": "module",
   "scripts": {
     "dev": "vite",
