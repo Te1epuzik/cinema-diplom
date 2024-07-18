@@ -1,0 +1,23 @@
+@import "@/Variables.scss";
+@import "@/App.scss";
+
+.index-client {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 1600px;
+
+	.header {
+
+		.header-top {
+			padding: 11px 15px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			
+			.login {
+				padding: 8px 12px;
+				@extend .button;
+			}
+		}
+	}
+}

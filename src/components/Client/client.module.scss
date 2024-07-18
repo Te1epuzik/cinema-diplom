@@ -1,0 +1,12 @@
+@import "@/Variables.scss";
+
+.client {
+	display: flex;
+	flex-direction: column;
+	background-image: url("@/assets/background_client.jpg");
+	background-position: right;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100dvh;
+}
