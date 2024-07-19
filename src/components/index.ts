@@ -6,3 +6,6 @@ export * from "./Loader/Loader";
 export * from "./Client/Client";
 export * from "./IndexClient/IndexClient";
 export * from "./Seances/Seances";
+
+// Export Hall components
+export * from "./Hall/Hall";
