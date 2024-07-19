@@ -1,18 +1,34 @@
 @import "@/Variables.scss";
 
 .client {
-	display: flex;
-	flex-direction: column;
-	background-image: url("@/assets/background_client.jpg");
-	background-position: right;
-	background-size: cover;
-	background-repeat: no-repeat;
-	width: 100%;
-	min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  // background-image: url("@/assets/background_client.jpg");
+  // background-position: right;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100dvh;
 }
 
-@media (min-width: 990px) {
-	.client {
-		background-attachment: fixed;
-	}
+.client::before {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background: url("@/assets/background_client.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+
+// @media (min-width: 990px) {
+//   .client {
+//     background-attachment: fixed;
+//   }
+// }
