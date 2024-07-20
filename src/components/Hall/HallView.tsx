@@ -15,6 +15,7 @@ type TProps = {
   isMobile: boolean;
   getTicket: (seats: string, price: string) => void;
   ticket: TTicket;
+	date: string;
 };
 
 export const HallView = ({
@@ -25,6 +26,7 @@ export const HallView = ({
   isMobile,
   getTicket,
   ticket,
+	date
 }: TProps) => {
   return (
     <div className={classes["hall"]}>
@@ -64,7 +66,9 @@ export const HallView = ({
           "&" +
           ticket.price +
           "&" +
-          ticket.seats
+          ticket.seats +
+					"&" +
+					date
         }
       >
         Забронировать

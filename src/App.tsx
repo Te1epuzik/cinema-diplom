@@ -9,6 +9,7 @@ import {
   Hall,
   Payment,
   Book,
+  Ticket,
 } from "@/components";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           </Route>
           <Route path="payment/*" element={<Payment />}>
             <Route path=":bookInfo" element={<Book />} />
+            <Route path="ticket/:bookInfo" element={<Ticket />}></Route>
           </Route>
         </Route>
       </Routes>

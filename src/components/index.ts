@@ -18,3 +18,4 @@ export * from "./Seats/Seats";
 //Payment components
 export * from "./Payment/Payment";
 export * from "./Book/Book";
+export * from "./Ticket/Ticket";

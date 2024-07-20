@@ -1,10 +1,10 @@
-import { BookView } from "./BookView";
+import { TicketView } from "./TicketView";
 import { useParams } from "react-router-dom";
 import { getSeancesData } from "@/services";
 import { TFilm } from "@/models/SessionsModel";
 import { Loader } from "@/components";
 
-export const Book = () => {
+export const Ticket = () => {
   const { bookInfo } = useParams();
 
   const book = bookInfo?.split("&");
@@ -19,12 +19,13 @@ export const Book = () => {
     time: book && book[2],
     price: book && book[3],
     seats: book && book[4].split(",").join(", "),
-		date: book && book[5],
+		date: book && book[5].split("-").join("."),
   };
+
 
   console.log(bookObj);
 
   return <> 
 	{isLoading && <Loader />}
-	{book && bookObj && data && <BookView book={bookObj} filmId={book[0]} />}</>;
+	{book && bookObj && data && <TicketView book={bookObj} />}</>;
 };

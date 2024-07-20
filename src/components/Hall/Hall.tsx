@@ -36,7 +36,7 @@ export const Hall = () => {
   return (
     <div>
 			{isLoading && <div className={classes['loader']}><Loader /></div>}
-      {film && seats && time && hall && (
+      {film && seats && time && hall && date && (
         <HallView
           film={film}
           seats={seats}
@@ -45,6 +45,7 @@ export const Hall = () => {
           isMobile={isMobile}
           getTicket={getTicket}
           ticket={ticket}
+					date={date}
         />
       )}
     </div>

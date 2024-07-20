@@ -1,23 +1,22 @@
-import classes from "./book.module.scss";
-import { Link } from "react-router-dom";
+import classes from "./ticket.module.scss";
+import QRCode from "react-qr-code";
 
 type TProps = {
-	filmId: string;
   book: {
     film: string | undefined;
     hall: string | undefined;
     time: string | undefined;
     price: string | undefined;
     seats: string | undefined;
-		date: string | undefined;
+    date: string | undefined;
   };
 };
 
-export const BookView = ({ book, filmId }: TProps) => {
+export const TicketView = ({ book }: TProps) => {
   return (
-    <div className={classes["book"]}>
+    <div className={classes["ticket"]}>
       <header className={classes["header"]}>
-        <h2 className={classes["title"]}>Вы выбрали билеты:</h2>
+        <h2 className={classes["title"]}>Электронный билет</h2>
       </header>
       <main className={classes["main"]}>
         <div className={classes["seance"]}>
@@ -39,28 +38,34 @@ export const BookView = ({ book, filmId }: TProps) => {
             <span className={classes["info-inner"]}>{book.price}</span> рублей
           </span>
         </div>
-        <Link
-          className={classes["get-code"] + " " + "button"}
-          to={
-            "/client/payment/ticket/" +
-						filmId +
-            "&" +
-            book.hall +
-            "&" +
-            book.time +
-            "&" +
-            book.price +
-            "&" +
-            book.seats?.split(", ").join(",") +
-						"&" +
-						book.date
-          }
-        >
-          Получить код бронирования
-        </Link>
+        <div className={classes["qr"]}>
+          <QRCode
+            value={
+              "Date: " +
+              book.date +
+              "\n" +
+              "Seance start at: " +
+              book.time +
+              "\n" +
+              "Film: " +
+              book.film +
+              "\n" +
+              "Hall: " +
+              book.hall +
+              "\n" +
+              "Seats: " +
+              book.seats +
+              "\n" +
+              "Price: " +
+              book.price +
+              " rub" +
+              "\n" +
+              "The ticket is valid strictly for this seance."
+            }
+          />
+        </div>
         <p className={classes["description"]}>
-          После оплаты билет будет доступен в этом окне, а также придёт вам на
-          почту. Покажите QR-код нашему контроллёру у входа в зал.
+          Покажите QR-код нашему контроллеру для подтверждения бронирования.
         </p>
         <span className={classes["enjoy"]}>Приятного просмотра!</span>
       </main>
