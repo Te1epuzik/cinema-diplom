@@ -3,6 +3,7 @@ import classes from "./datePicker.module.scss";
 import { NavLink } from "react-router-dom";
 
 import { TDays, TWeek } from "@/models/DatePickerModel";
+import { useFormatDate } from "@/hooks";
 
 import { ArrowNextSVG, ArrowPrevSVG } from "@/svg";
 
@@ -33,10 +34,7 @@ export const DatePickerView = ({
           <NavLink
             key={date}
             id={`${day}`}
-            to={`${new Date(date)
-              .toString()
-              .slice(0, 15)
-              .replace(/\s+/g, "-")}`}
+            to={useFormatDate(new Date(date))}
             className={({ isActive }) =>
               (new Date().getDate() === day
                 ? classes["day"] + " " + classes["day--today"]

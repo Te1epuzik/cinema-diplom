@@ -12,6 +12,8 @@
 	.header {
 
 		.header-top {
+			box-sizing: border-box;
+			height: 66px;
 			padding: 11px 15px;
 			display: flex;
 			align-items: center;

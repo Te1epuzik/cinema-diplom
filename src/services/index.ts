@@ -1,1 +1,1 @@
-export * from "./getSessionsData";
+export * from "./getSeancesData";

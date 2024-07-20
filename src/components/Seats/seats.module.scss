@@ -1,0 +1,99 @@
+@import "@/Variables.scss";
+
+.seats {
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-dark-blue;
+  color: $color-white;
+
+  .screen {
+    width: 284px;
+
+    .screen-svg {
+      width: 100%;
+    }
+  }
+
+  .disabled,
+  .standart,
+  .vip,
+  .taken,
+  .selected {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: solid 1px transparent;
+  }
+
+  .standart,
+  .vip,
+  .taken,
+  .selected {
+    border-color: $color-dark-gray;
+    transition: background-color 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+
+  .standart {
+    background-color: $color-white;
+  }
+
+  .vip {
+    background-color: $color-orange;
+  }
+
+  .selected {
+    box-shadow: 0 0 4px 0 rgba($color-light-cian, 0.8);
+    background-color: $color-light-cian !important;
+  }
+
+  .grid {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+    }
+  }
+
+  .legend {
+    margin-top: 28px;
+    width: 330px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+
+      .standart,
+      .vip,
+      .taken,
+      .selected {
+        cursor: default;
+      }
+
+      .legend-text {
+        margin-left: 4px;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
+    .legend-item:nth-child(2n + 1) {
+      width: 170px;
+      margin-left: 33px;
+    }
+    .legend-item:nth-child(2n + 2) {
+      margin-left: 4px;
+    }
+  }
+}

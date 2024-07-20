@@ -1,0 +1,17 @@
+@import "@/Variables.scss";
+
+
+.reservation {
+	.header {
+		justify-content: flex-start;
+		display: flex;
+		box-sizing: border-box;
+		padding: 11px 15px;
+		height: 66px;
+	}
+
+	.main {
+		width: 100%;
+		background-color: rgba($color-cream, .95);
+	}
+}

@@ -1,1 +1,66 @@
 @import "@/Variables.scss";
+
+.hall {
+	color: $color-black;
+	padding-bottom: 30px;
+
+	.header {
+		padding: 15px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.film-info {
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+
+			.name {
+				margin: 0;
+				font-size: 16px;
+				line-height: 18px;
+			}
+
+			.time-start {
+				margin-top: 7px;
+				font-weight: 300;
+				font-size: 14px;
+			}
+
+			.hall-name {
+				margin-top: 1px;
+				font-size: 16px;
+				font-weight: 700;
+			}
+		}
+
+		.hint {
+			margin-right: 12px;
+			display: flex;
+
+			.hint-svg {
+				width: 24px;
+			}
+
+			.hint-description {
+				display: block;
+				font-size: 14px;
+				width: 76px;
+				line-height: 16px;
+			}
+		}
+	}
+
+	.book {
+		text-transform: uppercase;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 40px;
+		width: 232px;
+		font-size: 14px;
+		color: $color-white;
+		margin: 30px auto 0 auto;
+
+	}
+}

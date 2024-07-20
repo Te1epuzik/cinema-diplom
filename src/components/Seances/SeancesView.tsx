@@ -7,9 +7,10 @@ import { E404 } from "@/components";
 type TProps = {
   data: TFData;
   error: any;
+  date: string;
 };
 
-export const SeancesView = ({ data, error }: TProps) => {
+export const SeancesView = ({ data, error, date }: TProps) => {
   return (
     <div className={classes["seances"]}>
       {error ? (
@@ -42,7 +43,7 @@ export const SeancesView = ({ data, error }: TProps) => {
                       <Link
                         key={seance.id}
                         className={classes["seance"]}
-                        to={`/client/hall/${seance.seance_filmid}/${seance.seance_hallid}/${seance.seance_time}`}
+                        to={`/client/reservation/${seance.id}&${date}&${seance.seance_time}`}
                       >
                         {seance.seance_time}
                       </Link>

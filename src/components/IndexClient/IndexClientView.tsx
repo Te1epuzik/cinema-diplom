@@ -10,9 +10,17 @@ export const IndexClientView = () => {
     <div className={classes["index-client"]}>
       <header className={classes["header"]}>
         <div className={classes["header-top"]}>
-					<img className={classes['logo']} src={GoingMoviLogo} alt="Идем в кино" />
-					<Link className={classes['login']} to={"/admin"}>Войти</Link>
-				</div>
+          <Link to={"/"}>
+            <img
+              className={classes["logo"]}
+              src={GoingMoviLogo}
+              alt="Идем в кино"
+            />
+          </Link>
+          <Link className={classes["login"]} to={"/admin"}>
+            Войти
+          </Link>
+        </div>
 
         <DatePicker />
       </header>
