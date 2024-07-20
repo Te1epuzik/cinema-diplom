@@ -19,7 +19,7 @@ export const Hall = () => {
   const date = seanceInfo?.split("&")[1];
   const time = seanceInfo?.split("&")[2];
 
-  const { data, isLoading, error } = getSeancesData(
+  const { data, isLoading } = getSeancesData(
     `https://shfe-diplom.neto-server.ru/hallconfig?seanceId=${seanceId}&date=${date}`,
   );
   const { film, hall } = useReservation(seanceId);
