@@ -5,8 +5,8 @@ export const useFormatDate = (date: Date) => {
       : date.getMonth() + 1;
   const day =
     (date.getDate() + 1).toString().length === 1
-      ? "0" + (date.getDate() + 1)
-      : date.getDate() + 1;
+      ? "0" + (date.getDate())
+      : date.getDate();
   const year = date.getFullYear();
 
   return [year, month, day].join("-");

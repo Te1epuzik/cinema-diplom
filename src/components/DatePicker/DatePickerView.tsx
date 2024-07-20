@@ -22,7 +22,6 @@ export const DatePickerView = ({
   handleNextWeek,
   handlePrevWeek,
   DayNames,
-	OneDay
 }: TProps) => {
   return (
     <>
@@ -36,7 +35,7 @@ export const DatePickerView = ({
           <NavLink
             key={date}
             id={`${day}`}
-            to={useFormatDate(new Date(date - 1 * OneDay))}
+            to={useFormatDate(new Date(date))}
             className={({ isActive }) =>
               (new Date().getDate() === day
                 ? classes["day"] + " " + classes["day--today"]
