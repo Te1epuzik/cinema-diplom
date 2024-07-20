@@ -1,0 +1,15 @@
+@import "@/Variables.scss";
+
+.payment {
+	.header {
+		justify-content: flex-start;
+		display: flex;
+		box-sizing: border-box;
+		padding: 11px 15px;
+		height: 66px;
+	}
+
+	.main {
+		width: 100%;
+	}
+}

@@ -126,6 +126,7 @@ export const DatePicker = memo(() => {
       handleNextWeek={handleNextWeek}
       handlePrevWeek={handlePrevWeek}
       DayNames={DayNames}
+			OneDay={OneDay}
     />
   );
 });

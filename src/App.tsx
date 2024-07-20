@@ -1,7 +1,15 @@
 import "./App.scss";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Client, IndexClient, Seances, Reservation, Hall } from "@/components";
 import { useFormatDate } from "./hooks";
+import {
+  Client,
+  IndexClient,
+  Seances,
+  Reservation,
+  Hall,
+  Payment,
+  Book,
+} from "@/components";
 
 function App() {
   const seancesPath = useFormatDate(new Date());
@@ -18,6 +26,9 @@ function App() {
           </Route>
           <Route path="reservation/*" element={<Reservation />}>
             <Route path=":seanceInfo" element={<Hall />} />
+          </Route>
+          <Route path="payment/*" element={<Payment />}>
+            <Route path=":bookInfo" element={<Book />} />
           </Route>
         </Route>
       </Routes>

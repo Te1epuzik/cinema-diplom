@@ -1,5 +1,12 @@
 @import "@/Variables.scss";
 
+.loader {
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	transform: translate(-50%);
+}
+
 .hall {
 	color: $color-black;
 	padding-bottom: 30px;
@@ -51,7 +58,13 @@
 		}
 	}
 
+	.book-disabled {
+		pointer-events: none;
+		background-color: $color-dark-gray;
+	}
+
 	.book {
+		user-select: none;
 		text-transform: uppercase;
 		display: flex;
 		justify-content: center;
@@ -61,6 +74,5 @@
 		font-size: 14px;
 		color: $color-white;
 		margin: 30px auto 0 auto;
-
 	}
 }

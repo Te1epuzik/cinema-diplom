@@ -33,9 +33,18 @@
   .taken,
   .selected {
     border-color: $color-dark-gray;
-    transition: background-color 0.25s, box-shadow 0.25s;
-    cursor: pointer;
   }
+
+	.standart,
+	.vip {
+    transition: background-color 0.25s, box-shadow 0.25s, opacity 0.1s;
+    cursor: pointer;
+	}
+
+	.standart:hover,
+	.vip:hover {
+		opacity: 0.8;
+	}
 
   .standart {
     background-color: $color-white;
@@ -78,6 +87,7 @@
       .vip,
       .taken,
       .selected {
+				opacity: 1;
         cursor: default;
       }
 

@@ -22,9 +22,9 @@
   width: fit-content;
   border-radius: 3px;
   background-color: $color-cian;
-  transition: opacity 0.25s;
+  transition: background-color 0.25s;
 }
 
 .button:hover {
-  opacity: 0.8;
+  background-color: $color-dark-blue;
 }

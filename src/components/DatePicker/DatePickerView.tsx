@@ -13,6 +13,7 @@ type TProps = {
   handleNextWeek: () => void;
   handlePrevWeek: () => void;
   DayNames: TWeek;
+	OneDay: number;
 };
 
 export const DatePickerView = ({
@@ -21,6 +22,7 @@ export const DatePickerView = ({
   handleNextWeek,
   handlePrevWeek,
   DayNames,
+	OneDay
 }: TProps) => {
   return (
     <>
@@ -34,7 +36,7 @@ export const DatePickerView = ({
           <NavLink
             key={date}
             id={`${day}`}
-            to={useFormatDate(new Date(date))}
+            to={useFormatDate(new Date(date - 1 * OneDay))}
             className={({ isActive }) =>
               (new Date().getDate() === day
                 ? classes["day"] + " " + classes["day--today"]

@@ -49,17 +49,21 @@ export const HallView = ({
       </header>
       <Seats seats={seats} getTicket={getTicket} />
       <Link
-        className={classes["book"] + " " + "button"}
+        className={
+          (ticket.seats.length < 1
+            ? classes["book"] + " " + classes["book-disabled"]
+            : classes["book"]) + " " + "button"
+        }
         to={
-          "/client/payment/&film=" +
+          "/client/payment/" +
           film.id +
-          "&hall=" +
+          "&" +
           hall +
-          "&time=" +
+          "&" +
           time +
-          "&price=" +
+          "&" +
           ticket.price +
-          "&seats=" +
+          "&" +
           ticket.seats
         }
       >
