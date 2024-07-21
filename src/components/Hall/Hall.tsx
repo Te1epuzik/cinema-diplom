@@ -1,7 +1,7 @@
 import { HallView } from "./HallView";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { getSeancesData } from "@/services";
+import { useGetAllData } from "@/services";
 import { useReservation, useResize } from "@/hooks";
 import { TTicket } from "@/models/ReservationModel";
 import { Loader } from "@/components";
@@ -19,8 +19,8 @@ export const Hall = () => {
   const date = seanceInfo?.split("&")[1];
   const time = seanceInfo?.split("&")[2];
 
-  const { data, isLoading } = getSeancesData(
-    `https://shfe-diplom.neto-server.ru/hallconfig?seanceId=${seanceId}&date=${date}`,
+  const { data, isLoading } = useGetAllData(
+    `hallconfig?seanceId=${seanceId}&date=${date}`,
   );
   const { film, hall } = useReservation(seanceId);
 

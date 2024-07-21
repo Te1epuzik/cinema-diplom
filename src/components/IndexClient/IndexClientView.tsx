@@ -17,7 +17,7 @@ export const IndexClientView = () => {
               alt="Идем в кино"
             />
           </Link>
-          <Link className={classes["login"]} to={"/admin"}>
+          <Link className={classes["login"]} to={"/admin/login"}>
             Войти
           </Link>
         </div>

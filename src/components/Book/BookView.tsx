@@ -19,7 +19,7 @@ export const BookView = ({ book, filmId }: TProps) => {
       <header className={classes["header"]}>
         <h2 className={classes["title"]}>Вы выбрали билеты:</h2>
       </header>
-      <main className={classes["main"]}>
+      <div className={classes["content"]}>
         <div className={classes["seance"]}>
           <span className={classes["info"]}>
             На фильм: <span className={classes["info-inner"]}>{book.film}</span>
@@ -63,7 +63,7 @@ export const BookView = ({ book, filmId }: TProps) => {
           почту. Покажите QR-код нашему контроллёру у входа в зал.
         </p>
         <span className={classes["enjoy"]}>Приятного просмотра!</span>
-      </main>
+      </div>
     </div>
   );
 };

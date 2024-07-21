@@ -1,6 +1,9 @@
 import { useState, useCallback } from "react";
+import { useVariables } from "@/hooks";
 
-export const postTicket = (url: string, body?: any) => {
+export const useReserveSeats = (body?: any) => {
+	const { url } = useVariables();
+	const path = "ticket";
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -10,7 +13,7 @@ export const postTicket = (url: string, body?: any) => {
     setError(null);
 
 			try {
-				const response = await fetch(url, {
+				const response = await fetch(url + path, {
 					method: "POST",
 					body: JSON.stringify(body),
 				});

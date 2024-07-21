@@ -15,7 +15,12 @@ export * from "./Reservation/Reservation";
 export * from "./Hall/Hall";
 export * from "./Seats/Seats";
 
-//Payment components
+// Payment components
 export * from "./Payment/Payment";
 export * from "./Book/Book";
 export * from "./Ticket/Ticket";
+
+/* --------- admin components --------- */
+
+export * from "./Admin/Admin";
+export * from "./Login/Login";

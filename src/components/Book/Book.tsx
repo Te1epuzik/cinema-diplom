@@ -1,6 +1,6 @@
 import { BookView } from "./BookView";
 import { useParams } from "react-router-dom";
-import { getSeancesData } from "@/services";
+import { useGetAllData } from "@/services";
 import { TFilm } from "@/models/SessionsModel";
 import { Loader } from "@/components";
 
@@ -9,7 +9,7 @@ export const Book = () => {
 
   const book = bookInfo?.split("&");
 
-  const { data, isLoading } = getSeancesData(`https://shfe-diplom.neto-server.ru/alldata`);
+  const { data, isLoading } = useGetAllData();
 
   const bookObj = {
     film:

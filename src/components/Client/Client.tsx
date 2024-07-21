@@ -1,7 +1,10 @@
-import { ClientView } from './ClientView'
+import { Outlet } from "react-router-dom";
+import classes from "./client.module.scss";
 
 export const Client = () => {
 	return (
-		<ClientView />
+		<div className={classes["client"]}>
+			<Outlet />
+    </div>
 	)
 }

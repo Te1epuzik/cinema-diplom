@@ -1,2 +1,3 @@
-export * from "./getSeancesData";
-export * from "./postTicket";	
+export * from "./useGetAllData";
+export * from "./useReserveSeats";
+export * from "./useLogin";

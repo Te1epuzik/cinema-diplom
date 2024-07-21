@@ -1,5 +1,5 @@
 import { SeancesView } from "./SeancesView";
-import { getSeancesData } from "@/services";
+import { useGetAllData } from "@/services";
 import { Loader } from "@/components";
 import { useParams } from "react-router-dom";
 import { useFilterSeances } from "@/hooks";
@@ -7,9 +7,7 @@ import { useFilterSeances } from "@/hooks";
 export const Seances = () => {
   const { date } = useParams();
 
-  const { data, error, isLoading } = getSeancesData(
-    "https://shfe-diplom.neto-server.ru/alldata",
-  );
+  const { data, error, isLoading } = useGetAllData();
 
   const { films } = useFilterSeances(data);
 
