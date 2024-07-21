@@ -39,10 +39,8 @@ export const DatePicker = memo(() => {
 
       const prevWeekFirstDay = new Date(next[0].date - 5 * OneDay);
 
-			const incrementDays = (index: number) => {
-        return new Date(
-          prevWeekFirstDay.getTime() + index * OneDay,
-        ).getDate();
+      const incrementDays = (index: number) => {
+        return new Date(prevWeekFirstDay.getTime() + index * OneDay).getDate();
       };
 
       next.forEach((_day, index) => {
@@ -67,9 +65,7 @@ export const DatePicker = memo(() => {
       const next: TDays = [];
 
       const incrementDays = (index: number) => {
-        return new Date(
-          nextWeekFirstDay.getTime() + index * OneDay,
-        ).getDate();
+        return new Date(nextWeekFirstDay.getTime() + index * OneDay).getDate();
       };
 
       prev.forEach((_day, index) => {
@@ -126,7 +122,7 @@ export const DatePicker = memo(() => {
       handleNextWeek={handleNextWeek}
       handlePrevWeek={handlePrevWeek}
       DayNames={DayNames}
-			OneDay={OneDay}
+      OneDay={OneDay}
     />
   );
 });

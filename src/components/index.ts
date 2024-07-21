@@ -23,4 +23,9 @@ export * from "./Ticket/Ticket";
 /* --------- admin components --------- */
 
 export * from "./Admin/Admin";
+
+// Login components
 export * from "./Login/Login";
+
+// Settings components
+export * from "./Settings/Settings";

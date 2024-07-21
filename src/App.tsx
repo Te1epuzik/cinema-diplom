@@ -12,6 +12,7 @@ import {
   Ticket,
 	Admin,
 	Login,
+	Settings,
 } from "@/components";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         </Route>
 				<Route path="/admin/*" element={<Admin />}>
 					<Route path="login" element={<Login />} />
+					<Route path="settings" element={<Settings />} />
 				</Route>
       </Routes>
     </>

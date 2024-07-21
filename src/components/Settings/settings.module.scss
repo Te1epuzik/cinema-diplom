@@ -1,0 +1,28 @@
+@import "@/Variables.scss";
+
+.settings {
+	.header {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+		
+    .logo {
+			margin-left: 105px;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .logo-admin {
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 6px;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
