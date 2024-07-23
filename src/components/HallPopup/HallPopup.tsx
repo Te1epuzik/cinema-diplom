@@ -1,5 +1,5 @@
 import { HallPopupView } from "./HallPopupView";
-import { MouseEvent, useState, ChangeEvent, useEffect } from "react";
+import { MouseEvent, useState, ChangeEvent } from "react";
 
 type TProps = {
   handleHallPopup: (event: MouseEvent<HTMLElement>) => void;
