@@ -12,7 +12,7 @@ type TProps = {
   seats: string[][];
   time: string;
   hall: string;
-  isMobile: boolean;
+  isTablet: boolean;
   getTicket: (seats: string, price: string) => void;
   ticket: TTicket;
 	date: string;
@@ -23,7 +23,7 @@ export const HallView = ({
   seats,
   time,
   hall,
-  isMobile,
+  isTablet,
   getTicket,
   ticket,
 	date
@@ -36,7 +36,7 @@ export const HallView = ({
           <span className={classes["time-start"]}>Начало сеанса: {time}</span>
           <span className={classes["hall-name"]}>{hall}</span>
         </div>
-        {isMobile && (
+        {isTablet && (
           <div className={classes["hint"]}>
             <img
               className={classes["hint-svg"]}

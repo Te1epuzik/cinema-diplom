@@ -29,3 +29,4 @@ export * from "./Login/Login";
 
 // Settings components
 export * from "./Settings/Settings";
+export * from "./Dropdown/Dropdown";

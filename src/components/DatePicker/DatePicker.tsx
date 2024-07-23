@@ -1,6 +1,7 @@
 import { useState, memo, useCallback } from "react";
 
 import { DatePickerView } from "./DatePickerView";
+import { CSSTransition } from "react-transition-group";
 
 import { TDays, TWeek } from "@/models/DatePickerModel";
 
@@ -116,13 +117,13 @@ export const DatePicker = memo(() => {
   ];
 
   return (
-    <DatePickerView
-      backButton={backButton}
-      shownDates={shownDates}
-      handleNextWeek={handleNextWeek}
-      handlePrevWeek={handlePrevWeek}
-      DayNames={DayNames}
-      OneDay={OneDay}
-    />
+      <DatePickerView
+        backButton={backButton}
+        shownDates={shownDates}
+        handleNextWeek={handleNextWeek}
+        handlePrevWeek={handlePrevWeek}
+        DayNames={DayNames}
+        OneDay={OneDay}
+      />
   );
 });

@@ -13,7 +13,7 @@ export const Hall = () => {
     price: "",
   });
 
-  const { isMobile } = useResize();
+  const { isTablet } = useResize();
   const { seanceInfo } = useParams();
   const seanceId = seanceInfo?.split("&")[0];
   const date = seanceInfo?.split("&")[1];
@@ -42,7 +42,7 @@ export const Hall = () => {
           seats={seats}
           time={time}
           hall={hall}
-          isMobile={isMobile}
+          isTablet={isTablet}
           getTicket={getTicket}
           ticket={ticket}
 					date={date}

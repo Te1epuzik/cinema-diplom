@@ -1,0 +1,92 @@
+@import "@/Variables.scss";
+
+.dropdown-wrapper {
+  .dropdown {
+    width: 100%;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font-weight: inherit;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+    .header {
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: $color-violet;
+      padding: 0 20px;
+      height: 65px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .circle {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        z-index: 2;
+      }
+    }
+  }
+
+  .dropdown:focus {
+    outline: none;
+  }
+
+  .children {
+    position: relative;
+    background-color: rgba($color-light-gray, 0.95);
+  }
+}
+
+@media (min-width: 568px) {
+  .dropdown-wrapper {
+    .dropdown {
+      .header {
+        height: 95px;
+        padding: 0 40px;
+      }
+
+      .header-last::after,
+      .header-midle::after,
+      .header-first::after {
+        content: "";
+        position: absolute;
+        left: 61px;
+        display: block;
+        border-left: solid 2px $color-light-violet;
+      }
+
+      .header-first::after {
+        bottom: 0;
+        height: 30px;
+      }
+
+      .header-midle::after {
+        bottom: 0;
+        height: 95px;
+      }
+
+      .header-last::after {
+        height: 30px;
+        top: 0;
+      }
+    }
+  }
+  .children-after:after {
+    content: "";
+    position: absolute;
+    left: 61px;
+    top: 0;
+    bottom: 0;
+    display: block;
+    border-left: solid 2px $color-light-violet;
+  }
+}
