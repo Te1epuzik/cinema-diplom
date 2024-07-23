@@ -1,6 +1,8 @@
 // Multipurpose components
 export * from "./E404/E404";
 export * from "./Loader/Loader";
+export * from "./Popup/Popup";
+export * from "./Dropdown/Dropdown";
 
 /* --------- client components --------- */
 
@@ -29,4 +31,7 @@ export * from "./Login/Login";
 
 // Settings components
 export * from "./Settings/Settings";
-export * from "./Dropdown/Dropdown";
+export * from "./SettingHalls/SettingHalls";
+
+// Popups
+export * from "./HallPopup/HallPopup";

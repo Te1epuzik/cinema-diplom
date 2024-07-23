@@ -25,15 +25,26 @@
       justify-content: space-between;
       align-items: center;
 
-      .circle {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        z-index: 2;
-      }
+			.content {
+				display: flex;
+				align-items: center;
+				gap: 24px;
+
+				.circle {
+					position: relative;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+					z-index: 2;
+				}
+			}
     }
+
+		.header:hover > .arrow {
+			opacity: .5;
+			transition: all 0.5s ease;
+		}
   }
 
   .dropdown:focus {
@@ -41,6 +52,9 @@
   }
 
   .children {
+		padding-left: 31px;
+		color: $color-black;
+    overflow: hidden;
     position: relative;
     background-color: rgba($color-light-gray, 0.95);
   }
@@ -52,6 +66,10 @@
       .header {
         height: 95px;
         padding: 0 40px;
+
+				.content {
+					gap: 21px;
+				}
       }
 
       .header-last::after,
@@ -80,6 +98,11 @@
       }
     }
   }
+
+	.children {
+		padding-left: 104px !important;
+	}
+
   .children-after:after {
     content: "";
     position: absolute;

@@ -27,10 +27,12 @@ export const DropdownView = ({
         <header
           className={classes["header"] + " " + classes["header-" + position]}
         >
-          <div className={classes["circle"]}>
-            {isMobile ? <CircleMobileSVG /> : <CircleSVG />}
+          <div className={classes['content']}>
+            <div className={classes["circle"]}>
+              {isMobile ? <CircleMobileSVG /> : <CircleSVG />}
+            </div>
+            {content}
           </div>
-          {content}
           <img
             src={ArrowDownPNG}
             alt="arrow"

@@ -2,9 +2,13 @@ import classes from "./settings.module.scss";
 import { Link } from "react-router-dom";
 import GoingMoviLogo from "@/assets/Идёмвкино.svg";
 
-import { Dropdown } from "@/components";
+import { SettingHalls } from "@/components";
 
-export const SettingsView = () => {
+type TProps = {
+	allData: any;
+};
+
+export const SettingsView = ({ allData }: TProps) => {
   return (
     <div className={classes["settings"]}>
       <header className={classes["header"]}>
@@ -18,20 +22,7 @@ export const SettingsView = () => {
         </Link>
       </header>
       <main className={classes["main"]}>
-        {/* TODO перенести настройки в отлдельные компоненты, 
-				сейчас это временно для настройки стилей */}
-        <Dropdown content="Управление залами" position="first">
-          <div className={classes["div"]}>
-          </div>
-        </Dropdown>
-        <Dropdown content="Управление залами" position="midle">
-          <div className={classes["div"]}>
-          </div>
-        </Dropdown>
-        <Dropdown content="Управление залами" position="last">
-          <div className={classes["div"]}>
-          </div>
-        </Dropdown>
+        <SettingHalls allData={allData} position="first" />
       </main>
     </div>
   );

@@ -15,7 +15,7 @@ export const CircleMobileSVG = () => {
         rx="9"
         fill="white"
         stroke="#BC95D6"
-        stroke-width="4"
+        strokeWidth="4"
       />
     </svg>
   );

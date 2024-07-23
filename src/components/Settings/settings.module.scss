@@ -1,9 +1,16 @@
 @import "@/Variables.scss";
 
+.loader {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	transform: translate(-50%);
+}
+
 .settings {
-	max-width: 962px;
-	margin: 0 auto;
-	width: 100%;
+  max-width: 962px;
+  margin: 0 auto;
+  width: 100%;
 
   .header {
     box-sizing: border-box;
@@ -29,12 +36,14 @@
       }
     }
   }
+}
 
-  .main {
-
-    .div {
-      color: $color-black;
-			height: 200px;
+@media (min-width: 568px) {
+  .settings {
+    .header {
+      .logo {
+        margin-left: 100px;
+      }
     }
   }
 }
