@@ -37,6 +37,8 @@ export const HallPopupView = ({
             name="hall-name"
             id="hallname1"
             placeholder="Например, «Зал 1»"
+						autoComplete="off"
+						autoFocus
             required
           />
         </div>
