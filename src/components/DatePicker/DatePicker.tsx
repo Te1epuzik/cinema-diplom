@@ -1,7 +1,6 @@
 import { useState, memo, useCallback } from "react";
 
 import { DatePickerView } from "./DatePickerView";
-import { CSSTransition } from "react-transition-group";
 
 import { TDays, TWeek } from "@/models/DatePickerModel";
 
