@@ -1,81 +1,90 @@
 @import "@/Variables.scss";
 
 .config-grid {
-	display: flex;
-	flex-direction: column;
-	margin-top: 10px;
-	
-	.description {
-		text-align: left;
-		color: $color-gray-text;
-		font-size: 14px;
-	}
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 
-	.config {
-		padding-bottom: 35px;
-		overflow: auto;
-		margin-top: 7px;
-		display: flex;
-		flex-direction: column;
-		border: solid 1px $color-black;
-		
-		.screen {
-			margin-top: 22px;
-			position: relative;
-			left: 52%;
-			transform: translateX(-50%);
-			display: block;
-			width: fit-content;
-			text-transform: uppercase;
-			letter-spacing: 19px;
-		}
-		
-		.grid {
-			margin: 0 auto;
-			margin-top: 17px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 10px;
-			
-			.row {
-				gap: 10px;
-				display: flex;
+  .description {
+    text-align: left;
+    color: $color-gray-text;
+    font-size: 14px;
+  }
 
-				.seat {
-					cursor: pointer;
-					transition: all 0.25s;
-				}
+  .config {
+    padding-bottom: 35px;
+    overflow: auto;
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px $color-black;
 
-				.seat:hover {
-					background-color: transparent;
-					border-color: $color-seat-border;
-				}
-			}
-		}
+    .screen {
+      margin-top: 22px;
+      position: relative;
+      left: 52%;
+      transform: translateX(-50%);
+      display: block;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 19px;
+    }
 
-	}
-	.config::-webkit-scrollbar {
-		display: none;
-	}
+    .grid {
+      margin: 0 auto;
+      margin-top: 17px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
 
-	.btns-wrapper {
-		margin-top: 22px;
-		width: 100%;
-		justify-content: center;
-		display: flex;
-		gap: 14px;
+      .row {
+        gap: 10px;
+        display: flex;
 
-		.cancel,
-		.save {
-			height: 40px;
-			padding: 0 32px;
-			font-size: 14px;
-			font-weight: 500;
-		}
+        .seat {
+          cursor: pointer;
+          transition: all 0.25s;
+        }
+      }
+    }
+  }
+  .config::-webkit-scrollbar {
+    display: none;
+  }
 
-		.save {
-			width: 146px;
-		}
-	}
+  .btns-wrapper {
+    margin-top: 22px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    gap: 14px;
+
+    .cancel,
+    .save {
+      height: 40px;
+      padding: 0 32px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .save {
+      width: 146px;
+    }
+  }
+}
+
+@media (min-width: 990px) {
+  .config-grid {
+    .config {
+      .grid {
+        .row {
+          .seat:hover {
+            background-color: transparent;
+            border-color: $color-seat-border;
+          }
+        }
+      }
+    }
+  }
 }
