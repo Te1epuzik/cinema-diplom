@@ -1,4 +1,5 @@
-export type TTicket = {
-  seats: string;
-  price: string;
-};
+export type TTickets = {
+  row: number;
+  place: number;
+	coast: string;
+}[];

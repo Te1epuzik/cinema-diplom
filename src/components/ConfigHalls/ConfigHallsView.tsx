@@ -53,80 +53,84 @@ export const ConfigHallsView = ({
             ))}
           </div>
         </div>
-        <div className={classes["choose-seats"]}>
-          <label className={classes["title"]}>
-            Укажите количество рядов и максимальное количество кресел в ряду:
-          </label>
-          <div className={classes["seats-quantity"]}>
-            <div className={classes["rows"]}>
-              <label className={classes["label"]} htmlFor="rows1">
-                Рядов, шт
-              </label>
-              <input
-                onChange={handleChangeSize}
-                value={row}
-                className={classes["rows-input"] + " " + "input-text"}
-                type="number"
-                name="row"
-                id="rows1"
-                min="5"
-                max="10"
-                disabled={currentHall === 0 ? true : false}
-                placeholder="5"
-              />
-            </div>
-            <div className={classes["x"]}>x</div>
-            <div className={classes["seats"]}>
-              <label className={classes["label"]} htmlFor="seats2">
-                Мест, шт
-              </label>
-              <input
-                onChange={handleChangeSize}
-                value={col}
-                className={classes["seats-input"] + " " + "input-text"}
-                type="number"
-                name="seats"
-                id="seats2"
-                min="5"
-                max="12"
-                disabled={currentHall === 0 ? true : false}
-                placeholder="5"
-              />
-            </div>
-          </div>
-        </div>
-        <div className={classes["grid-legend"]}>
-          <label className={classes["title"]}>
-            Теперь вы можете указать типы кресел на схеме зала:
-          </label>
-          <div className={classes["legend"]}>
-            <div className={classes["starndart-seat"]}>
-              <div className="standart"></div>
-              <label className={classes["description"]}>
-                &mdash; обычные кресла
-              </label>
-            </div>
-            <div className={classes["vip-seat"]}>
-              <div className="vip"></div>
-              <label className={classes["description"]}>
-                &mdash; VIP кресла
-              </label>
-            </div>
-            <div className={classes["disabled-seat"]}>
-              <div className="disabled"></div>
-              <label className={classes["description"]}>
-                &mdash; заблокированные {"(нет кресла)"}
-              </label>
+        {currentHall !== 0 && (
+          <div className={classes["choose-seats"]}>
+            <label className={classes["title"]}>
+              Укажите количество рядов и максимальное количество кресел в ряду:
+            </label>
+            <div className={classes["seats-quantity"]}>
+              <div className={classes["rows"]}>
+                <label className={classes["label"]} htmlFor="rows1">
+                  Рядов, шт
+                </label>
+                <input
+                  onChange={handleChangeSize}
+                  value={row}
+                  className={classes["rows-input"] + " " + "input-text"}
+                  type="number"
+                  name="row"
+                  id="rows1"
+                  min="5"
+                  max="10"
+                  disabled={currentHall === 0 ? true : false}
+                  placeholder="5"
+                />
+              </div>
+              <div className={classes["x"]}>x</div>
+              <div className={classes["seats"]}>
+                <label className={classes["label"]} htmlFor="seats2">
+                  Мест, шт
+                </label>
+                <input
+                  onChange={handleChangeSize}
+                  value={col}
+                  className={classes["seats-input"] + " " + "input-text"}
+                  type="number"
+                  name="seats"
+                  id="seats2"
+                  min="5"
+                  max="12"
+                  disabled={currentHall === 0 ? true : false}
+                  placeholder="5"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
+        {currentHall !== 0 && (
+          <div className={classes["grid-legend"]}>
+            <label className={classes["title"]}>
+              Теперь вы можете указать типы кресел на схеме зала:
+            </label>
+            <div className={classes["legend"]}>
+              <div className={classes["starndart-seat"]}>
+                <div className="standart"></div>
+                <label className={classes["description"]}>
+                  &mdash; обычные кресла
+                </label>
+              </div>
+              <div className={classes["vip-seat"]}>
+                <div className="vip"></div>
+                <label className={classes["description"]}>
+                  &mdash; VIP кресла
+                </label>
+              </div>
+              <div className={classes["disabled-seat"]}>
+                <div className="disabled"></div>
+                <label className={classes["description"]}>
+                  &mdash; заблокированные {"(нет кресла)"}
+                </label>
+              </div>
+            </div>
+          </div>
+        )}
         {currentHall !== 0 && seats && (
           <ConfigGrid
             size={{ row, col }}
             seats={seats}
             setCurrentHall={setCurrentHall}
             handleSubmitChanges={handleSubmitChanges}
-						ConfigHall={ConfigHall}
+            ConfigHall={ConfigHall}
           />
         )}
       </div>

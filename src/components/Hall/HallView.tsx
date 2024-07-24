@@ -1,7 +1,6 @@
 import { TFilm } from "@/models/SessionsModel";
 import classes from "./hall.module.scss";
-import { Link } from "react-router-dom";
-import { TTicket } from "@/models/ReservationModel";
+import { TTickets } from "@/models/ReservationModel";
 
 import hintSVG from "@/assets/hint.svg";
 
@@ -13,9 +12,12 @@ type TProps = {
   time: string;
   hall: string;
   isTablet: boolean;
-  getTicket: (seats: string, price: string) => void;
-  ticket: TTicket;
-	date: string;
+  tickets: TTickets;
+  date: string;
+  prices: { standart: number; vip: number };
+  handleReserveSeats: () => void;
+  getTicket: (ticket: {row: number; coast: string; place: number}[]) => void;
+	finalCoast: number;
 };
 
 export const HallView = ({
@@ -25,8 +27,9 @@ export const HallView = ({
   hall,
   isTablet,
   getTicket,
-  ticket,
-	date
+  tickets,
+  prices,
+  handleReserveSeats,
 }: TProps) => {
   return (
     <div className={classes["hall"]}>
@@ -49,30 +52,19 @@ export const HallView = ({
           </div>
         )}
       </header>
-      <Seats seats={seats} getTicket={getTicket} />
-      <Link
+      <Seats seats={seats} getTicket={getTicket} prices={prices} />
+      <button
+        onClick={handleReserveSeats}
         className={
-          (ticket.seats.length < 1
+          (tickets.length < 1
             ? classes["book"] + " " + classes["book-disabled"]
-            : classes["book"]) + " " + "button"
-        }
-        to={
-          "/client/payment/" +
-          film.id +
-          "&" +
-          hall +
-          "&" +
-          time +
-          "&" +
-          ticket.price +
-          "&" +
-          ticket.seats +
-					"&" +
-					date
+            : classes["book"]) +
+          " " +
+          "button"
         }
       >
         Забронировать
-      </Link>
+      </button>
     </div>
   );
 };

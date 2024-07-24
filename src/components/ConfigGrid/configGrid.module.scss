@@ -22,7 +22,7 @@
     .screen {
       margin-top: 22px;
       position: relative;
-      left: 52%;
+      left: 51%;
       transform: translateX(-50%);
       display: block;
       width: fit-content;
@@ -80,7 +80,6 @@
       .grid {
         .row {
           .seat:hover {
-            background-color: transparent;
             border-color: $color-seat-border;
           }
         }

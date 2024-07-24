@@ -1,27 +1,21 @@
 import { useState, useCallback } from "react";
 import { useVariables } from "@/hooks";
+import axios from "axios";
 
-export const useReserveSeats = (body?: any) => {
+export const useReserveSeats = () => {
 	const { url } = useVariables();
 	const path = "ticket";
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (body: any) => {
     setIsLoading(true);
     setError(null);
 
 			try {
-				const response = await fetch(url + path, {
-					method: "POST",
-					body: JSON.stringify(body),
-				});
-				if (!response.ok) {
-					throw new Error(`Request failed with status ${response.status}`);
-				}
-				const result = await response.json();
-				setData(result);
+				const response = await axios.post(url + path, body);
+				setData(response.data);
 			} catch (error) {
 				setError(error as Error);
 				console.error(error);
@@ -31,7 +25,5 @@ export const useReserveSeats = (body?: any) => {
 
   }, [url]);
 
-	fetchData();
-
-  return { data, error, isLoading };
+  return { data, error, isLoading, fetchData };
 };

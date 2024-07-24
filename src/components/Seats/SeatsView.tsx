@@ -7,12 +7,14 @@ type TProps = {
   seats: string[][];
   handleSelectSeat: (i: number, j: number) => void;
   selectedSeats: boolean[][];
+	prices: { standart: number; vip: number; };
 };
 
 export const SeatsView = ({
   seats,
   handleSelectSeat,
   selectedSeats,
+	prices,
 }: TProps) => {
   return (
     <div className={classes["seats"]}>
@@ -39,7 +41,7 @@ export const SeatsView = ({
       <div className={classes["legend"]}>
         <div className={classes["legend-item"]}>
           <div className={classes["standart"]}></div>
-          <span className={classes["legend-text"]}>{"Свободно (250руб)"}</span>
+          <span className={classes["legend-text"]}>{`Свободно (${prices.standart}руб)`}</span>
         </div>
         <div className={classes["legend-item"]}>
           <div className={classes["taken"]}></div>
@@ -48,7 +50,7 @@ export const SeatsView = ({
         <div className={classes["legend-item"]}>
           <div className={classes["vip"]}></div>
           <span className={classes["legend-text"]}>
-            {"Свободно VIP (350руб)"}
+            {`Свободно VIP (${prices.vip}руб)`}
           </span>
         </div>
         <div className={classes["legend-item"]}>

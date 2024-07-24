@@ -18,7 +18,11 @@ export const Book = () => {
     hall: book && book[1],
     time: book && book[2],
     price: book && book[3],
-    seats: book && book[4].split(",").join(", "),
+    seats: book && book[4].split(",").map(seat => {
+			const places = seat.split(":");
+
+			return `ряд ${places[0]} место ${places[1]}`
+		}).join(", "),
 		date: book && book[5],
   };
 
