@@ -1,0 +1,81 @@
+@import "@/Variables.scss";
+
+.config-grid {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	
+	.description {
+		text-align: left;
+		color: $color-gray-text;
+		font-size: 14px;
+	}
+
+	.config {
+		padding-bottom: 35px;
+		overflow: auto;
+		margin-top: 7px;
+		display: flex;
+		flex-direction: column;
+		border: solid 1px $color-black;
+		
+		.screen {
+			margin-top: 22px;
+			position: relative;
+			left: 52%;
+			transform: translateX(-50%);
+			display: block;
+			width: fit-content;
+			text-transform: uppercase;
+			letter-spacing: 19px;
+		}
+		
+		.grid {
+			margin: 0 auto;
+			margin-top: 17px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+			
+			.row {
+				gap: 10px;
+				display: flex;
+
+				.seat {
+					cursor: pointer;
+					transition: all 0.25s;
+				}
+
+				.seat:hover {
+					background-color: transparent;
+					border-color: $color-seat-border;
+				}
+			}
+		}
+
+	}
+	.config::-webkit-scrollbar {
+		display: none;
+	}
+
+	.btns-wrapper {
+		margin-top: 22px;
+		width: 100%;
+		justify-content: center;
+		display: flex;
+		gap: 14px;
+
+		.cancel,
+		.save {
+			height: 40px;
+			padding: 0 32px;
+			font-size: 14px;
+			font-weight: 500;
+		}
+
+		.save {
+			width: 146px;
+		}
+	}
+}

@@ -6,7 +6,7 @@ import { DropdownView } from "./DropdownView";
 type TProps = {
   content: ReactNode;
   children: ReactNode;
-  position: "first" | "midle" | "last";
+  position: "first" | "middle" | "last";
 };
 
 export const Dropdown = ({ content, children, position }: TProps) => {

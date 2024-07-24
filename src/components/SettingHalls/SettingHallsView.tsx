@@ -5,7 +5,7 @@ import BinPNG from "@/assets/bin.png";
 import { HallPopup, Loader } from "@/components";
 
 type TProps = {
-  position: "first" | "midle" | "last";
+  position: "first" | "middle" | "last";
   availableHalls: {
     name: string;
     id: number;
@@ -67,6 +67,7 @@ export const SettingHallsView = ({
               ))}
             </div>
           </div>
+					{!setHall.data?.success && <span className={classes["error"]}>{setHall.data?.error}</span>}
           <button
             onClick={handleHallPopup}
             className={classes["create-hall"] + " " + "button"}

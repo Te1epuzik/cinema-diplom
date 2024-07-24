@@ -32,6 +32,8 @@ export * from "./Login/Login";
 // Settings components
 export * from "./Settings/Settings";
 export * from "./SettingHalls/SettingHalls";
+export * from "./ConfigHalls/ConfigHalls";
+export * from "./ConfigGrid/ConfigGrid";
 
 // Popups
 export * from "./HallPopup/HallPopup";

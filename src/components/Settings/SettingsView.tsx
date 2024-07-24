@@ -2,13 +2,21 @@ import classes from "./settings.module.scss";
 import { Link } from "react-router-dom";
 import GoingMoviLogo from "@/assets/Идёмвкино.svg";
 
-import { SettingHalls } from "@/components";
+import { ConfigHalls, SettingHalls } from "@/components";
 
 type TProps = {
-	allData: any;
+  allData: any;
+  availableHalls: { id: number; name: string }[];
+  handleDeleteHall: (id: number) => void;
+	setHall: any;
 };
 
-export const SettingsView = ({ allData }: TProps) => {
+export const SettingsView = ({
+  allData,
+  availableHalls,
+  handleDeleteHall,
+	setHall
+}: TProps) => {
   return (
     <div className={classes["settings"]}>
       <header className={classes["header"]}>
@@ -22,7 +30,18 @@ export const SettingsView = ({ allData }: TProps) => {
         </Link>
       </header>
       <main className={classes["main"]}>
-        <SettingHalls allData={allData} position="first" />
+        <SettingHalls
+					availableHalls={availableHalls}
+          setHall={setHall}
+          handleDeleteHall={handleDeleteHall}
+          allData={allData}
+          position="first"
+					/>
+        <ConfigHalls
+          allData={allData}
+          availableHalls={availableHalls}
+          position="middle"
+        />
       </main>
     </div>
   );

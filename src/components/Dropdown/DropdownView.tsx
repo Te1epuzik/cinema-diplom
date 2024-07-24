@@ -10,7 +10,7 @@ type TProps = {
   isActive: boolean;
   handleToggleDropDown: () => void;
   isMobile: boolean;
-  position: "first" | "midle" | "last";
+  position: "first" | "middle" | "last";
 };
 
 export const DropdownView = ({
