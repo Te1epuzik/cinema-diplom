@@ -1,5 +1,5 @@
 import { ConfigHallsView } from "./ConfigHallsView";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useConfigHall } from "@/services";
 
 type TProps = {
@@ -9,7 +9,6 @@ type TProps = {
 };
 
 export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [currentHall, setCurrentHall] = useState<number>(0);
   const [row, setRow] = useState(10);
   const [col, setCol] = useState(10);
@@ -19,12 +18,47 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
   >([]);
   const ConfigHall = useConfigHall();
 
+  const hendlersNums = {
+    rowInc: () => {
+      setRow((prev) => {
+        if (prev === 12) {
+          return prev;
+        }
+        return prev + 1;
+      });
+    },
+    rowDec: () => {
+      setRow((prev) => {
+        if (prev === 5) {
+          return prev;
+        }
+        return prev - 1;
+      });
+    },
+    colInc: () => {
+      setCol((prev) => {
+        if (prev === 12) {
+          return prev;
+        }
+        return prev + 1;
+      });
+    },
+    colDec: () => {
+      setCol((prev) => {
+        if (prev === 5) {
+          return prev;
+        }
+        return prev - 1;
+      });
+    },
+  };
+
   const handleSubmitChanges = (config: string[][]) => {
     setSeats(config);
     setUpdatedSeats((prev) => {
-			if (prev.find((seat) => seat.id === currentHall)) {
-				prev.map((seat) => seat.id !== currentHall)
-			}
+      if (prev.find((seat) => seat.id === currentHall)) {
+        prev.map((seat) => seat.id !== currentHall);
+      }
 
       return [
         ...prev,
@@ -92,24 +126,6 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
     }
   };
 
-  useEffect(() => {
-    if (!scrollRef.current) {
-      return;
-    }
-
-    const element = scrollRef.current;
-
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      element.scrollLeft += event.deltaY;
-    };
-    element.addEventListener("wheel", handleWheel);
-
-    return () => {
-      element.removeEventListener("wheel", handleWheel);
-    };
-  }, [scrollRef]);
-
   const handleChooseHall = (id: number) => {
     setCurrentHall(id);
   };
@@ -120,7 +136,6 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
       availableHalls={availableHalls}
       handleChooseHall={handleChooseHall}
       currentHall={currentHall}
-      scrollRef={scrollRef}
       handleChangeSize={handleChangeSize}
       row={row}
       col={col}
@@ -128,6 +143,7 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
       setCurrentHall={setCurrentHall}
       handleSubmitChanges={handleSubmitChanges}
       ConfigHall={ConfigHall}
+      hendlersNums={hendlersNums}
     />
   );
 };

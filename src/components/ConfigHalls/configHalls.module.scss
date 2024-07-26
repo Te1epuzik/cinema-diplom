@@ -7,14 +7,33 @@
   text-align: left;
 }
 
+.num-btns {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  .increment,
+  .decrement {
+		outline: none;
+		border: none;
+		box-shadow: none;
+    display: flex;
+    width: 13px;
+    height: 13px;
+  }
+}
+
 .config-halls {
   display: flex;
   flex-direction: column;
-  padding-top: 35px;
-	padding-bottom: 41px;
+  padding-top: 33px;
+  padding-bottom: 41px;
   .choose-hall {
     .halls {
-			user-select: none;
+      user-select: none;
       margin-top: 9px;
       overflow-x: auto;
       overflow-y: hidden;
@@ -35,14 +54,15 @@
         height: 42px;
         padding: 0 20px;
         cursor: pointer;
-        transition: all 0.25s ease-in-out;
+        transition: all 0.4s ease-in-out;
       }
 
-			.hall:hover {
-				background-color: $color-white;
-			}
+      .hall:hover {
+        background-color: $color-white;
+      }
 
       .hall--active {
+        animation: pickHall 0.25s ease-in-out;
         background-color: $color-white;
         height: 46px;
         padding: 0 23px;
@@ -58,10 +78,10 @@
     margin-top: 33px;
 
     .seats-quantity {
-			margin-top: 8px;
+      margin-top: 8px;
       display: flex;
       align-items: center;
-			gap: 14px;
+      gap: 14px;
 
       .label {
         text-align: left;
@@ -69,53 +89,53 @@
         color: $color-gray-text;
       }
 
-			.x {
-				user-select: none;
-				font-size: 18px;
-				margin-top: 21px;
-				color: $color-gray-text;
-				align-self: flex-start;
-			}
+      .x {
+        user-select: none;
+        font-size: 18px;
+        margin-top: 21px;
+        color: $color-gray-text;
+        align-self: flex-start;
+      }
 
       .seats,
       .rows {
+        position: relative;
         display: flex;
         flex-direction: column;
       }
 
-			.seats-input,
-			.rows-input {
-				width: 100px;
-				height: 36px;
-			}
-
+      .seats-input,
+      .rows-input {
+        width: 100px;
+        height: 36px;
+      }
     }
   }
 
-	.grid-legend {
-		margin-top: 35px;
+  .grid-legend {
+    margin-top: 35px;
 
-		.legend {
-			margin-top: 10px;
-			display: flex;
-			flex-wrap: wrap;
-			gap: 12px;
+    .legend {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
 
-			.starndart-seat,
-			.vip-seat,
-			.disabled-seat {
-				display: flex;
-				align-items: center;
-				gap: 4px;
-				margin-right: 11px;
-			}
+      .starndart-seat,
+      .vip-seat,
+      .disabled-seat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-right: 11px;
+      }
 
-			.description {
-				font-size: 14px;
-				color: $color-gray-text;
-			}
-		}
-	}
+      .description {
+        font-size: 14px;
+        color: $color-gray-text;
+      }
+    }
+  }
 }
 
 @media (min-width: 768px) {
@@ -127,8 +147,30 @@
 
       .halls::-webkit-scrollbar {
         display: block;
-        height: 2px;
+        height: 4px;
       }
     }
+  }
+}
+
+@keyframes pickHall {
+  0% {
+    transform: scale(100%);
+  }
+
+  25% {
+    transform: scale(95%);
+  }
+
+  50% {
+    transform: scale(90%);
+  }
+
+  75% {
+    transform: scale(95%);
+  }
+
+  100% {
+    transform: scale(100%);
   }
 }

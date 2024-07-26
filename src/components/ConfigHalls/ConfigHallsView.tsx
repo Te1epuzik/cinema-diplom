@@ -1,12 +1,12 @@
 import classes from "./configHalls.module.scss";
 import { Dropdown, ConfigGrid } from "@/components";
+import { ArrowIncSVG, ArrowDecSVG } from "@/svg";
 
 type TProps = {
   position: "first" | "middle" | "last";
   availableHalls: { name: string; id: number }[];
   handleChooseHall: (id: number) => void;
   currentHall: number;
-  scrollRef: React.RefObject<HTMLDivElement>;
   handleChangeSize: (event: React.ChangeEvent<HTMLInputElement>) => void;
   row: number;
   col: number;
@@ -14,6 +14,12 @@ type TProps = {
   setCurrentHall: (id: number) => void;
   handleSubmitChanges: (config: string[][]) => void;
   ConfigHall: any;
+  hendlersNums: {
+    rowInc: () => void;
+    rowDec: () => void;
+    colInc: () => void;
+    colDec: () => void;
+  };
 };
 
 export const ConfigHallsView = ({
@@ -21,7 +27,6 @@ export const ConfigHallsView = ({
   availableHalls,
   handleChooseHall,
   currentHall,
-  scrollRef,
   handleChangeSize,
   row,
   col,
@@ -29,6 +34,7 @@ export const ConfigHallsView = ({
   setCurrentHall,
   handleSubmitChanges,
   ConfigHall,
+	hendlersNums,
 }: TProps) => {
   return (
     <Dropdown content="Конфигурация залов" position={position}>
@@ -37,7 +43,7 @@ export const ConfigHallsView = ({
           <label className={classes["title"]}>
             Выберите зал для конфигурации:
           </label>
-          <div className={classes["halls"]} ref={scrollRef}>
+          <div className={classes["halls"]}>
             {availableHalls.map((hall) => (
               <div
                 key={hall.id}
@@ -70,11 +76,25 @@ export const ConfigHallsView = ({
                   type="number"
                   name="row"
                   id="rows1"
-                  min="5"
-                  max="10"
-                  disabled={currentHall === 0 ? true : false}
+                  disabled
                   placeholder="5"
                 />
+                <div className={classes["num-btns"]}>
+                  <button
+                    type="button"
+                    className={classes["increment"] + " " + "button"}
+										onClick={hendlersNums.rowInc}
+                  >
+                    <ArrowIncSVG />
+                  </button>
+                  <button
+                    type="button"
+                    className={classes["decrement"] + " " + "button"}
+										onClick={hendlersNums.rowDec}
+                  >
+                    <ArrowDecSVG />
+                  </button>
+                </div>
               </div>
               <div className={classes["x"]}>x</div>
               <div className={classes["seats"]}>
@@ -88,11 +108,25 @@ export const ConfigHallsView = ({
                   type="number"
                   name="seats"
                   id="seats2"
-                  min="5"
-                  max="12"
-                  disabled={currentHall === 0 ? true : false}
+                  disabled
                   placeholder="5"
                 />
+                <div className={classes["num-btns"]}>
+                  <button
+                    type="button"
+                    className={classes["increment"] + " " + "button"}
+										onClick={hendlersNums.colInc}
+                  >
+                    <ArrowIncSVG />
+                  </button>
+                  <button
+                    type="button"
+                    className={classes["decrement"] + " " + "button"}
+										onClick={hendlersNums.colDec}
+                  >
+                    <ArrowDecSVG />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

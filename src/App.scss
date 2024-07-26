@@ -18,10 +18,9 @@
   text-align: center;
 }
 
-
 .button-cncl,
 .button {
-	text-transform: uppercase;
+  text-transform: uppercase;
   overflow: hidden;
   box-shadow: 0 4px 4px 0 rgba($color-black, 0.3);
   padding: 0;
@@ -33,23 +32,23 @@
 }
 
 .button {
-	color: $color-white;
-	background-color: $color-cian;
+  color: $color-white;
+  background-color: $color-cian;
 }
 
 .button-cncl {
-	color: $color-violet;
-	background-color: $color-white;
+  color: $color-violet;
+  background-color: $color-white;
 }
 
 .button:hover {
-	background-color: $color-dark;
+  background-color: $color-dark;
 }
 
 .button-cncl:hover {
-	color: $color-white;
-	background-color: $color-violet;
-	transition: color 0.25s;
+  color: $color-white;
+  background-color: $color-violet;
+  transition: color 0.25s;
 }
 
 .button-cncl:focus,
@@ -57,7 +56,6 @@
   outline: solid 1px $color-violet;
   outline-offset: -1px;
 }
-
 
 .input-text {
   padding: 9px;
@@ -70,6 +68,12 @@
   outline-offset: 10px;
 }
 
+.input-text::-webkit-outer-spin-button,
+.input-text::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .input-text:focus {
   outline: solid 1px $color-violet;
   outline-offset: -1px;
@@ -78,24 +82,24 @@
 .standart,
 .vip,
 .disabled {
-	width: 26px;
-	height: 26px;
-	border-radius: 4px;
-	border: solid 1px;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  border: solid 1px;
 }
 
 .standart {
-	background-color: $color-seat;
-	border-color: $color-seat-border;
+  background-color: $color-seat;
+  border-color: $color-seat-border;
 }
 
 .vip {
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-image: url("@/assets/conf-step.png");
-	border-color: $color-seat-border-vip;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("@/assets/conf-step.png");
+  border-color: $color-seat-border-vip;
 }
 
 .disabled {
-	border-color: $color-seat;
+  border-color: $color-seat;
 }
