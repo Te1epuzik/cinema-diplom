@@ -2,12 +2,6 @@ import { useState, useCallback } from "react";
 import { useVariables } from "@/hooks";
 import axios from "axios";
 
-type TOptions = {
-  method: "post" | "delete";
-  body?: any;
-  hallId?: number;
-};
-
 export const useSetPrice = () => {
   const { url } = useVariables();
   const path = "price";
