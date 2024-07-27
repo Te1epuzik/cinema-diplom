@@ -11,17 +11,14 @@ export const useFilterSeances = (data: any, date: string | undefined) => {
 		}
 
 		const [hours, minutes] = time.split(":");
-		return (+hours * 60 + +minutes) * 60 * 1000 + new Date(date).getTime();
+		return (+hours * 60 + +minutes) * 60 * 1000 + new Date(date).getTime() - 3 * 60 * 60 * 1000;
 	}
 
 	useEffect(() => {
 		if (!date) {
 			return;
 		}
-
-		const currentDate = new Date(date);
 		const currentTime = new Date().getTime();
-		console.log(currentTime, currentDate.getTime(), calcTime("00:00"))
 
     const updatedData = data?.result?.films.map((film: TFilm) => {
       const seances = data.result.seances.filter(
