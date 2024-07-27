@@ -9,6 +9,7 @@ type TProps = {
 };
 
 export const ConfigPrice = ({ position, availableHalls, allData }: TProps) => {
+	// TODO если создать новый зал и не обновлять страницу выдает ошибку при выборе зала
   const [currentHall, setCurrentHall] = useState<number>(0);
   const [changedPrices, setChangedPrices] = useState<
     { hallId: number; standart: string; vip: string }[]

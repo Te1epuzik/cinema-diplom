@@ -103,3 +103,7 @@
 .disabled {
   border-color: $color-seat;
 }
+
+.zoomed {
+	transform: scale(1.3);
+}

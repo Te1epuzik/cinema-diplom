@@ -1,10 +1,11 @@
+import { useResize } from "@/hooks";
 import { SeatsView } from "./SeatsView";
 import { useState, useEffect } from "react";
 
 type TProps = {
   seats: string[][];
-	prices: { standart: number; vip: number };
-  getTicket: (ticket: {row: number; coast: string; place: number}[]) => void;
+  prices: { standart: number; vip: number };
+  getTicket: (ticket: { row: number; coast: string; place: number }[]) => void;
 };
 
 export const Seats = ({ seats, getTicket, prices }: TProps) => {
@@ -19,6 +20,27 @@ export const Seats = ({ seats, getTicket, prices }: TProps) => {
 
     return initialSelectedSeats;
   });
+	const [secondTouch, setSecondTouch] = useState<boolean>(false);
+  const { isTablet } = useResize();
+
+	const handleDoubleTouch = (event: React.TouchEvent<HTMLDivElement>) => {
+		if (!isTablet) {
+			return;
+		}
+
+		if (!secondTouch) {
+			setSecondTouch(true);
+			setTimeout(() => {
+				setSecondTouch(false);
+			}, 300);
+		} else {
+			setSecondTouch(false);
+
+			if (event.target instanceof HTMLDivElement) {
+				event.target.classList.toggle("zoomed");
+			}
+		}
+	}
 
   const handleSelectSeat = (i: number, j: number) => {
     if (seats[i][j] === "disabled" || seats[i][j] === "taken") {
@@ -39,9 +61,9 @@ export const Seats = ({ seats, getTicket, prices }: TProps) => {
   };
 
   useEffect(() => {
-		let seatNumber: number = 0;
+    let seatNumber: number = 0;
     let price: number = 0;
-		let tickets: { row: number; place: number; coast: string; }[] = [];
+    let tickets: { row: number; place: number; coast: string }[] = [];
 
     for (let i = 0; i < seats.length; i++) {
       for (let j = 0; j < seats[i].length; j++) {
@@ -55,24 +77,25 @@ export const Seats = ({ seats, getTicket, prices }: TProps) => {
               price = prices.vip;
               break;
           }
-					tickets.push({
-						row: i + 1,
-						coast: price.toString(),
-						place: j + 1,
-					})
+          tickets.push({
+            row: i + 1,
+            coast: price.toString(),
+            place: j + 1,
+          });
         }
       }
     }
-		
-		getTicket(tickets);
-	}, [selectedSeats]);
+
+    getTicket(tickets);
+  }, [selectedSeats]);
 
   return (
     <SeatsView
       seats={seats}
       selectedSeats={selectedSeats}
       handleSelectSeat={handleSelectSeat}
-			prices={prices}
+      prices={prices}
+			handleDoubleTouch={handleDoubleTouch}
     />
   );
 };

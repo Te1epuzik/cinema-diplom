@@ -1,12 +1,14 @@
 @import "@/Variables.scss";
 
 .seats {
+	overflow: scroll;
   padding: 15px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: $color-dark;
   color: $color-white;
+	transition: all .2s ease-in-out;
 
   .screen {
     width: 284px;
