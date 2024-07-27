@@ -3,6 +3,7 @@ export * from "./E404/E404";
 export * from "./Loader/Loader";
 export * from "./Popup/Popup";
 export * from "./Dropdown/Dropdown";
+export * from "./ConfirmationChanges/ConfirmationChanges";
 
 /* --------- client components --------- */
 

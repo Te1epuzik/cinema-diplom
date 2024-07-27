@@ -5,19 +5,19 @@ type TProps = {
   config: string[][];
   isTablet: boolean;
   isMobile: boolean;
-  setCurrentHall: (id: number) => void;
   handleChangeSeat: (i: number, j: number) => void;
   handleSubmitChanges: (config: string[][]) => void;
 	ConfigHall: any;
+	handleCancelChanges: () => void;
 };
 
 export const ConfigGridView = ({
   config,
   isTablet,
   isMobile,
-  setCurrentHall,
   handleChangeSeat,
   handleSubmitChanges,
+	handleCancelChanges,
 	ConfigHall,
 }: TProps) => {
   return (
@@ -44,7 +44,7 @@ export const ConfigGridView = ({
       </div>
       <div className={classes["btns-wrapper"]}>
         <button
-          onClick={() => setCurrentHall(0)}
+          onClick={handleCancelChanges}
           className={classes["cancel"] + " " + "button-cncl"}
           type="button"
         >

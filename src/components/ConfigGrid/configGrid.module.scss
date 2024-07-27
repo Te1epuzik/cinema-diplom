@@ -44,7 +44,7 @@
 
         .seat {
           cursor: pointer;
-          transition: all 0.25s;
+					transition: border .25s, background-color .25s;
         }
       }
     }
@@ -80,7 +80,8 @@
       .grid {
         .row {
           .seat:hover {
-            border-color: $color-seat-border;
+						outline: solid 2px $color-seat-border;
+						outline-offset: -1px;
           }
         }
       }

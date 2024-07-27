@@ -11,6 +11,7 @@
 	transition: all .2s ease-in-out;
 
   .screen {
+		pointer-events: none;
     width: 284px;
 
     .screen-svg {
@@ -34,6 +35,7 @@
   .vip,
   .taken,
   .selected {
+		pointer-events: all;
     border-color: $color-dark-gray;
   }
 
@@ -62,6 +64,7 @@
   }
 
   .grid {
+		pointer-events: none;
     margin-top: 6px;
     display: flex;
     flex-direction: column;
@@ -75,6 +78,7 @@
   }
 
   .legend {
+		pointer-events: none;
     margin-top: 28px;
     width: 330px;
     display: flex;
@@ -89,6 +93,7 @@
       .vip,
       .taken,
       .selected {
+				pointer-events: none;
 				opacity: 1;
         cursor: default;
       }

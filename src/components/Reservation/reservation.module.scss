@@ -2,7 +2,8 @@
 
 
 .reservation {
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 	.header {
 		justify-content: flex-start;
 		display: flex;

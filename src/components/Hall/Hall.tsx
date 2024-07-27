@@ -55,6 +55,7 @@ export const Hall = ({ allData }: TProps) => {
     });
   }, [allData.data, seanceId]);
 
+	// TODO Запрос на все данные выполняется один раз
   const { data, isLoading } = useGetAllData(
     `hallconfig?seanceId=${seanceId}&date=${date}`,
   );

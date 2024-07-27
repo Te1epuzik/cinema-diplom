@@ -1,5 +1,5 @@
 import classes from "./configPrice.module.scss";
-import { Dropdown, Loader } from "@/components";
+import { Dropdown, Loader, ConfirmationChanges } from "@/components";
 
 type TProps = {
   position: "first" | "middle" | "last";
@@ -9,8 +9,10 @@ type TProps = {
   currentPrices: { standart: string; vip: string };
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
+	handleCancelChanges: () => void;
   isLoading: boolean;
   error: Error | null;
+	success: boolean;
 };
 
 export const ConfigPriceView = ({
@@ -21,11 +23,14 @@ export const ConfigPriceView = ({
   currentPrices,
   handleChange,
   handleSubmit,
+	handleCancelChanges,
   isLoading,
   error,
+	success,
 }: TProps) => {
   return (
     <Dropdown content="Конфигурация цен" position={position}>
+			{success && <ConfirmationChanges />}
       <div className={classes["config-price"]}>
         <div className={classes["choose-hall"]}>
           <label className={classes["title"]}>
@@ -97,7 +102,7 @@ export const ConfigPriceView = ({
             )}
             <div className={classes["btns-wrapper"]}>
               <button
-                onClick={() => handleChooseHall(0)}
+                onClick={handleCancelChanges}
                 className={classes["cancel"] + " " + "button-cncl"}
                 type="button"
               >

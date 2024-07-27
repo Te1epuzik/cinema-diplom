@@ -16,6 +16,7 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
   const [updatedSeats, setUpdatedSeats] = useState<
     { id: number; seats: string[][] }[]
   >([]);
+	const [success, setSuccess] = useState<boolean>(false);
   const ConfigHall = useConfigHall();
 
   const hendlersNums = {
@@ -52,6 +53,28 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
       });
     },
   };
+
+  useEffect(() => {
+		if (availableHalls.length === 0) {
+			return;
+		}
+    setCurrentHall(availableHalls[0].id);
+  }, [availableHalls]);
+
+	useEffect(() => {
+		const { data } = ConfigHall;
+		let timeoutId : number;
+		if (data && data.success) {
+			setSuccess(true);
+			timeoutId = setTimeout(() => {
+				setSuccess(false)
+			}, 4000)
+		}
+
+		return () => {
+			clearTimeout(timeoutId)
+		}
+	}, [ConfigHall.data])
 
   const handleSubmitChanges = (config: string[][]) => {
     setSeats(config);
@@ -90,7 +113,7 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
 
   useEffect(() => {
     if (currentHall === 0) {
-      return;
+			return;
     }
 
     const seatsData =
@@ -140,10 +163,10 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
       row={row}
       col={col}
       seats={seats}
-      setCurrentHall={setCurrentHall}
       handleSubmitChanges={handleSubmitChanges}
       ConfigHall={ConfigHall}
       hendlersNums={hendlersNums}
+			success={success}
     />
   );
 };

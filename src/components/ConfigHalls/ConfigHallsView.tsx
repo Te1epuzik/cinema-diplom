@@ -1,5 +1,5 @@
 import classes from "./configHalls.module.scss";
-import { Dropdown, ConfigGrid } from "@/components";
+import { Dropdown, ConfigGrid, ConfirmationChanges } from "@/components";
 import { ArrowIncSVG, ArrowDecSVG } from "@/svg";
 
 type TProps = {
@@ -11,7 +11,6 @@ type TProps = {
   row: number;
   col: number;
   seats: string[][];
-  setCurrentHall: (id: number) => void;
   handleSubmitChanges: (config: string[][]) => void;
   ConfigHall: any;
   hendlersNums: {
@@ -20,6 +19,7 @@ type TProps = {
     colInc: () => void;
     colDec: () => void;
   };
+  success: boolean;
 };
 
 export const ConfigHallsView = ({
@@ -31,13 +31,14 @@ export const ConfigHallsView = ({
   row,
   col,
   seats,
-  setCurrentHall,
   handleSubmitChanges,
   ConfigHall,
-	hendlersNums,
+  hendlersNums,
+  success,
 }: TProps) => {
   return (
     <Dropdown content="Конфигурация залов" position={position}>
+			{success && <ConfirmationChanges />}
       <div className={classes["config-halls"]}>
         <div className={classes["choose-hall"]}>
           <label className={classes["title"]}>
@@ -83,14 +84,14 @@ export const ConfigHallsView = ({
                   <button
                     type="button"
                     className={classes["increment"] + " " + "button"}
-										onClick={hendlersNums.rowInc}
+                    onClick={hendlersNums.rowInc}
                   >
                     <ArrowIncSVG />
                   </button>
                   <button
                     type="button"
                     className={classes["decrement"] + " " + "button"}
-										onClick={hendlersNums.rowDec}
+                    onClick={hendlersNums.rowDec}
                   >
                     <ArrowDecSVG />
                   </button>
@@ -115,14 +116,14 @@ export const ConfigHallsView = ({
                   <button
                     type="button"
                     className={classes["increment"] + " " + "button"}
-										onClick={hendlersNums.colInc}
+                    onClick={hendlersNums.colInc}
                   >
                     <ArrowIncSVG />
                   </button>
                   <button
                     type="button"
                     className={classes["decrement"] + " " + "button"}
-										onClick={hendlersNums.colDec}
+                    onClick={hendlersNums.colDec}
                   >
                     <ArrowDecSVG />
                   </button>
@@ -162,7 +163,6 @@ export const ConfigHallsView = ({
           <ConfigGrid
             size={{ row, col }}
             seats={seats}
-            setCurrentHall={setCurrentHall}
             handleSubmitChanges={handleSubmitChanges}
             ConfigHall={ConfigHall}
           />

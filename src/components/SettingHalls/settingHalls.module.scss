@@ -33,6 +33,7 @@
         font-weight: 500;
 
         .delete-hall {
+					transition: all .15s ease-in-out;
           margin-left: 6px;
           box-shadow: 0 4px 4px 0 rgba($color-black, 0.3);
           width: 20px;

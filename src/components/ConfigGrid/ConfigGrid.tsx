@@ -8,7 +8,6 @@ type TProps = {
     row: number;
     col: number;
   };
-  setCurrentHall: (id: number) => void;
 	handleSubmitChanges: (config: string[][]) => void;
 	ConfigHall: any;
 };
@@ -16,7 +15,6 @@ type TProps = {
 export const ConfigGrid = ({
   seats,
   size,
-  setCurrentHall,
 	handleSubmitChanges,
 	ConfigHall,
 }: TProps) => {
@@ -24,6 +22,10 @@ export const ConfigGrid = ({
   const { isTablet, isMobile } = useResize();
 	
 	const seatTypes = ["standart", "vip", "disabled"];
+
+	const handleCancelChanges = () => {
+		setConfig(seats);
+	}
 
   const handleChangeSeat = (i: number, j: number) => {
     setConfig((prev) => {
@@ -50,15 +52,13 @@ export const ConfigGrid = ({
 
 
   useEffect(() => {
-    console.log(ConfigHall.data);
   }, [ConfigHall.data]);
 
   useEffect(() => {
-    if (size.row > 12 || size.col > 12 || size.row < 0 || size.col < 0) {
+    if (size.row > 12 || size.col > 12 || size.row < 5 || size.col < 5) {
       return;
     }
 
-    console.log(seats);
     if (seats.length === size.row && seats[0].length === size.col) {
       setConfig(seats);
       return;
@@ -76,17 +76,17 @@ export const ConfigGrid = ({
 
       return newConfig;
     });
-  }, [size]);
+  }, [size, seats]);
 
   return (
     <ConfigGridView
       config={config}
       isTablet={isTablet}
       isMobile={isMobile}
-      setCurrentHall={setCurrentHall}
       handleChangeSeat={handleChangeSeat}
       handleSubmitChanges={handleSubmitChanges}
 			ConfigHall={ConfigHall}
+			handleCancelChanges={handleCancelChanges}
     />
   );
 };

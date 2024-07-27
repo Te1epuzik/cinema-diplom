@@ -24,7 +24,6 @@ export const Settings = ({ allData }: TProps) => {
       );
     }
 
-    console.log(setHall.data);
   }, [setHall.data]);
 
   useEffect(() => {

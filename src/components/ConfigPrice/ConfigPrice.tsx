@@ -9,7 +9,6 @@ type TProps = {
 };
 
 export const ConfigPrice = ({ position, availableHalls, allData }: TProps) => {
-	// TODO если создать новый зал и не обновлять страницу выдает ошибку при выборе зала
   const [currentHall, setCurrentHall] = useState<number>(0);
   const [changedPrices, setChangedPrices] = useState<
     { hallId: number; standart: string; vip: string }[]
@@ -17,77 +16,123 @@ export const ConfigPrice = ({ position, availableHalls, allData }: TProps) => {
   const [currentPrices, setCurrentPrices] = useState<{
     standart: string;
     vip: string;
-  }>({ standart: "0", vip: "0" });
+  }>({ standart: "100", vip: "100" });
+	const [success, setSuccess] = useState<boolean>(false);
 
-  const { error, isLoading, fetchData } = useSetPrice();
+  const { data, error, isLoading, fetchData } = useSetPrice();
+
+	useEffect(() => {
+		let timeoutId : number;
+		if (data && data.success) {
+			setSuccess(true);
+			timeoutId = setTimeout(() => {
+				setSuccess(false)
+			}, 4000)
+		}
+
+		return () => {
+			clearTimeout(timeoutId)
+		}
+	}, [data])
+
+  const handleCancelChanges = () => {
+    const hall = allData?.data?.result?.halls.find(
+      (hall: any) => hall.id === currentHall,
+    );
+    const priceData =
+      changedPrices.find((price) => price.hallId === currentHall) ||
+      (hall && {
+        hallId: currentHall,
+        standart: hall?.hall_price_standart,
+        vip: hall?.hall_price_vip,
+      });
+
+    if (priceData) {
+      setCurrentPrices({
+        standart: priceData.standart,
+        vip: priceData.vip,
+      });
+    } else {
+      setCurrentPrices({
+        standart: "100",
+        vip: "100",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (availableHalls.length === 0) {
+      return;
+    }
+    setCurrentHall(availableHalls[0].id);
+  }, [availableHalls]);
 
   const handleSubmit = () => {
-		const params = new FormData();
+    setChangedPrices((prev) => {
+      if (!prev.find((price) => price.hallId === currentHall)) {
+        return [
+          ...prev,
+          {
+            hallId: currentHall,
+            standart: currentPrices.standart,
+            vip: currentPrices.vip,
+          },
+        ];
+      }
 
-		params.set("priceStandart", currentPrices.standart);
-		params.set("priceVip", currentPrices.vip);
+      const prevPrices = prev.filter((price) => price.hallId !== currentHall);
 
-		fetchData(currentHall, params)
-	};
+      return [
+        ...prevPrices,
+        {
+          hallId: currentHall,
+          standart: currentPrices.standart,
+          vip: currentPrices.vip,
+        },
+      ];
+    });
+
+    const params = new FormData();
+
+    params.set("priceStandart", currentPrices.standart);
+    params.set("priceVip", currentPrices.vip);
+
+    fetchData(currentHall, params);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(value);
 
     setCurrentPrices((prev) => ({ ...prev, [name]: value }));
-
   };
-	
-	useEffect(() => {
-		setChangedPrices((prev) => {
-			if (!prev.find((price) => price.hallId === currentHall)) {
-				return [
-					...prev,
-					{
-						hallId: currentHall,
-						standart: currentPrices.standart,
-						vip: currentPrices.vip,
-					},
-				];
-			}
-			
-			const prevPrices = prev.filter((price) => price.hallId !== currentHall);
-
-			return [
-				...prevPrices,
-				{
-					hallId: currentHall,
-					standart: currentPrices.standart,
-					vip: currentPrices.vip,
-				}
-			]
-		});
-	}, [currentPrices]) 
 
   useEffect(() => {
     if (currentHall === 0 || !allData.data || !allData.data.success) {
       return;
     }
 
-		const savedPrices = changedPrices.find(price => price.hallId === currentHall);
-
-		if (savedPrices) {
-			setCurrentPrices({
-				standart: savedPrices.standart,
-				vip: savedPrices.vip,
-			})
-
-			return;
-		}
-
-    const hall = allData.data.result.halls.find(
+    const priceAllData = allData.data.result.halls.find(
       (hall: any) => hall.id === currentHall,
     );
+    const priceData =
+      changedPrices.find((price) => price.hallId === currentHall) ||
+      (priceAllData && {
+        hallId: currentHall,
+        standart: priceAllData?.hall_price_standart,
+        vip: priceAllData?.hall_price_vip,
+      });
 
-    setCurrentPrices({
-      standart: hall.hall_price_standart,
-      vip: hall.hall_price_vip,
-    });
+    if (priceData) {
+      setCurrentPrices({
+        standart: priceData.standart,
+        vip: priceData.vip,
+      });
+    } else {
+      setCurrentPrices({
+        standart: "100",
+        vip: "100",
+      });
+    }
   }, [currentHall]);
 
   const handleChooseHall = (id: number) => {
@@ -102,9 +147,11 @@ export const ConfigPrice = ({ position, availableHalls, allData }: TProps) => {
       handleChooseHall={handleChooseHall}
       currentPrices={currentPrices}
       handleChange={handleChange}
-			handleSubmit={handleSubmit}
-			isLoading={isLoading}
-			error={error}
+      handleSubmit={handleSubmit}
+      handleCancelChanges={handleCancelChanges}
+      isLoading={isLoading}
+      error={error}
+			success={success}
     />
   );
 };
