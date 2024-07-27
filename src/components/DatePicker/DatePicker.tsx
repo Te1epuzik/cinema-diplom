@@ -30,7 +30,9 @@ export const DatePicker = memo(() => {
     setShownDates((next) => {
       const prev: TDays = [];
 
-      if (next[0].day - 6 === new Date().getDate()) {
+      if (
+        new Date(next[0].date - 6 * OneDay).getDate() === new Date().getDate()
+      ) {
         prev.push(...getCurrentWeek());
         setBackButton(false);
 
@@ -116,13 +118,13 @@ export const DatePicker = memo(() => {
   ];
 
   return (
-      <DatePickerView
-        backButton={backButton}
-        shownDates={shownDates}
-        handleNextWeek={handleNextWeek}
-        handlePrevWeek={handlePrevWeek}
-        DayNames={DayNames}
-        OneDay={OneDay}
-      />
+    <DatePickerView
+      backButton={backButton}
+      shownDates={shownDates}
+      handleNextWeek={handleNextWeek}
+      handlePrevWeek={handlePrevWeek}
+      DayNames={DayNames}
+      OneDay={OneDay}
+    />
   );
 });

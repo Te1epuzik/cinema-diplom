@@ -35,22 +35,33 @@ export const SeancesView = ({ data, error, date }: TProps) => {
               </div>
             </div>
             <div className={classes["halls"]}>
-              {film.halls.map((hall) => (
-                <div key={hall.id} className={classes["hall"]}>
-                  <h3 className={classes["hall-name"]}>{hall.hall_name}</h3>
-                  <div className={classes["seances-list"]}>
-                    {hall.seances?.map((seance) => (
-                      <Link
-                        key={seance.id}
-                        className={classes["seance"]}
-                        to={`/client/reservation/${seance.id}&${date}&${seance.seance_time}`}
-                      >
-                        {seance.seance_time}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              {film.halls.find((hall) => {
+                return hall.seances?.length !== 0;
+              }) ? (
+                film.halls.map(
+                  (hall) =>
+                    hall.seances?.length !== 0 && (
+                      <div key={hall.id} className={classes["hall"]}>
+                        <h3 className={classes["hall-name"]}>
+                          {hall.hall_name}
+                        </h3>
+                        <div className={classes["seances-list"]}>
+                          {hall.seances?.map((seance) => (
+                            <Link
+                              key={seance.id}
+                              className={classes["seance"]}
+                              to={`/client/reservation/${seance.id}&${date}&${seance.seance_time}`}
+                            >
+                              {seance.seance_time}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ),
+                )
+              ) : (
+                <span className={classes['no-seances']}>На сегодня сеансов нет!</span>
+              )}
             </div>
           </div>
         ))

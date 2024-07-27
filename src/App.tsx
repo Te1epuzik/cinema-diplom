@@ -1,6 +1,7 @@
 import "./App.scss";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useFormatDate } from "./hooks";
+import { useFormatDate } from "@/hooks";
+import { useGetAllData } from "@/services"
 import {
   Client,
   IndexClient,
@@ -17,6 +18,7 @@ import {
 
 function App() {
   const seancesPath = useFormatDate(new Date());
+	const allData = useGetAllData();
 
   return (
     <>
@@ -26,7 +28,7 @@ function App() {
         <Route path="/client/*" element={<Client />}>
           <Route path="seances/" element={<Navigate to={seancesPath} />} />
           <Route path="seances/*" element={<IndexClient />}>
-            <Route path=":date" element={<Seances />} />
+            <Route path=":date" element={<Seances allData={allData} />} />
           </Route>
           <Route path="reservation/*" element={<Reservation />}>
             <Route path=":seanceInfo" element={<Hall />} />

@@ -2,10 +2,27 @@ import { useState, useEffect } from "react";
 
 import { TFData, TFilm, THall, TSeance } from "@/models/SessionsModel";
 
-export const useFilterSeances = (data: any) => {
+export const useFilterSeances = (data: any, date: string | undefined) => {
 	const [films, setFilms] = useState<TFData>([]);
 
+	const calcTime = (time: string) => {
+		if (!date || !time) {
+			return;
+		}
+
+		const [hours, minutes] = time.split(":");
+		return (+hours * 60 + +minutes) * 60 * 1000 + new Date(date).getTime();
+	}
+
 	useEffect(() => {
+		if (!date) {
+			return;
+		}
+
+		const currentDate = new Date(date);
+		const currentTime = new Date().getTime();
+		console.log(currentTime, currentDate.getTime(), calcTime("00:00"))
+
     const updatedData = data?.result?.films.map((film: TFilm) => {
       const seances = data.result.seances.filter(
         (seance: TSeance) => seance.seance_filmid === film.id,
@@ -26,10 +43,15 @@ export const useFilterSeances = (data: any) => {
 
 			// распределяю сеансы по залам
       const filteredHalls = halls.map((hall: THall) => {
+
         return {
           ...hall,
           seances: seances.filter(
-            (seance: TSeance) => seance.seance_hallid === hall.id,
+            (seance: TSeance) => {
+							const seanceTime = calcTime(seance.seance_time)
+
+							return seance.seance_hallid === hall.id && seanceTime && seanceTime > currentTime
+							},
           ),
         };
       });
@@ -44,7 +66,7 @@ export const useFilterSeances = (data: any) => {
     });
 
     setFilms(updatedData);
-  }, [data]);
+  }, [data, date]);
 	
   return { films };
 };

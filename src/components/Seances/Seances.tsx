@@ -1,17 +1,17 @@
 import { SeancesView } from "./SeancesView";
-import { useGetAllData } from "@/services";
 import { Loader } from "@/components";
 import { useParams } from "react-router-dom";
 import { useFilterSeances } from "@/hooks";
 
-export const Seances = () => {
+type TProps = {
+	allData: any;
+}
+
+export const Seances = ({ allData }: TProps) => {
   const { date } = useParams();
 
-  const { data, error, isLoading } = useGetAllData();
-
-  const { films } = useFilterSeances(data);
-
-  console.log(films);
+  const { data, error, isLoading } = allData;
+  const { films } = useFilterSeances(data, date);
 
   return (
     <>

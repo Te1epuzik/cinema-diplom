@@ -20,27 +20,30 @@ export const Seats = ({ seats, getTicket, prices }: TProps) => {
 
     return initialSelectedSeats;
   });
-	const [secondTouch, setSecondTouch] = useState<boolean>(false);
+  const [secondTouch, setSecondTouch] = useState<boolean>(false);
   const { isTablet } = useResize();
 
-	const handleDoubleTouch = (event: React.TouchEvent<HTMLDivElement>) => {
-		if (!isTablet) {
-			return;
-		}
+  const handleDoubleTouch = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!isTablet) {
+      return;
+    }
 
-		if (!secondTouch) {
-			setSecondTouch(true);
-			setTimeout(() => {
-				setSecondTouch(false);
-			}, 300);
-		} else {
-			setSecondTouch(false);
+    if (!secondTouch) {
+      setSecondTouch(true);
+      setTimeout(() => {
+        setSecondTouch(false);
+      }, 300);
+    } else {
+      setSecondTouch(false);
 
-			if (event.target instanceof HTMLDivElement) {
-				event.target.classList.toggle("zoomed");
-			}
-		}
-	}
+      if (
+        event.target instanceof HTMLDivElement &&
+        event.target.className.includes("seats")
+      ) {
+        event.target.classList.toggle("zoomed");
+      }
+    }
+  };
 
   const handleSelectSeat = (i: number, j: number) => {
     if (seats[i][j] === "disabled" || seats[i][j] === "taken") {
@@ -95,7 +98,7 @@ export const Seats = ({ seats, getTicket, prices }: TProps) => {
       selectedSeats={selectedSeats}
       handleSelectSeat={handleSelectSeat}
       prices={prices}
-			handleDoubleTouch={handleDoubleTouch}
+      handleDoubleTouch={handleDoubleTouch}
     />
   );
 };
