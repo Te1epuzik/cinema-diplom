@@ -31,16 +31,16 @@ function App() {
             <Route path=":date" element={<Seances allData={allData} />} />
           </Route>
           <Route path="reservation/*" element={<Reservation />}>
-            <Route path=":seanceInfo" element={<Hall />} />
+            <Route path=":seanceInfo" element={<Hall allData={allData} />} />
           </Route>
           <Route path="payment/*" element={<Payment />}>
-            <Route path=":bookInfo" element={<Book />} />
-            <Route path="ticket/:bookInfo" element={<Ticket />}></Route>
+            <Route path=":bookInfo" element={<Book allData={allData} />} />
+            <Route path="ticket/:bookInfo" element={<Ticket allData={allData} />}></Route>
           </Route>
         </Route>
 				<Route path="/admin/*" element={<Admin />}>
 					<Route path="login" element={<Login />} />
-					<Route path="settings" element={<Settings />} />
+					<Route path="settings" element={<Settings allData={allData} />} />
 				</Route>
       </Routes>
     </>

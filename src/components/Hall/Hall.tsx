@@ -8,7 +8,11 @@ import { Loader } from "@/components";
 import classes from "./hall.module.scss";
 import { THall, TSeance } from "@/models/SessionsModel";
 
-export const Hall = () => {
+type TProps = {
+  allData: any;
+};
+
+export const Hall = ({ allData }: TProps) => {
   const [prices, setPrices] = useState<{ standart: number; vip: number }>({
     standart: 0,
     vip: 0,
@@ -17,15 +21,13 @@ export const Hall = () => {
   const [tickets, setTickets] = useState<TTickets>([]);
 
   const reserveSeats = useReserveSeats();
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { isTablet } = useResize();
   const { seanceInfo } = useParams();
   const seanceId = seanceInfo?.split("&")[0];
   const date = seanceInfo?.split("&")[1];
   const time = seanceInfo?.split("&")[2];
-
-  const allData = useGetAllData();
 
   useEffect(() => {
     console.log(allData.data?.result);
@@ -63,11 +65,13 @@ export const Hall = () => {
   const getTicket = (
     ticket: { row: number; place: number; coast: string }[],
   ) => {
-    setTickets(ticket.map(t => ({
-			row: t.row,
-			coast: t.coast,
-			place: t.place
-		})));
+    setTickets(
+      ticket.map((t) => ({
+        row: t.row,
+        coast: t.coast,
+        place: t.place,
+      })),
+    );
   };
 
   useEffect(() => {
@@ -77,14 +81,14 @@ export const Hall = () => {
   }, [tickets]);
 
   const handleReserveSeats = () => {
-		if (!seanceId || !date) {
-			return;
-		}
+    if (!seanceId || !date) {
+      return;
+    }
 
-		const params = new FormData();
-		params.set("seanceId", seanceId);
-		params.set("ticketDate", date);
-		params.set("tickets", JSON.stringify(tickets));
+    const params = new FormData();
+    params.set("seanceId", seanceId);
+    params.set("ticketDate", date);
+    params.set("tickets", JSON.stringify(tickets));
 
     reserveSeats.fetchData(params);
   };

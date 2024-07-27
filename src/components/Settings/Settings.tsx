@@ -1,13 +1,15 @@
 import classes from "./settings.module.scss";
 import { useState, useEffect } from "react";
 import { SettingsView } from "./SettingsView";
-import { useGetAllData, useSetHall } from "@/services";
+import { useSetHall } from "@/services";
 import { THall } from "@/models/SessionsModel";
 import { Loader, E404 } from "@/components";
 
-export const Settings = () => {
-  const allData = useGetAllData();
+type TProps = {
+  allData: any;
+};
 
+export const Settings = ({ allData }: TProps) => {
   const setHall = useSetHall();
   const [availableHalls, setAvailableHalls] = useState<
     { name: string; id: number }[]
@@ -55,7 +57,7 @@ export const Settings = () => {
           allData={allData}
           availableHalls={availableHalls}
           handleDeleteHall={handleDeleteHall}
-					setHall={setHall}
+          setHall={setHall}
         />
       )}
     </>
