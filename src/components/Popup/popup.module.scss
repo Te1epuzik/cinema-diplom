@@ -15,6 +15,7 @@
     left: 0;
 		width: 100%;
 		max-width: 960px;
+		animation: show 0.25s ease-in-out;
 
     .header {
       height: 57px;
@@ -55,6 +56,29 @@
 			top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+			animation: showDesktop 0.25s ease-in-out;
     }
   }
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+		top: -150px;
+	}
+	100% {
+		opacity: 1;
+		top: 0;
+	}
+}
+
+@keyframes showDesktop {
+	0% {
+		opacity: 0;
+		top: 25%;
+	}
+	100% {
+		opacity: 1;
+		top: 50%;
+	}
 }
