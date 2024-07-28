@@ -21,8 +21,8 @@
 
     .screen {
       margin-top: 22px;
-      position: relative;
-      left: 51%;
+      position: absolute;
+      left: 53%;
       transform: translateX(-50%);
       display: block;
       width: fit-content;
@@ -31,8 +31,7 @@
     }
 
     .grid {
-      margin: 0 auto;
-      margin-top: 17px;
+      margin: 63px auto 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,7 +43,7 @@
 
         .seat {
           cursor: pointer;
-					transition: border .25s, background-color .25s;
+          transition: border 0.25s, background-color 0.25s;
         }
       }
     }
@@ -74,14 +73,24 @@
   }
 }
 
+@media (min-width: 568px) {
+  .config-grid {
+    .config {
+      .screen {
+        left: 55%;
+      }
+    }
+  }
+}
+
 @media (min-width: 990px) {
   .config-grid {
     .config {
       .grid {
         .row {
           .seat:hover {
-						outline: solid 2px $color-seat-border;
-						outline-offset: -1px;
+            outline: solid 2px $color-seat-border;
+            outline-offset: -1px;
           }
         }
       }
