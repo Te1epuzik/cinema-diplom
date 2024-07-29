@@ -1,25 +1,25 @@
 import { SettingHallsView } from "./SettingHallsView";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useRef } from "react";
 
 type TProps = {
   position: "first" | "middle" | "last";
   allData: any;
-	handleDeleteHall: (id: number) => void;
-	setHall: any;
-	availableHalls: { name: string; id: number }[];
+  handleDeleteHall: (id: number) => void;
+  setHall: any;
+  availableHalls: { name: string; id: number }[];
 };
 
 export const SettingHalls = ({
   position,
-	availableHalls,
-	handleDeleteHall,
-	setHall,
+  availableHalls,
+  handleDeleteHall,
+  setHall,
 }: TProps) => {
   const [createHall, setCreateHall] = useState<boolean>(false);
-  
+	const popupRef = useRef<HTMLDivElement>(null)
+
   const handleHallPopup = (event: MouseEvent) => {
-    const popup = document.querySelector(".popup");
-    if (popup && popup.contains(event.target as Node)) {
+    if (popupRef && popupRef.current && popupRef.current.contains(event.target as Node)) {
       return;
     }
     setCreateHall(!createHall);
@@ -28,7 +28,6 @@ export const SettingHalls = ({
   const handleCancel = () => {
     setCreateHall(false);
   };
-
 
   return (
     <SettingHallsView
@@ -40,6 +39,7 @@ export const SettingHalls = ({
       setHall={setHall}
       setCreateHall={setCreateHall}
       handleDeleteHall={handleDeleteHall}
+			popupRef={popupRef}
     />
   );
 };

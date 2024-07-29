@@ -1,0 +1,119 @@
+@import "@/Variables.scss";
+
+.session-grid {
+  padding-top: 53px;
+  padding-bottom: 75px;
+  .films {
+    .add-film {
+      padding: 11px 32px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .film-list {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .film {
+				cursor: grab;
+        position: relative;
+        border: solid 1px;
+        display: flex;
+        width: 260px;
+        height: 52px;
+
+        .film-poster {
+          height: 50px;
+        }
+
+        .film-info {
+          margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+
+          .film-name {
+            display: block;
+            width: fit-content;
+            font-size: 14px;
+            font-weight: 500;
+          }
+
+          .film-duration {
+            color: rgba($color-black, 0.7);
+            display: block;
+            width: fit-content;
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+
+        .delete {
+          position: absolute;
+          right: 5px;
+          bottom: 5px;
+          transition: all 0.15s ease-in-out;
+          box-shadow: 0 4px 4px 0 rgba($color-black, 0.3);
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 3px;
+          border: none;
+          padding: 0;
+          background-color: $color-white;
+
+          .bin {
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        .delete:focus {
+          outline: none;
+        }
+
+        .delete:hover {
+          background-color: rgba($color-white, 0.5);
+        }
+      }
+
+      .film:nth-child(5n - 4) {
+        background-color: $first-bg;
+        border-color: $first-border;
+      }
+      .film:nth-child(5n - 3) {
+        background-color: $second-bg;
+        border-color: $second-border;
+      }
+      .film:nth-child(5n - 2) {
+        background-color: $third-bg;
+        border-color: $third-border;
+      }
+      .film:nth-child(5n - 1) {
+        background-color: $fourth-bg;
+        border-color: $fourth-border;
+      }
+      .film:nth-child(5n) {
+        background-color: $fifth-bg;
+        border-color: $fifth-border;
+      }
+    }
+  }
+}
+
+@media (min-width: 990px) {
+  .session-grid {
+    .films {
+      .film-list {
+        .film {
+          width: 251px;
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ type TProps = {
   handleCancel: () => void;
   setHall: any;
   setCreateHall: any;
+  popupRef: React.RefObject<HTMLDivElement>;
 };
 
 export const HallPopup = ({
@@ -13,6 +14,7 @@ export const HallPopup = ({
   handleCancel,
   setHall,
   setCreateHall,
+  popupRef,
 }: TProps) => {
   const [value, setValue] = useState("");
 
@@ -30,11 +32,12 @@ export const HallPopup = ({
       method: "post",
       body: { hallName: value },
     });
-		setCreateHall(false)
+    setCreateHall(false);
   };
 
   return (
     <HallPopupView
+      popupRef={popupRef}
       handleHallPopup={handleHallPopup}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}

@@ -43,7 +43,7 @@
 
         .seat {
           cursor: pointer;
-          transition: border 0.25s, background-color 0.25s;
+          transition: all 0.25s ease-in-out;
         }
       }
     }
@@ -89,8 +89,7 @@
       .grid {
         .row {
           .seat:hover {
-            outline: solid 2px $color-seat-border;
-            outline-offset: -1px;
+            transform: scale(0.9);
           }
         }
       }

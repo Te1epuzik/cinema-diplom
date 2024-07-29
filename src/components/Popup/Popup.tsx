@@ -7,6 +7,7 @@ type TProps = {
   handleCancel: () => void;
   title: ReactNode;
   children: ReactNode;
+	popupRef: React.RefObject<HTMLDivElement>;
 };
 
 export const Popup = ({
@@ -14,10 +15,11 @@ export const Popup = ({
   handleCancel,
   title,
   children,
+	popupRef,
 }: TProps) => {
   return (
     <div className={classes["wrapper"]} onClick={handlePopup}>
-      <div className={classes["popup"] + " " + "popup"}>
+      <div className={classes["popup"] + " " + "popup"} ref={popupRef}>
         <header className={classes["header"]}>
           <h2 className={classes["title"]}>{title}</h2>
           <div className={classes["close"]} onClick={handleCancel}>

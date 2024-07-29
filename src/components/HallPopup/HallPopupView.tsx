@@ -8,6 +8,7 @@ type TProps = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
 	isLoading: boolean;
+	popupRef: React.RefObject<HTMLDivElement>;
 };
 
 export const HallPopupView = ({
@@ -17,11 +18,13 @@ export const HallPopupView = ({
   handleChange,
   value,
 	isLoading,
+	popupRef,
 }: TProps) => {
   return (
     <Popup
       handlePopup={handleHallPopup}
       handleCancel={handleCancel}
+			popupRef={popupRef}
       title="Добавление зала"
     >
       <form className={classes["form"]} onSubmit={handleSubmit}>

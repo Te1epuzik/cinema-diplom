@@ -16,6 +16,7 @@ type TProps = {
   setHall: any;
   setCreateHall: any;
   handleDeleteHall: (id: number) => void;
+  popupRef: React.RefObject<HTMLDivElement>;
 };
 
 export const SettingHallsView = ({
@@ -27,6 +28,7 @@ export const SettingHallsView = ({
   setHall,
   setCreateHall,
   handleDeleteHall,
+  popupRef,
 }: TProps) => {
   return (
     <>
@@ -34,6 +36,7 @@ export const SettingHallsView = ({
         <HallPopup
           handleHallPopup={handleHallPopup}
           handleCancel={handleCancel}
+					popupRef={popupRef}
           setHall={setHall}
           setCreateHall={setCreateHall}
         />
@@ -67,7 +70,9 @@ export const SettingHallsView = ({
               ))}
             </div>
           </div>
-					{!setHall.data?.success && <span className={classes["error"]}>{setHall.data?.error}</span>}
+          {!setHall.data?.success && (
+            <span className={classes["error"]}>{setHall.data?.error}</span>
+          )}
           <button
             onClick={handleHallPopup}
             className={classes["create-hall"] + " " + "button"}

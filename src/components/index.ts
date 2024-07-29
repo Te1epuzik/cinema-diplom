@@ -36,6 +36,8 @@ export * from "./SettingHalls/SettingHalls";
 export * from "./ConfigHalls/ConfigHalls";
 export * from "./ConfigGrid/ConfigGrid";
 export * from "./ConfigPrice/ConfigPrice";
+export * from "./SessinonGrid/SessionGrid";
 
 // Popups
 export * from "./HallPopup/HallPopup";
+export * from "./AddFilmPopup/AddFilmPopup";

@@ -51,15 +51,16 @@
             height: 12px;
           }
         }
+				
+				.delete-hall:focus {
+					outline: none;
+				}
+	
+				.delete-hall:hover {
+					background-color: rgba($color-white, 0.5);
+				}
       }
 
-      .delete-hall:focus {
-        outline: none;
-      }
-
-      .delete-hall:hover {
-        background-color: rgba($color-white, 0.5);
-      }
     }
   }
 
