@@ -1,0 +1,82 @@
+@import "@/Variables.scss";
+
+.schedule {
+  display: flex;
+  flex-direction: column;
+  margin-top: 38px;
+  gap: 17px;
+
+  .hall {
+    width: 100%;
+		padding: 0 20px;
+		height: 96px;
+		overflow-y: hidden;
+		overflow-x: auto;
+		z-index: 1;
+    .hall-name {
+      line-height: 15px;
+      display: block;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .time-line {
+      position: relative;
+      width: 720px;
+      height: 62px;
+      border: solid 1px $color-gray-text;
+      display: flex;
+      align-items: center;
+			z-index: 2;
+
+      .seance {
+        cursor: grab;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        border: solid 1px;
+				z-index: 3;
+
+        .time::before {
+          content: "";
+          position: absolute;
+          border-left: solid 1px $color-gray-text;
+          height: 5px;
+          background-color: $color-gray-text;
+          top: -7px;
+          left: 14px;
+					z-index: 4;
+        }
+
+        .time {
+          color: $color-gray-text;
+          font-size: 12px;
+          position: absolute;
+          left: -15px;
+          bottom: -36px;
+					z-index: 4 !important;
+        }
+      }
+    }
+  }
+
+  .hall::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width: 568px) {
+  .schedule {
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: 768px) {
+	.schedule {
+		margin-top: 52px;
+	}
+}

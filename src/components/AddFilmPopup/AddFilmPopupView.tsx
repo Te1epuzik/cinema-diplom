@@ -43,6 +43,7 @@ export const AddFilmPopupView = ({
           id="film-name1"
           placeholder="Например, «Гражданин Кейн»"
           required
+					autoFocus
           autoComplete="off"
         />
         <label className={classes["label"]} htmlFor="film-duration1">

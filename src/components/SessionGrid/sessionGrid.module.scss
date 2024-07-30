@@ -25,6 +25,7 @@
         height: 52px;
 
         .film-poster {
+					pointer-events: none;
           height: 50px;
         }
 
@@ -106,14 +107,3 @@
   }
 }
 
-@media (min-width: 990px) {
-  .session-grid {
-    .films {
-      .film-list {
-        .film {
-          width: 251px;
-        }
-      }
-    }
-  }
-}

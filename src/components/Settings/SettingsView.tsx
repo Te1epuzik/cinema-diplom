@@ -2,7 +2,12 @@ import classes from "./settings.module.scss";
 import { Link } from "react-router-dom";
 import GoingMoviLogo from "@/assets/Идёмвкино.svg";
 
-import { ConfigHalls, SettingHalls, ConfigPrice, SessionGrid } from "@/components";
+import {
+  ConfigHalls,
+  SettingHalls,
+  ConfigPrice,
+  SessionGrid,
+} from "@/components";
 
 type TProps = {
   allData: any;
@@ -47,7 +52,11 @@ export const SettingsView = ({
           availableHalls={availableHalls}
           allData={allData}
         />
-				<SessionGrid position="middle" allData={allData} />
+        <SessionGrid
+          position="middle"
+          allData={allData}
+          availableHalls={availableHalls}
+        />
       </main>
     </div>
   );

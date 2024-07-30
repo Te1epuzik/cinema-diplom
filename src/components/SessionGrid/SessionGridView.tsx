@@ -1,6 +1,6 @@
 import { TAvFilms } from "@/models/AddFilmModel";
 import classes from "./sessionGrid.module.scss";
-import { Dropdown, AddFilmPopup } from "@/components";
+import { Dropdown, AddFilmPopup, Schedule } from "@/components";
 import binPNG from "@/assets/bin.png";
 
 type TProps = {
@@ -11,7 +11,15 @@ type TProps = {
   addFilm: boolean;
   availableFilms: TAvFilms[];
   handleDeleteFilm: (filmId: number) => void;
-	setAvailableFilms: React.Dispatch<React.SetStateAction<TAvFilms[]>>
+  setAvailableFilms: React.Dispatch<React.SetStateAction<TAvFilms[]>>;
+  handleDragStart: (
+    event: React.DragEvent<HTMLDivElement>,
+    filmId: number,
+  ) => void;
+  handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  availableHalls: { name: string; id: number }[];
+	allData: any;
 };
 
 export const SessionGridView = ({
@@ -22,7 +30,12 @@ export const SessionGridView = ({
   addFilm,
   availableFilms,
   handleDeleteFilm,
-	setAvailableFilms,
+  setAvailableFilms,
+  handleDragStart,
+  handleDragOver,
+  handleDrop,
+  availableHalls,
+	allData
 }: TProps) => {
   return (
     <Dropdown content={"Сетка сеансов"} position={position}>
@@ -31,7 +44,7 @@ export const SessionGridView = ({
           handleAddFilm={handleAddFilm}
           handleCancel={handleCancel}
           popupRef={popupRef}
-					setAvailableFilms={setAvailableFilms}
+          setAvailableFilms={setAvailableFilms}
         />
       )}
       <div className={classes["session-grid"]}>
@@ -45,7 +58,12 @@ export const SessionGridView = ({
           </button>
           <div className={classes["film-list"]}>
             {availableFilms.map((film) => (
-              <div key={film.filmName} className={classes["film"]} draggable>
+              <div
+                key={film.filmName}
+                className={classes["film"]}
+                onDragStart={(event) => handleDragStart(event, film.filmId)}
+                draggable
+              >
                 <img
                   className={classes["film-poster"]}
                   src={film.filmPoster}
@@ -68,6 +86,12 @@ export const SessionGridView = ({
             ))}
           </div>
         </div>
+        <Schedule
+          availableHalls={availableHalls}
+          handleDrop={handleDrop}
+          handleDragOver={handleDragOver}
+					allData={allData}
+        />
       </div>
     </Dropdown>
   );
