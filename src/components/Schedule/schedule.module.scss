@@ -4,17 +4,18 @@
   display: flex;
   flex-direction: column;
   margin-top: 38px;
-  gap: 17px;
+  gap: 15px;
 
   .hall {
     width: 100%;
 		padding: 0 20px;
-		height: 96px;
+		height: 98px;
 		overflow-y: hidden;
 		overflow-x: auto;
 		z-index: 1;
     .hall-name {
-      line-height: 15px;
+			height: 17px;
+      line-height: 19px;
       display: block;
       text-align: left;
       font-size: 16px;
