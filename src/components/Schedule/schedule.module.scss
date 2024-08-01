@@ -69,6 +69,7 @@
         }
 
         .time {
+					pointer-events: none;
           color: $color-gray-text;
           font-size: 12px;
           position: absolute;
@@ -80,6 +81,7 @@
 			
 			.seance:hover > .film-name-vh {
 				display: block;
+				animation: showFilmName 0.15s ease-out;
 			}
     }
   }
@@ -98,5 +100,17 @@
 @media (min-width: 768px) {
 	.schedule {
 		margin-top: 52px;
+	}
+}
+
+@keyframes showFilmName {
+	0% {
+		opacity: 0;
+		top: 10px;
+	}
+
+	100% {
+		opacity: 1;
+		top: -26px;
 	}
 }
