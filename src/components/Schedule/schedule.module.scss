@@ -41,6 +41,21 @@
         border: solid 1px;
 				z-index: 3;
 
+				.film-name {
+					font-size: 10px;
+				}
+
+				.film-name-vh {
+					display: none;
+					font-size: 12px;
+					position: absolute;
+					top: -26px;
+					padding: 0 4px;
+					background-color: $color-white;
+					border: solid 1px $color-gray-text;
+					border-radius: 5px;
+				}
+
         .time::before {
           content: "";
           position: absolute;
@@ -61,6 +76,10 @@
 					z-index: 4 !important;
         }
       }
+			
+			.seance:hover > .film-name-vh {
+				display: block;
+			}
     }
   }
 

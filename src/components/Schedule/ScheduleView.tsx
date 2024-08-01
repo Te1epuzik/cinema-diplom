@@ -35,7 +35,15 @@ export const ScheduleView = ({
                   borderColor: seance.border,
                 }}
               >
-                {seance.filmName}
+                {seance.widthPercent > 7 && (
+                  <span className={classes["film-name"]}>
+                    {seance.filmName.slice(0, 8) +
+                      (seance.filmName.length > 8 ? "..." : "")}
+                  </span>
+                )}
+                <span className={classes["film-name-vh"]}>
+                  {seance.filmName}
+                </span>
                 <span className={classes["time"]}>{seance.time}</span>
               </div>
             ))}

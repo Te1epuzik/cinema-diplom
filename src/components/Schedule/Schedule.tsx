@@ -80,6 +80,8 @@ export const Schedule = ({
               curFilm.film_duration,
             );
 
+						console.log(timeStartPercent, timeDurationPercent)
+
             return {
               id: seance.id,
               filmName: curFilm.film_name,
