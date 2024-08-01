@@ -57,6 +57,19 @@
 					border-radius: 5px;
 				}
 
+				.film-name-vh::after {
+					content: "";
+					position: absolute;
+					border-bottom: solid 1px $color-gray-text;
+					border-right: solid 1px $color-gray-text;
+					width: 5px;
+					height: 5px;
+					background-color: $color-light-gray;
+					bottom: -4px;
+					left: 50%;
+					transform: translateX(-50%) rotate(45deg);
+				}
+
         .time::before {
           content: "";
           position: absolute;
