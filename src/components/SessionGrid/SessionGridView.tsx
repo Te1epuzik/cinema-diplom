@@ -1,6 +1,11 @@
 import { TAvFilms } from "@/models/AddFilmModel";
 import classes from "./sessionGrid.module.scss";
-import { Dropdown, AddFilmPopup, Schedule } from "@/components";
+import {
+  Dropdown,
+  AddFilmPopup,
+  Schedule,
+  FilmRemovePopup,
+} from "@/components";
 import binPNG from "@/assets/bin.png";
 
 type TProps = {
@@ -20,6 +25,13 @@ type TProps = {
   handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   availableHalls: { name: string; id: number }[];
   allData: any;
+  handleDeleteFilmPopup: (
+    event: React.MouseEvent,
+    filmId?: number,
+    filmName?: string,
+  ) => void;
+  filmToDelete: { id: number | null; name: string };
+  deleteFilm: boolean;
 };
 
 export const SessionGridView = ({
@@ -36,9 +48,21 @@ export const SessionGridView = ({
   handleDrop,
   availableHalls,
   allData,
+  handleDeleteFilmPopup,
+  filmToDelete,
+  deleteFilm,
 }: TProps) => {
   return (
     <Dropdown content={"Сетка сеансов"} position={position}>
+      {deleteFilm && (
+        <FilmRemovePopup
+          handlePopup={handleDeleteFilmPopup}
+          handleCancel={handleCancel}
+          handleDeleteFilm={handleDeleteFilm}
+          popupRef={popupRef}
+          filmToDelete={filmToDelete}
+        />
+      )}
       {addFilm && (
         <AddFilmPopup
           handleAddFilm={handleAddFilm}
@@ -78,7 +102,9 @@ export const SessionGridView = ({
                 <button
                   className={classes["delete"]}
                   type="button"
-                  onClick={() => handleDeleteFilm(film.filmId)}
+                  onClick={(event) =>
+                    handleDeleteFilmPopup(event, film.filmId, film.filmName)
+                  }
                 >
                   <img className={classes["bin"]} src={binPNG} alt="Удалить" />
                 </button>

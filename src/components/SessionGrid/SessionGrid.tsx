@@ -7,17 +7,25 @@ import { useDeleteFilm } from "@/services";
 type TProps = {
   position: "first" | "middle" | "last";
   allData: any;
-	availableHalls: { name: string; id: number }[]
+  availableHalls: { name: string; id: number }[];
 };
 
 export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   const [_draggedFilm, setDraggedFilm] = useState<number | null>(null);
-  const [addFilm, setAddFilm] = useState(false);
+  const [addFilm, setAddFilm] = useState(false); // add film popup trigger
+  const [filmToDelete, setFilmToDelete] = useState<{
+    id: number | null;
+    name: string;
+  }>({
+    id: null,
+    name: "",
+  });
+  const [deleteFilm, setDeleteFilm] = useState<boolean>(false); // delete popup trigger
   const [availableFilms, setAvailableFilms] = useState<TAvFilms[]>([]);
   const popupRef = useRef<HTMLDivElement>(null);
   const { data, fetchData } = useDeleteFilm();
 
-	console.log(allData)
+  console.log(allData);
 
   const handleDragStart = (
     _event: React.DragEvent<HTMLDivElement>,
@@ -27,15 +35,38 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-		event.preventDefault();
-	};
-	
-  const handleDrop = (
-		event: React.DragEvent<HTMLDivElement>
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDeleteFilmPopup = (
+    event: React.MouseEvent,
+    filmId?: number,
+    filmName?: string,
   ) => {
-		event.preventDefault();
-		
-	};
+    if (
+      popupRef &&
+      popupRef.current &&
+      popupRef.current.contains(event.target as Node)
+    ) {
+      return;
+    }
+    if (filmId && filmName) {
+      setFilmToDelete({
+        id: filmId,
+        name: filmName,
+      });
+    } else {
+      setFilmToDelete({
+        id: null,
+        name: "",
+      });
+    }
+    setDeleteFilm(!deleteFilm);
+  };
 
   const handleDeleteFilm = (filmId: number) => {
     fetchData(filmId);
@@ -89,7 +120,11 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   };
 
   const handleCancel = () => {
-    setAddFilm(false);
+		if (addFilm) {
+			setAddFilm(false);
+		} else if (deleteFilm) {
+			setDeleteFilm(false);
+		}
   };
 
   return (
@@ -105,8 +140,11 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       handleDragOver={handleDragOver}
       handleDrop={handleDrop}
       setAvailableFilms={setAvailableFilms}
-			availableHalls={availableHalls}
-			allData={allData}
+      availableHalls={availableHalls}
+      allData={allData}
+			handleDeleteFilmPopup={handleDeleteFilmPopup}
+			filmToDelete={filmToDelete}
+			deleteFilm={deleteFilm}
     />
   );
 };
