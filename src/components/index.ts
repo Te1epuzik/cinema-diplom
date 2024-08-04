@@ -41,4 +41,6 @@ export * from "./Schedule/Schedule";
 
 // Popups
 export * from "./HallPopup/HallPopup";
+export * from "./HallRemovePopup/HallRemovePopup";
 export * from "./AddFilmPopup/AddFilmPopup";
+

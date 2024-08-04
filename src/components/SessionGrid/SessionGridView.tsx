@@ -19,7 +19,7 @@ type TProps = {
   handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
   handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   availableHalls: { name: string; id: number }[];
-	allData: any;
+  allData: any;
 };
 
 export const SessionGridView = ({
@@ -35,7 +35,7 @@ export const SessionGridView = ({
   handleDragOver,
   handleDrop,
   availableHalls,
-	allData
+  allData,
 }: TProps) => {
   return (
     <Dropdown content={"Сетка сеансов"} position={position}>
@@ -90,7 +90,7 @@ export const SessionGridView = ({
           availableHalls={availableHalls}
           handleDrop={handleDrop}
           handleDragOver={handleDragOver}
-					allData={allData}
+          allData={allData}
         />
       </div>
     </Dropdown>

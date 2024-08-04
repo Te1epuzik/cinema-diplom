@@ -2,7 +2,7 @@ import classes from "./settingHalls.module.scss";
 import { MouseEvent } from "react";
 import { Dropdown } from "@/components";
 import BinPNG from "@/assets/bin.png";
-import { HallPopup, Loader } from "@/components";
+import { HallPopup, HallRemovePopup, Loader } from "@/components";
 
 type TProps = {
   position: "first" | "middle" | "last";
@@ -11,7 +11,14 @@ type TProps = {
     id: number;
   }[];
   createHall: boolean;
+  deleteHall: boolean;
+  currentHall: { id: number | null; name: string };
   handleHallPopup: (event: MouseEvent<HTMLElement>) => void;
+  handleDeleteHallPopup: (
+    event: MouseEvent,
+    hallId?: number,
+    hallName?: string,
+  ) => void;
   handleCancel: () => void;
   setHall: any;
   setCreateHall: any;
@@ -23,7 +30,10 @@ export const SettingHallsView = ({
   position,
   availableHalls,
   createHall,
+  deleteHall,
+  currentHall,
   handleHallPopup,
+  handleDeleteHallPopup,
   handleCancel,
   setHall,
   setCreateHall,
@@ -32,11 +42,20 @@ export const SettingHallsView = ({
 }: TProps) => {
   return (
     <>
+      {deleteHall && (
+        <HallRemovePopup
+          currentHall={currentHall}
+          handlePopup={handleDeleteHallPopup}
+          handleDeleteHall={handleDeleteHall}
+          handleCancel={handleCancel}
+          popupRef={popupRef}
+        />
+      )}
       {createHall && (
         <HallPopup
           handleHallPopup={handleHallPopup}
           handleCancel={handleCancel}
-					popupRef={popupRef}
+          popupRef={popupRef}
           setHall={setHall}
           setCreateHall={setCreateHall}
         />
@@ -58,7 +77,9 @@ export const SettingHallsView = ({
                   </span>
                   <button
                     className={classes["delete-hall"]}
-                    onClick={() => handleDeleteHall(hall.id)}
+                    onClick={(event: MouseEvent) =>
+                      handleDeleteHallPopup(event, hall.id, hall.name)
+                    }
                   >
                     <img
                       className={classes["bin"]}
