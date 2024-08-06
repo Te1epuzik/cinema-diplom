@@ -1,4 +1,4 @@
-import { TTimeLine, TCurSeance } from "./Schedule";
+import { TTimeLine, TCurSeance } from "@/components";
 import classes from "./schedule.module.scss";
 
 type TProps = {

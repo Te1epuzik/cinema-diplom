@@ -10,7 +10,7 @@ type TProps = {
 	setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>
 };
 
-export type TCurSeance = {
+type TCurSeance = {
   id: number;
   filmName: string;
   widthPercent: number;
@@ -20,7 +20,7 @@ export type TCurSeance = {
   time: string;
 };
 
-export type TTimeLine = {
+type TTimeLine = {
   hallId: number;
   hallName: string;
   timeLine: TCurSeance[];
