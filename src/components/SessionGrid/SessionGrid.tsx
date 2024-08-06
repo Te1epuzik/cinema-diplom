@@ -1,5 +1,6 @@
-import { SessionGridView } from "./SessionGridView";
 import { useEffect, useRef, useState } from "react";
+import Draggabilly from "draggabilly";
+import { SessionGridView } from "./SessionGridView";
 import { TFilm } from "@/models/SessionsModel";
 import { TAvFilms } from "@/models/AddFilmModel";
 import { useDeleteFilm } from "@/services";
@@ -10,9 +11,34 @@ type TProps = {
   availableHalls: { name: string; id: number }[];
 };
 
+export type TCurSeance = {
+  id: number;
+  filmName: string;
+  widthPercent: number;
+  startPercent: number;
+  bg: string;
+  border: string;
+  time: string;
+};
+
+export type TTimeLine = {
+  hallId: number;
+  hallName: string;
+  timeLine: TCurSeance[];
+};
+
 export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
-  const [_draggedFilm, setDraggedFilm] = useState<number | null>(null);
-  const [addFilm, setAddFilm] = useState(false); // add film popup trigger
+	const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
+  const [addFilm, setAddFilm] = useState<boolean>(false); // add film popup trigger
+  const [addSeance, setAddSeance] = useState<boolean>(false); // add seance popup trigger
+  const [seanceInfo, setSeanceInfo] = useState<{
+    hallId: number | null;
+    filmId: number | null;
+  }>({
+    hallId: null,
+    filmId: null,
+  });
+  const [deleteFilm, setDeleteFilm] = useState<boolean>(false); // delete popup trigger
   const [filmToDelete, setFilmToDelete] = useState<{
     id: number | null;
     name: string;
@@ -20,27 +46,78 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
     id: null,
     name: "",
   });
-  const [deleteFilm, setDeleteFilm] = useState<boolean>(false); // delete popup trigger
   const [availableFilms, setAvailableFilms] = useState<TAvFilms[]>([]);
   const popupRef = useRef<HTMLDivElement>(null);
+  const filmsRef = useRef<HTMLDivElement>(null);
   const { data, fetchData } = useDeleteFilm();
 
-  console.log(allData);
+  useEffect(() => {
+    const films = filmsRef.current?.querySelectorAll(".film");
 
-  const handleDragStart = (
-    _event: React.DragEvent<HTMLDivElement>,
-    filmId: number,
-  ) => {
-    setDraggedFilm(filmId);
-  };
+    if (!films) {
+      return;
+    }
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
+    films.forEach((film) => {
+      const draggable = new Draggabilly(film);
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
+      if (!(film instanceof HTMLElement)) {
+        return;
+      }
+
+      draggable.on("pointerDown", () => {
+        film.style.zIndex = "2";
+        film.style.cursor = "grabbing";
+      });
+
+      draggable.on("staticClick", () => {
+        film.style.zIndex = "1";
+        film.style.cursor = "grab";
+      });
+
+      draggable.on("dragMove", () => {});
+
+      draggable.on("dragEnd", () => {
+        const rect = film.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        // @ts-ignore
+        draggable.setPosition(0, 0);
+        film.style.zIndex = "1";
+        film.style.cursor = "grab";
+        const releasedOver = document.elementFromPoint(x, y);
+        const hall = releasedOver?.closest(".schedule-hall");
+
+        if (hall && film) {
+          setAddSeance(true);
+          const hallId = hall && Number(hall.getAttribute("id"));
+          const filmId = film && Number(film.getAttribute("id"));
+
+          setSeanceInfo({
+            hallId: hallId,
+            filmId: filmId,
+          });
+        }
+      });
+
+      return () => {
+        draggable.destroy();
+      };
+    });
+  }, [filmsRef.current, seancesGrid]);
+
+	const handleAddFilmPopup = (event: React.MouseEvent) => {
+		if (
+      popupRef &&
+      popupRef.current &&
+      popupRef.current.contains(event.target as Node)
+    ) {
+      return;
+    }
+		setAddSeance((prev) => {
+			return !prev;
+		});
+	}
 
   const handleDeleteFilmPopup = (
     event: React.MouseEvent,
@@ -103,10 +180,6 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
     setAvailableFilms(films);
   }, [allData.data]);
 
-  useEffect(() => {
-    console.log(availableFilms);
-  }, [availableFilms]);
-
   const handleAddFilm = (event: React.MouseEvent) => {
     if (
       popupRef &&
@@ -120,10 +193,12 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   };
 
   const handleCancel = () => {
-		if (addFilm) {
-			setAddFilm(false);
-		} else if (deleteFilm) {
-			setDeleteFilm(false);
+    if (addFilm) {
+      setAddFilm(false);
+    } else if (deleteFilm) {
+      setDeleteFilm(false);
+    } else if (addSeance) {
+			setAddSeance(false);
 		}
   };
 
@@ -136,15 +211,18 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       addFilm={addFilm}
       availableFilms={availableFilms}
       handleDeleteFilm={handleDeleteFilm}
-      handleDragStart={handleDragStart}
-      handleDragOver={handleDragOver}
-      handleDrop={handleDrop}
       setAvailableFilms={setAvailableFilms}
       availableHalls={availableHalls}
       allData={allData}
-			handleDeleteFilmPopup={handleDeleteFilmPopup}
-			filmToDelete={filmToDelete}
-			deleteFilm={deleteFilm}
+      handleDeleteFilmPopup={handleDeleteFilmPopup}
+      filmToDelete={filmToDelete}
+      deleteFilm={deleteFilm}
+      filmsRef={filmsRef}
+			seanceInfo={seanceInfo}
+			handleAddFilmPopup={handleAddFilmPopup}
+			addSeance={addSeance}
+			seancesGrid={seancesGrid}
+			setSeancesGrid={setSeancesGrid}
     />
   );
 };

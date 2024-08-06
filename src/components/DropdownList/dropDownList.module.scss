@@ -1,0 +1,39 @@
+@import "@/Variables.scss";
+
+.dropdown {
+	width: 100%;
+	position: relative;
+
+	.dropdown-content {
+		text-align: left;
+		padding: 8px 12px;
+		width: 100%;
+		border-radius: 0;
+		display: flex;
+		align-items: center;
+	}
+
+	.dropdown-inner {
+		font-size: 16px;
+		color: $color-black;
+		box-sizing: border-box;
+		position: absolute;
+		top: 45px;
+		background-color: $color-white;
+		width: 100%;
+		border: solid 1px $color-violet;
+		z-index: 3;
+		animation: show .15s ease-in-out;
+	}
+}
+
+@keyframes show {
+	0% {
+		transform: scaleY(0.7);
+		opacity: 0;
+	}
+	100% {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+}

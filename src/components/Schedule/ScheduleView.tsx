@@ -2,32 +2,29 @@ import { TTimeLine, TCurSeance } from "./Schedule";
 import classes from "./schedule.module.scss";
 
 type TProps = {
-  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
   seancesGrid: TTimeLine[];
+	seancesRef: React.RefObject<HTMLDivElement>;
 };
 
 export const ScheduleView = ({
-  handleDrop,
-  handleDragOver,
   seancesGrid,
+	seancesRef,
 }: TProps) => {
   return (
-    <div className={classes["schedule"]}>
+    <div className={classes["schedule"]} ref={seancesRef}>
       {seancesGrid.map((grid: TTimeLine) => (
         <div
           key={grid.hallId}
-          className={classes["hall"]}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
+					id={grid.hallId.toString()}
+          className={classes["hall"] + " " + "schedule-hall"}
         >
           <span className={classes["hall-name"]}>{grid.hallName}</span>
-          <div className={classes["time-line"]}>
+          <div className={classes["time-line"]} >
             {grid.timeLine.map((seance: TCurSeance) => (
               <div
-                draggable
                 key={seance.id}
-                className={classes["seance"]}
+                className={classes["seance"] + " " + "seance"}
+								data-left={`${seance.startPercent}%`}
                 style={{
                   width: `${seance.widthPercent}%`,
                   left: `${seance.startPercent}%`,

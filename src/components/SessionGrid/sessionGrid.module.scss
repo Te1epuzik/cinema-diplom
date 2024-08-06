@@ -23,6 +23,7 @@
         display: flex;
         width: 260px;
         height: 52px;
+				z-index: 1;
 
         .film-poster {
 					pointer-events: none;
@@ -126,4 +127,6 @@
     }
   }
 }
+
+
 

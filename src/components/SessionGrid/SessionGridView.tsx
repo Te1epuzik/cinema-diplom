@@ -1,10 +1,12 @@
 import { TAvFilms } from "@/models/AddFilmModel";
+import {TTimeLine} from "./SessionGrid";
 import classes from "./sessionGrid.module.scss";
 import {
   Dropdown,
   AddFilmPopup,
   Schedule,
   FilmRemovePopup,
+  AddSeancePopup,
 } from "@/components";
 import binPNG from "@/assets/bin.png";
 
@@ -17,12 +19,6 @@ type TProps = {
   availableFilms: TAvFilms[];
   handleDeleteFilm: (filmId: number) => void;
   setAvailableFilms: React.Dispatch<React.SetStateAction<TAvFilms[]>>;
-  handleDragStart: (
-    event: React.DragEvent<HTMLDivElement>,
-    filmId: number,
-  ) => void;
-  handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   availableHalls: { name: string; id: number }[];
   allData: any;
   handleDeleteFilmPopup: (
@@ -32,6 +28,12 @@ type TProps = {
   ) => void;
   filmToDelete: { id: number | null; name: string };
   deleteFilm: boolean;
+  filmsRef: React.RefObject<HTMLDivElement>;
+  seanceInfo: { hallId: number | null; filmId: number | null };
+  handleAddFilmPopup: (event: React.MouseEvent) => void;
+  addSeance: boolean;
+	seancesGrid: TTimeLine[];
+	setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>
 };
 
 export const SessionGridView = ({
@@ -43,17 +45,32 @@ export const SessionGridView = ({
   availableFilms,
   handleDeleteFilm,
   setAvailableFilms,
-  handleDragStart,
-  handleDragOver,
-  handleDrop,
   availableHalls,
   allData,
   handleDeleteFilmPopup,
   filmToDelete,
   deleteFilm,
+  filmsRef,
+  seanceInfo,
+  handleAddFilmPopup,
+  addSeance,
+	seancesGrid,
+	setSeancesGrid,
 }: TProps) => {
   return (
     <Dropdown content={"Сетка сеансов"} position={position}>
+      {addSeance && (
+        <AddSeancePopup
+					seancesGrid={seancesGrid}
+					setSeancesGrid={setSeancesGrid}
+          seanceInfo={seanceInfo}
+          handleCancel={handleCancel}
+          handlePopup={handleAddFilmPopup}
+          popupRef={popupRef}
+					availableHalls={availableHalls}
+					availableFilms={availableFilms}
+        />
+      )}
       {deleteFilm && (
         <FilmRemovePopup
           handlePopup={handleDeleteFilmPopup}
@@ -80,13 +97,12 @@ export const SessionGridView = ({
           >
             Добавить фильм
           </button>
-          <div className={classes["film-list"]}>
+          <div className={classes["film-list"]} ref={filmsRef}>
             {availableFilms.map((film) => (
               <div
                 key={film.filmName}
-                className={classes["film"]}
-                onDragStart={(event) => handleDragStart(event, film.filmId)}
-                draggable
+                id={film.filmId.toString()}
+                className={classes["film"] + " " + "film"}
               >
                 <img
                   className={classes["film-poster"]}
@@ -112,12 +128,7 @@ export const SessionGridView = ({
             ))}
           </div>
         </div>
-        <Schedule
-          availableHalls={availableHalls}
-          handleDrop={handleDrop}
-          handleDragOver={handleDragOver}
-          allData={allData}
-        />
+        <Schedule availableHalls={availableHalls} allData={allData} seancesGrid={seancesGrid} setSeancesGrid={setSeancesGrid} />
       </div>
     </Dropdown>
   );

@@ -6,3 +6,5 @@ export * from "./CircleMobileSVG";
 export * from "./CloseSVG";
 export * from "./ArrowDecSVG";
 export * from "./ArrowIncSVG";
+export * from "./ArrowDropdownSVG";
+export * from "./ClockSVG";

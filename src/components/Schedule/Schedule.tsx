@@ -1,12 +1,13 @@
 import { TFilm, TSeance } from "@/models/SessionsModel";
 import { ScheduleView } from "./ScheduleView";
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Draggabilly from "draggabilly";
 
 type TProps = {
   availableHalls: { name: string; id: number }[];
-  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  handleDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
   allData: any;
+	seancesGrid: TTimeLine[];
+	setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>
 };
 
 export type TCurSeance = {
@@ -14,8 +15,8 @@ export type TCurSeance = {
   filmName: string;
   widthPercent: number;
   startPercent: number;
-	bg: string;
-	border: string;
+  bg: string;
+  border: string;
   time: string;
 };
 
@@ -25,13 +26,8 @@ export type TTimeLine = {
   timeLine: TCurSeance[];
 };
 
-export const Schedule = ({
-  availableHalls,
-  handleDrop,
-  handleDragOver,
-  allData,
-}: TProps) => {
-  const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
+export const Schedule = ({ availableHalls, allData, seancesGrid, setSeancesGrid }: TProps) => {
+  const seancesRef = useRef<HTMLDivElement>(null);
 
   const Colors = [
     {
@@ -57,6 +53,65 @@ export const Schedule = ({
   ];
 
   useEffect(() => {
+    const seances = seancesRef.current?.querySelectorAll(".seance");
+
+    if (!seances) {
+      return;
+    }
+
+    seances.forEach((seance) => {
+      const draggable = new Draggabilly(seance);
+      const schedule = seance.parentElement?.parentElement;
+
+      if (
+        !(seance instanceof HTMLElement) ||
+        !schedule ||
+        !(schedule instanceof HTMLElement)
+      ) {
+        return;
+      }
+
+      const startPosition = {
+        x: draggable.position.x,
+        y: draggable.position.y,
+      };
+
+      draggable.on("pointerDown", () => {
+        seance.style.zIndex = "4";
+        seance.style.cursor = "grabbing";
+        startPosition.x = draggable.position.x;
+        startPosition.y = draggable.position.y;
+      });
+
+      draggable.on("staticClick", () => {
+        seance.style.zIndex = "3";
+        seance.style.cursor = "grab";
+      });
+
+      draggable.on("dragEnd", () => {
+        // const rect = seance.getBoundingClientRect();
+        // const x = rect.left + rect.width / 2;
+        // const y = rect.top + rect.height / 2;
+        // @ts-ignore
+        draggable.setPosition(startPosition.x, startPosition.y);
+        seance.style.zIndex = "3";
+        seance.style.cursor = "grab";
+
+        // const releasedOver = document.elementFromPoint(x, y);
+        // const bin = releasedOver?.closest(".bin");
+
+        // if (bin) {
+        //   console.log(bin);
+        // }
+      });
+
+      return () => {
+        draggable.destroy();
+      };
+    });
+  }, [seancesRef.current, seancesRef.current?.querySelectorAll(".seance")]);
+
+  useEffect(() => {
     const timeLine = allData.data.result.seances;
     const films = allData.data.result.films;
 
@@ -73,14 +128,12 @@ export const Schedule = ({
               (film: TFilm) => film.id === seance.seance_filmid,
             );
 
-            const filmIndex = films.indexOf(curFilm) % 4;
+            const filmIndex = films.indexOf(curFilm) % 5;
 
             const { timeStartPercent, timeDurationPercent } = setTimePosition(
               seance.seance_time,
               curFilm.film_duration,
             );
-
-						console.log(timeStartPercent, timeDurationPercent)
 
             return {
               id: seance.id,
@@ -88,7 +141,7 @@ export const Schedule = ({
               widthPercent: timeDurationPercent,
               startPercent: timeStartPercent,
               bg: Colors[filmIndex].bg,
-							border: Colors[filmIndex].border,
+              border: Colors[filmIndex].border,
               time: seance.seance_time,
             };
           }),
@@ -107,14 +160,6 @@ export const Schedule = ({
     return { timeStartPercent, timeDurationPercent };
   };
 
-  useEffect(() => {
-    console.log(seancesGrid);
-  }, [seancesGrid]);
-  return (
-    <ScheduleView
-      handleDrop={handleDrop}
-      handleDragOver={handleDragOver}
-      seancesGrid={seancesGrid}
-    />
-  );
+  useEffect(() => {}, [seancesGrid]);
+  return <ScheduleView seancesGrid={seancesGrid} seancesRef={seancesRef} />;
 };

@@ -4,6 +4,7 @@ export * from "./Loader/Loader";
 export * from "./Popup/Popup";
 export * from "./Dropdown/Dropdown";
 export * from "./ConfirmationChanges/ConfirmationChanges";
+export * from "./DropdownList/DropdownList";
 
 /* --------- client components --------- */
 
@@ -44,4 +45,5 @@ export * from "./HallPopup/HallPopup";
 export * from "./HallRemovePopup/HallRemovePopup";
 export * from "./AddFilmPopup/AddFilmPopup";
 export * from "./FilmRemovePopup/FilmRemovePopup";
+export * from "./AddSeancePopup/AddSeancePopup";
 

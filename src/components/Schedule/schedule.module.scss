@@ -8,10 +8,7 @@
 
   .hall {
     width: 100%;
-		padding: 0 20px;
 		height: 98px;
-		overflow-y: hidden;
-		overflow-x: auto;
 		z-index: 1;
     .hall-name {
 			height: 17px;
@@ -25,7 +22,7 @@
 
     .time-line {
       position: relative;
-      width: 720px;
+      width: 100%;
       height: 62px;
       border: solid 1px $color-gray-text;
       display: flex;
@@ -47,6 +44,7 @@
 				}
 
 				.film-name-vh {
+					white-space: nowrap;
 					display: none;
 					font-size: 12px;
 					position: absolute;
@@ -78,7 +76,6 @@
           background-color: $color-gray-text;
           top: -7px;
           left: 14px;
-					z-index: 4;
         }
 
         .time {
@@ -88,7 +85,6 @@
           position: absolute;
           left: -15px;
           bottom: -36px;
-					z-index: 4 !important;
         }
       }
 			
@@ -107,12 +103,17 @@
 @media (min-width: 568px) {
   .schedule {
     padding: 0 15px;
+
+		.hall {
+			padding: 0 20px;
+		}
   }
 }
 
 @media (min-width: 768px) {
 	.schedule {
 		margin-top: 52px;
+
 	}
 }
 
