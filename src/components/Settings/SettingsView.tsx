@@ -60,7 +60,6 @@ export const SettingsView = ({
         />
         <OpenSales
           position="last"
-          allData={allData}
           availableHalls={availableHalls}
         />
       </main>

@@ -15,11 +15,15 @@ export const Settings = ({ allData }: TProps) => {
     { name: string; id: number, hallOpen: 1 | 0 }[]
   >([]);
 
+	useEffect(() => {
+		console.log(availableHalls)
+	}, [availableHalls])
+
   useEffect(() => {
     if (setHall.data && setHall.data.result && setHall.data.result.halls) {
       setAvailableHalls(
         setHall.data.result.halls.map((hall: THall) => {
-          return { name: hall.hall_name, id: hall.id, hallOpen: hall.hall_open };
+          return { name: hall.hall_name, id: hall.id, hallOpen: 0 };
         }),
       );
     }

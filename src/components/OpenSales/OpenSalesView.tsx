@@ -3,10 +3,9 @@ import { Dropdown, Loader } from "@/components";
 
 type TProps = {
   position: "first" | "middle" | "last";
-  allData: any;
   availableHalls: { name: string; id: number; hallOpen: 0 | 1 }[];
   handleChooseHall: (id: number) => void;
-  currentHall: number;
+  currentHall: number | null;
 	isOpened: 1 | 0;
   handleOpenSales: () => void;
   handleCloseSales: () => void;
