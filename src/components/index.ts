@@ -39,6 +39,7 @@ export * from "./ConfigGrid/ConfigGrid";
 export * from "./ConfigPrice/ConfigPrice";
 export * from "./SessionGrid/SessionGrid";
 export * from "./Schedule/Schedule";
+export * from "./OpenSales/OpenSales";
 
 // Popups
 export * from "./HallPopup/HallPopup";

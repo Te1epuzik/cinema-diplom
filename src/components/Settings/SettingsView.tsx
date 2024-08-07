@@ -7,11 +7,12 @@ import {
   SettingHalls,
   ConfigPrice,
   SessionGrid,
+  OpenSales,
 } from "@/components";
 
 type TProps = {
   allData: any;
-  availableHalls: { id: number; name: string }[];
+  availableHalls: { id: number; name: string; hallOpen: 1 | 0 }[];
   handleDeleteHall: (id: number) => void;
   setHall: any;
 };
@@ -54,6 +55,11 @@ export const SettingsView = ({
         />
         <SessionGrid
           position="middle"
+          allData={allData}
+          availableHalls={availableHalls}
+        />
+        <OpenSales
+          position="last"
           allData={allData}
           availableHalls={availableHalls}
         />

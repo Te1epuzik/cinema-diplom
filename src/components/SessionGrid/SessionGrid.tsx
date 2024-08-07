@@ -78,11 +78,6 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
     });
 	}
 
-	// TODO: delete this console.log with useEffect
-	useEffect(() => {
-		console.log(deleteSeance)
-	}, [deleteSeance])
-
   useEffect(() => {
     const films = filmsRef.current?.querySelectorAll(".film");
 

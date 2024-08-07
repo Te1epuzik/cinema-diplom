@@ -79,12 +79,13 @@ export const ConfigHalls = ({ position, availableHalls, allData }: TProps) => {
   const handleSubmitChanges = (config: string[][]) => {
     setSeats(config);
     setUpdatedSeats((prev) => {
+			let previous = prev;
       if (prev.find((seat) => seat.id === currentHall)) {
-        prev.map((seat) => seat.id !== currentHall);
+        previous = prev.filter((seat) => seat.id !== currentHall);
       }
 
       return [
-        ...prev,
+        ...previous,
         {
           id: currentHall,
           seats: config,

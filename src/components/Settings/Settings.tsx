@@ -12,14 +12,14 @@ type TProps = {
 export const Settings = ({ allData }: TProps) => {
   const setHall = useSetHall();
   const [availableHalls, setAvailableHalls] = useState<
-    { name: string; id: number }[]
+    { name: string; id: number, hallOpen: 1 | 0 }[]
   >([]);
 
   useEffect(() => {
     if (setHall.data && setHall.data.result && setHall.data.result.halls) {
       setAvailableHalls(
         setHall.data.result.halls.map((hall: THall) => {
-          return { name: hall.hall_name, id: hall.id };
+          return { name: hall.hall_name, id: hall.id, hallOpen: hall.hall_open };
         }),
       );
     }
@@ -30,7 +30,7 @@ export const Settings = ({ allData }: TProps) => {
     if (allData.data && allData.data.result && allData.data.result.halls) {
       setAvailableHalls(
         allData.data.result.halls.map((hall: THall) => {
-          return { name: hall.hall_name, id: hall.id };
+          return { name: hall.hall_name, id: hall.id, hallOpen: hall.hall_open };
         }),
       );
     }

@@ -40,7 +40,7 @@ export const SeancesView = ({ data, error, date }: TProps) => {
               }) ? (
                 film.halls.map(
                   (hall) =>
-                    hall.seances?.length !== 0 && (
+                    hall.seances?.length !== 0 && hall.hall_open === 1 && (
                       <div key={hall.id} className={classes["hall"]}>
                         <h3 className={classes["hall-name"]}>
                           {hall.hall_name}

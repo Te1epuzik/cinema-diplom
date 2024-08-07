@@ -8,3 +8,4 @@ export * from "./useAddFilm";
 export * from "./useDeleteFilm";
 export * from "./useAddSeance";
 export * from "./useDeleteSeance";
+export * from "./useOpenSales";

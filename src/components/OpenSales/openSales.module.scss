@@ -1,0 +1,107 @@
+@import "@/Variables.scss";
+
+.title {
+  line-height: 19px;
+  display: block;
+  font-size: 16px;
+  text-align: left;
+}
+
+.open-sales {
+	display: flex;
+  flex-direction: column;
+  padding-top: 27px;
+  padding-bottom: 41px;
+
+	.choose-hall {
+    .halls {
+      user-select: none;
+      margin-top: 27px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      height: 46px;
+      align-items: center;
+      display: flex;
+      gap: 1px;
+      flex-wrap: nowrap;
+      scroll-behavior: smooth;
+
+      .hall {
+        white-space: nowrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        background-color: rgba($color-white, 0.45);
+        height: 42px;
+        padding: 0 20px;
+        cursor: pointer;
+        transition: all 0.4s ease-in-out;
+      }
+
+      .hall:hover {
+        background-color: $color-white;
+      }
+
+      .hall--active {
+        animation: pickHall 0.25s ease-in-out;
+        background-color: $color-white;
+        height: 46px;
+        padding: 0 23px;
+      }
+    }
+
+    .halls::-webkit-scrollbar {
+      display: none;
+    }
+  }
+	
+	.is-sales-open {
+		margin-top: 25px;
+	}
+
+	.close,
+	.open {
+		margin: 24px auto 0 auto;
+		font-size: 14px;
+		font-weight: 500;
+		padding: 12px 32px;
+	}
+}
+
+@media (min-width: 768px) {
+  .open-sales {
+    .choose-hall {
+      .halls {
+        height: 48px;
+      }
+
+      .halls::-webkit-scrollbar {
+        display: block;
+        height: 4px;
+      }
+    }
+  }
+}
+
+@keyframes pickHall {
+  0% {
+    transform: scale(100%);
+  }
+
+  25% {
+    transform: scale(95%);
+  }
+
+  50% {
+    transform: scale(90%);
+  }
+
+  75% {
+    transform: scale(95%);
+  }
+
+  100% {
+    transform: scale(100%);
+  }
+}
