@@ -8,15 +8,16 @@ type TProps = {
   handleAddFilm: (event: React.MouseEvent) => void;
   handleCancel: () => void;
   popupRef: React.RefObject<HTMLDivElement>;
-	setAvailableFilms: React.Dispatch<React.SetStateAction<TAvFilms[]>>
+  setAvailableFilms: React.Dispatch<React.SetStateAction<TAvFilms[]>>;
 };
 
 export const AddFilmPopup = ({
   handleAddFilm,
   handleCancel,
   popupRef,
-	setAvailableFilms
+  setAvailableFilms,
 }: TProps) => {
+	const [fileTooBig, setFileTooBig] = useState<boolean>(false);
   const [form, setForm] = useState<TForm>({
     filmName: "",
     filmDuration: "",
@@ -25,42 +26,49 @@ export const AddFilmPopup = ({
     filePoster: null,
   });
   const fileRef = useRef<HTMLInputElement>(null);
-  const { data, error, fetchData } = useAddFilm();
+  const { data, error, isLoading, fetchData } = useAddFilm();
 
-	useEffect(() => {
-		console.log(form)
-	}, [form])
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-		if (!fileRef || !fileRef.current || !fileRef.current.files || !fileRef.current.files[0]) {
-			return;
-		}
+    if (
+      !fileRef ||
+      !fileRef.current ||
+      !fileRef.current.files ||
+      !fileRef.current.files[0]
+    ) {
+      return;
+    }
     const params = new FormData();
     params.set("filmName", form.filmName);
     params.set("filmDuration", form.filmDuration);
     params.set("filmDescription", form.filmDescription);
     params.set("filmOrigin", form.filmOrigin);
-		params.set("filePoster", fileRef.current.files[0]);
+    params.set("filePoster", fileRef.current.files[0]);
     fetchData(params);
   };
 
-	useEffect(() => {
-		if (!data || !data.success) {
-			return;
-		}
-		
-		setAvailableFilms(data.result.films.map((film: TFilm) => {
-			return {
-				filmId: film.id,
-				filmName: film.film_name,
-				filmDuration: film.film_duration,
-				filmPoster: film.film_poster
-			}
-		}))
+  useEffect(() => {
+    if (!data || !data.success) {
+      return;
+    }
 
-		handleCancel();
-	}, [data, error])
+    setAvailableFilms(
+      data.result.films.map((film: TFilm) => {
+        return {
+          filmId: film.id,
+          filmName: film.film_name,
+          filmDuration: film.film_duration,
+          filmPoster: film.film_poster,
+        };
+      }),
+    );
+
+    handleCancel();
+  }, [data, error]);
 
   const handleChangeForm = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -70,53 +78,52 @@ export const AddFilmPopup = ({
   };
 
   useEffect(() => {
-
-		
-		if (
-			!fileRef.current ||
+    if (
+      !fileRef.current ||
       !fileRef.current.files ||
       !fileRef.current.files[0]
     ) {
-			return;
+      return;
     }
 
-		const handleFileChange = () => {
-			if (
-				!fileRef.current ||
-				!fileRef.current.files ||
-				!fileRef.current.files[0]
-			) {
-				return;
-			}
+    if (fileRef.current.files[0].size > 3000000) {
+			setFileTooBig(true);
+      return;
+    }
 
-			if (fileRef.current.files[0].size > 3000000) {
-				alert("Файл слишком большой, не более 3 МБ");
-				return;
-			}
-			if (fileRef.current && fileRef.current.files) {
-	
-				const fileList = fileRef.current.files;
-		
-				setForm((prev) => {
-					return { ...prev, filePoster: fileList[0] };
-				});
-			}
-		}
-		
-		fileRef.current.addEventListener("change", handleFileChange)
-		return () => {
-			if (
-				!fileRef.current ||
-				!fileRef.current.files ||
-				!fileRef.current.files[0]
-			) {
-				return;
-			}
-			
-			fileRef.current.removeEventListener("change", handleFileChange);
-		}
+		setFileTooBig(false);
 
-  }, [fileRef]);
+    const handleFileChange = () => {
+      if (
+        !fileRef.current ||
+        !fileRef.current.files ||
+        !fileRef.current.files[0]
+      ) {
+        return;
+      }
+
+      if (fileRef.current && fileRef.current.files) {
+        const fileList = fileRef.current.files;
+
+        setForm((prev) => {
+          return { ...prev, filePoster: fileList[0] };
+        });
+      }
+    };
+
+    fileRef.current.addEventListener("change", handleFileChange);
+    return () => {
+      if (
+        !fileRef.current ||
+        !fileRef.current.files ||
+        !fileRef.current.files[0]
+      ) {
+        return;
+      }
+
+      fileRef.current.removeEventListener("change", handleFileChange);
+    };
+  }, [fileRef.current, data]);
 
   return (
     <AddFilmPopupView
@@ -126,7 +133,9 @@ export const AddFilmPopup = ({
       form={form}
       popupRef={popupRef}
       fileRef={fileRef}
-			handleSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
+			fileTooBig={fileTooBig}
+			isLoading={isLoading}
     />
   );
 };

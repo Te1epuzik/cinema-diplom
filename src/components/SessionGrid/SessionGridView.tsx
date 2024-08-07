@@ -1,5 +1,5 @@
 import { TAvFilms } from "@/models/AddFilmModel";
-import {TTimeLine} from "./SessionGrid";
+import { TTimeLine } from "./SessionGrid";
 import classes from "./sessionGrid.module.scss";
 import {
   Dropdown,
@@ -7,6 +7,7 @@ import {
   Schedule,
   FilmRemovePopup,
   AddSeancePopup,
+  DeleteSeancePopup,
 } from "@/components";
 import binPNG from "@/assets/bin.png";
 
@@ -32,8 +33,23 @@ type TProps = {
   seanceInfo: { hallId: number | null; filmId: number | null };
   handleAddFilmPopup: (event: React.MouseEvent) => void;
   addSeance: boolean;
-	seancesGrid: TTimeLine[];
-	setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>
+  seancesGrid: TTimeLine[];
+  setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>;
+  setDeleteSeance: React.Dispatch<
+    React.SetStateAction<{
+      trigger: boolean;
+      id: number | null;
+			film: string;
+			hallId: number | null;
+    }>
+  >;
+  deleteSeance: {
+    trigger: boolean;
+    id: number | null;
+		film: string;
+		hallId: number | null;
+  };
+  handleDeleteSeancePopup: (event: React.MouseEvent) => void;
 };
 
 export const SessionGridView = ({
@@ -54,21 +70,35 @@ export const SessionGridView = ({
   seanceInfo,
   handleAddFilmPopup,
   addSeance,
-	seancesGrid,
-	setSeancesGrid,
+  seancesGrid,
+  setSeancesGrid,
+  deleteSeance,
+  setDeleteSeance,
+  handleDeleteSeancePopup,
 }: TProps) => {
   return (
     <Dropdown content={"Сетка сеансов"} position={position}>
+      {deleteSeance.trigger && (
+        <DeleteSeancePopup
+          handlePopup={handleDeleteSeancePopup}
+          handleCancel={handleCancel}
+					popupRef={popupRef}
+					seanceId={deleteSeance.id}
+					filmName={deleteSeance.film}
+					availableFilms={availableFilms}
+					setSeancesGrid={setSeancesGrid}
+					hallId={deleteSeance.hallId}
+        />
+      )}
       {addSeance && (
         <AddSeancePopup
-					seancesGrid={seancesGrid}
-					setSeancesGrid={setSeancesGrid}
+          setSeancesGrid={setSeancesGrid}
           seanceInfo={seanceInfo}
           handleCancel={handleCancel}
           handlePopup={handleAddFilmPopup}
           popupRef={popupRef}
-					availableHalls={availableHalls}
-					availableFilms={availableFilms}
+          availableHalls={availableHalls}
+          availableFilms={availableFilms}
         />
       )}
       {deleteFilm && (
@@ -128,7 +158,13 @@ export const SessionGridView = ({
             ))}
           </div>
         </div>
-        <Schedule availableHalls={availableHalls} allData={allData} seancesGrid={seancesGrid} setSeancesGrid={setSeancesGrid} />
+        <Schedule
+          availableHalls={availableHalls}
+          allData={allData}
+          seancesGrid={seancesGrid}
+          setSeancesGrid={setSeancesGrid}
+          setDeleteSeance={setDeleteSeance}
+        />
       </div>
     </Dropdown>
   );

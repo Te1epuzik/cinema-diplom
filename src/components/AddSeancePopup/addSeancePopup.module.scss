@@ -50,8 +50,8 @@
 	.error {
 		color: $color-red;
 		font-size: 14px;
-		position: absolute;
-		bottom: 88px;
+		position: relative;
+		bottom: -8px;
 		left: 50%;
 		transform: translateX(-50%);
 	}
@@ -95,6 +95,12 @@
 				width: 139px;
 			}
     }
+
+		.error {
+			white-space: nowrap;
+			position: absolute;
+			bottom: 88px;
+		}
 
   }
 }

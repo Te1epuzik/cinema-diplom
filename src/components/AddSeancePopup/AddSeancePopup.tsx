@@ -15,7 +15,6 @@ type TProps = {
   };
   availableFilms: TAvFilms[];
   availableHalls: { id: number | null; name: string }[];
-  seancesGrid: TTimeLine[];
   setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>;
 };
 
@@ -26,7 +25,6 @@ export const AddSeancePopup = ({
   seanceInfo,
   availableFilms,
   availableHalls,
-  seancesGrid,
   setSeancesGrid,
 }: TProps) => {
   const [selectedHall, setSelectedHall] = useState<{
@@ -82,9 +80,6 @@ export const AddSeancePopup = ({
       seanceTime: time,
     });
   };
-  useEffect(() => {
-    console.log(seancesGrid);
-  }, [seancesGrid]);
 
   useEffect(() => {
     if (data?.success && data.result) {

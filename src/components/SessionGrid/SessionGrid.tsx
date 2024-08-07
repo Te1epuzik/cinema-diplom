@@ -28,7 +28,18 @@ export type TTimeLine = {
 };
 
 export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
-	const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
+  const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
+	const [deleteSeance, setDeleteSeance] = useState<{ 
+		trigger: boolean;
+		id: number | null;
+		film: string;
+		hallId: number | null;
+	}>({
+		trigger: false,
+		id: null,
+		film: "",
+		hallId: null,
+	}); // delete seance popup trigger
   const [addFilm, setAddFilm] = useState<boolean>(false); // add film popup trigger
   const [addSeance, setAddSeance] = useState<boolean>(false); // add seance popup trigger
   const [seanceInfo, setSeanceInfo] = useState<{
@@ -50,6 +61,27 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const filmsRef = useRef<HTMLDivElement>(null);
   const { data, fetchData } = useDeleteFilm();
+
+	const handleDeleteSeancePopup = (event: React.MouseEvent) => {
+		if (
+      popupRef &&
+      popupRef.current &&
+      popupRef.current.contains(event.target as Node)
+    ) {
+      return;
+    }
+    setDeleteSeance({
+			trigger: false,
+			id: null,
+			film: "",
+			hallId: null,
+    });
+	}
+
+	// TODO: delete this console.log with useEffect
+	useEffect(() => {
+		console.log(deleteSeance)
+	}, [deleteSeance])
 
   useEffect(() => {
     const films = filmsRef.current?.querySelectorAll(".film");
@@ -74,18 +106,15 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
         film.style.zIndex = "1";
         film.style.cursor = "grab";
       });
-
-      draggable.on("dragMove", () => {});
-
-      draggable.on("dragEnd", () => {
-        const rect = film.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
+			
+      draggable.on("pointerUp", (_event: Event, pointer: MouseEvent | Touch) => {
         // @ts-ignore
         draggable.setPosition(0, 0);
         film.style.zIndex = "1";
         film.style.cursor = "grab";
-        const releasedOver = document.elementFromPoint(x, y);
+				film.style.pointerEvents = "none";
+        const releasedOver = document.elementFromPoint(pointer.clientX, pointer.clientY);
+				film.style.pointerEvents = "auto";
         const hall = releasedOver?.closest(".schedule-hall");
 
         if (hall && film) {
@@ -104,20 +133,20 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
         draggable.destroy();
       };
     });
-  }, [filmsRef.current, seancesGrid]);
+  }, [filmsRef.current, availableFilms]);
 
-	const handleAddFilmPopup = (event: React.MouseEvent) => {
-		if (
+  const handleAddFilmPopup = (event: React.MouseEvent) => {
+    if (
       popupRef &&
       popupRef.current &&
       popupRef.current.contains(event.target as Node)
     ) {
       return;
     }
-		setAddSeance((prev) => {
-			return !prev;
-		});
-	}
+    setAddSeance((prev) => {
+      return !prev;
+    });
+  };
 
   const handleDeleteFilmPopup = (
     event: React.MouseEvent,
@@ -198,7 +227,14 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
     } else if (deleteFilm) {
       setDeleteFilm(false);
     } else if (addSeance) {
-			setAddSeance(false);
+      setAddSeance(false);
+		} else if (deleteSeance) {
+			setDeleteSeance({
+				trigger: false,
+				id: null,
+				film: "",
+				hallId: null,
+			})
 		}
   };
 
@@ -218,11 +254,14 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       filmToDelete={filmToDelete}
       deleteFilm={deleteFilm}
       filmsRef={filmsRef}
-			seanceInfo={seanceInfo}
-			handleAddFilmPopup={handleAddFilmPopup}
-			addSeance={addSeance}
-			seancesGrid={seancesGrid}
-			setSeancesGrid={setSeancesGrid}
+      seanceInfo={seanceInfo}
+      handleAddFilmPopup={handleAddFilmPopup}
+      addSeance={addSeance}
+      seancesGrid={seancesGrid}
+      setSeancesGrid={setSeancesGrid}
+			setDeleteSeance={setDeleteSeance}
+			deleteSeance={deleteSeance}
+			handleDeleteSeancePopup={handleDeleteSeancePopup}
     />
   );
 };

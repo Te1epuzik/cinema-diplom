@@ -8,3 +8,4 @@ export * from "./ArrowDecSVG";
 export * from "./ArrowIncSVG";
 export * from "./ArrowDropdownSVG";
 export * from "./ClockSVG";
+export * from "./BinSVG";

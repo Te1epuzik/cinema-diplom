@@ -46,4 +46,5 @@ export * from "./HallRemovePopup/HallRemovePopup";
 export * from "./AddFilmPopup/AddFilmPopup";
 export * from "./FilmRemovePopup/FilmRemovePopup";
 export * from "./AddSeancePopup/AddSeancePopup";
+export * from "./DeleteSeancePopup/DeleteSeancePopup";
 

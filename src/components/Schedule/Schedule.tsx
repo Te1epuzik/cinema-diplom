@@ -1,13 +1,22 @@
 import { TFilm, TSeance } from "@/models/SessionsModel";
 import { ScheduleView } from "./ScheduleView";
-import { useEffect, useRef } from "react";
+import { useResize } from "@/hooks";
+import { useEffect, useRef, useState } from "react";
 import Draggabilly from "draggabilly";
 
 type TProps = {
   availableHalls: { name: string; id: number }[];
   allData: any;
-	seancesGrid: TTimeLine[];
-	setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>
+  seancesGrid: TTimeLine[];
+  setSeancesGrid: React.Dispatch<React.SetStateAction<TTimeLine[]>>;
+  setDeleteSeance: React.Dispatch<
+    React.SetStateAction<{
+      trigger: boolean;
+      id: number | null;
+      film: string;
+			hallId: number | null;
+    }>
+  >;
 };
 
 type TCurSeance = {
@@ -26,8 +35,17 @@ type TTimeLine = {
   timeLine: TCurSeance[];
 };
 
-export const Schedule = ({ availableHalls, allData, seancesGrid, setSeancesGrid }: TProps) => {
+export const Schedule = ({
+  availableHalls,
+  allData,
+  seancesGrid,
+  setSeancesGrid,
+  setDeleteSeance,
+}: TProps) => {
+  const [desktopBin, setDesktopBin] = useState<number | null>(null);
+  const [mobileBin, setMobileBin] = useState<number | null>(null);
   const seancesRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useResize();
 
   const Colors = [
     {
@@ -72,15 +90,13 @@ export const Schedule = ({ availableHalls, allData, seancesGrid, setSeancesGrid 
       }
 
       const startPosition = {
-        x: draggable.position.x,
-        y: draggable.position.y,
+        left: seance.style.left,
+        top: seance.style.top,
       };
 
       draggable.on("pointerDown", () => {
         seance.style.zIndex = "4";
         seance.style.cursor = "grabbing";
-        startPosition.x = draggable.position.x;
-        startPosition.y = draggable.position.y;
       });
 
       draggable.on("staticClick", () => {
@@ -88,21 +104,48 @@ export const Schedule = ({ availableHalls, allData, seancesGrid, setSeancesGrid 
         seance.style.cursor = "grab";
       });
 
+      draggable.on("dragStart", () => {
+        const currentHallId = schedule.getAttribute("id");
+
+        if (isMobile) {
+          setMobileBin(Number(currentHallId) || null);
+          setDesktopBin(null);
+        } else {
+          setDesktopBin(Number(currentHallId) || null);
+          setMobileBin(null);
+        }
+      });
+
+      draggable.on(
+        "pointerUp",
+        (_event: Event, pointer: MouseEvent | Touch) => {
+          seance.style.pointerEvents = "none";
+          const releasedOver = document.elementFromPoint(
+            pointer.clientX,
+            pointer.clientY,
+          );
+          seance.style.pointerEvents = "auto";
+          const bin = releasedOver?.closest(".bin");
+
+          if (bin) {
+            setDeleteSeance({
+              trigger: true,
+              id: Number(seance.getAttribute("id")),
+							film: seance.getAttribute("data-film") as string,
+							hallId: Number(bin.getAttribute("id")),
+            });
+            console.log(bin);
+          }
+        },
+      );
+
       draggable.on("dragEnd", () => {
-        // const rect = seance.getBoundingClientRect();
-        // const x = rect.left + rect.width / 2;
-        // const y = rect.top + rect.height / 2;
-        // @ts-ignore
-        draggable.setPosition(startPosition.x, startPosition.y);
+        setDesktopBin(null);
+        setMobileBin(null);
+        seance.style.left = startPosition.left;
+        seance.style.top = startPosition.top;
         seance.style.zIndex = "3";
         seance.style.cursor = "grab";
-
-        // const releasedOver = document.elementFromPoint(x, y);
-        // const bin = releasedOver?.closest(".bin");
-
-        // if (bin) {
-        //   console.log(bin);
-        // }
       });
 
       return () => {
@@ -161,5 +204,12 @@ export const Schedule = ({ availableHalls, allData, seancesGrid, setSeancesGrid 
   };
 
   useEffect(() => {}, [seancesGrid]);
-  return <ScheduleView seancesGrid={seancesGrid} seancesRef={seancesRef} />;
+  return (
+    <ScheduleView
+      seancesGrid={seancesGrid}
+      seancesRef={seancesRef}
+      desktopBin={desktopBin}
+      mobileBin={mobileBin}
+    />
+  );
 };

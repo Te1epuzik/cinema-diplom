@@ -24,6 +24,7 @@
         width: 260px;
         height: 52px;
 				z-index: 1;
+				transition: all .1s ease-out;
 
         .film-poster {
 					pointer-events: none;
@@ -68,6 +69,7 @@
           border: none;
           padding: 0;
           background-color: $color-white;
+					z-index: 5;
 
           .bin {
             width: 12px;

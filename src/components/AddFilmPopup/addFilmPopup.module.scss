@@ -25,7 +25,36 @@
 	}
 	
 	.textarea {
+		font-size: 16px;
 		height: 80px;
+	}
+
+	.load-poster {
+		position: relative;
+		overflow: visible;
+
+		.only-png {
+			text-align: left;
+			text-transform: none;
+			color: $color-gray-text;
+			white-space: wrap;
+			width: 70px;
+			font-size: 12px;
+			position: absolute;
+			top: 3px;
+			right: -73px;
+		}
+	}
+
+
+	.file-too-big {
+		color: $color-red;
+		font-size: 14px;
+		white-space: nowrap;
+		position: absolute;
+		bottom: -8px;
+		left: 50%;
+		transform: translateX(-50%); 
 	}
 
 	.btns-wrapper {
@@ -55,6 +84,16 @@
 
 @media (min-width: 568px) {
 	.form {
+		.load-poster {
+			.only-png {
+				text-align: center;
+				width: 110px;
+				top: -18px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+
 		.btns-wrapper {
 			flex-direction: row;
 

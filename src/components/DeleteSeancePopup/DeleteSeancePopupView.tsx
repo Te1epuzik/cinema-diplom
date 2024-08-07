@@ -1,23 +1,22 @@
-import classes from "./filmRemovePopup.module.scss";
-import { Popup } from "@/components";
+import classes from "./deleteSeancePopup.module.scss";
+import { Loader, Popup } from "@/components";
 
 type TProps = {
   handlePopup: (event: React.MouseEvent) => void;
   handleCancel: () => void;
-  handleDeleteFilm: (id: number) => void;
-  filmToDelete: {
-    id: number | null;
-    name: string;
-  };
   popupRef: React.RefObject<HTMLDivElement>;
+  filmName: string;
+  handleDeleteSeance: () => void;
+	isLoading: boolean;
 };
 
-export const FilmRemovePopupView = ({
+export const DeleteSeancePopupView = ({
   handlePopup,
   handleCancel,
   popupRef,
-  handleDeleteFilm,
-  filmToDelete,
+  filmName,
+  handleDeleteSeance,
+	isLoading,
 }: TProps) => {
   return (
     <Popup
@@ -28,18 +27,16 @@ export const FilmRemovePopupView = ({
     >
       <div className={classes["delete-popup"]}>
         <span className={classes["delete-question"]}>
-          Вы уверены, что хотите удалить фильм <span className="bold-text">"{filmToDelete.name}"</span>?
+          Вы уверены, что хотите снять с сеанса фильм{" "}
+          <span className="bold-text">"{filmName}"</span>?
         </span>
         <div className={classes["btns-wrapper"]}>
           <button
             className={classes["submit"] + " " + "button"}
             type="button"
-            onClick={() => {
-              handleDeleteFilm(filmToDelete.id as number);
-              handleCancel();
-            }}
+            onClick={handleDeleteSeance}
           >
-            Удалить
+						{isLoading ? <Loader /> : "Удалить"}
           </button>
           <button
             className={classes["cancel"] + " " + "button-cncl"}
