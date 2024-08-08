@@ -104,7 +104,7 @@ export const AddSeancePopup = ({
           if (!curFilm) {
             return;
           }
-          const filmIndex = films.indexOf(curFilm) % 4;
+          const filmIndex = films.indexOf(curFilm) % 5;
 
           const { timeStartPercent, timeDurationPercent } = setTimePosition(
             seance.seance_time,
