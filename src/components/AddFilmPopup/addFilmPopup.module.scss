@@ -1,6 +1,7 @@
 @import "@/Variables.scss";
 
 .form {
+	position: relative;
 	margin: 0 auto;
 	padding-top: 14px;
 	padding-bottom: 36px;
@@ -48,11 +49,12 @@
 	}
 
 
-	.file-too-big {
+	.file-too-big,
+	.error{
 		color: $color-red;
 		font-size: 14px;
-		white-space: nowrap;
-		position: absolute;
+		white-space: wrap;
+		position: relative;
 		bottom: -8px;
 		left: 50%;
 		transform: translateX(-50%); 

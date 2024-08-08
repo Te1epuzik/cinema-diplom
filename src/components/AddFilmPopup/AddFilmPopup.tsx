@@ -17,6 +17,7 @@ export const AddFilmPopup = ({
   popupRef,
   setAvailableFilms,
 }: TProps) => {
+	const [formatError, setFormatError] = useState<boolean>(false);
 	const [fileTooBig, setFileTooBig] = useState<boolean>(false);
   const [form, setForm] = useState<TForm>({
     filmName: "",
@@ -86,12 +87,18 @@ export const AddFilmPopup = ({
       return;
     }
 
+		if (fileRef.current.files[0].type !== "image/png" || (!data?.success)) {
+			setFormatError(true);
+			return;
+		}
+
     if (fileRef.current.files[0].size > 3000000) {
 			setFileTooBig(true);
       return;
     }
 
 		setFileTooBig(false);
+		setFormatError(false);
 
     const handleFileChange = () => {
       if (
@@ -136,6 +143,7 @@ export const AddFilmPopup = ({
       handleSubmit={handleSubmit}
 			fileTooBig={fileTooBig}
 			isLoading={isLoading}
+			formatError={formatError}
     />
   );
 };

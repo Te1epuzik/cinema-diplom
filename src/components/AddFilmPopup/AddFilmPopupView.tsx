@@ -11,9 +11,10 @@ type TProps = {
   ) => void;
   form: TForm;
   fileRef: React.RefObject<HTMLInputElement>;
-	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-	fileTooBig: boolean;
-	isLoading: boolean;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  fileTooBig: boolean;
+  isLoading: boolean;
+  formatError: boolean;
 };
 
 export const AddFilmPopupView = ({
@@ -24,8 +25,9 @@ export const AddFilmPopupView = ({
   form,
   fileRef,
   handleSubmit,
-	fileTooBig,
-	isLoading,
+  fileTooBig,
+  isLoading,
+  formatError,
 }: TProps) => {
   return (
     <Popup
@@ -47,7 +49,7 @@ export const AddFilmPopupView = ({
           id="film-name1"
           placeholder="Например, «Гражданин Кейн»"
           required
-					autoFocus
+          autoFocus
           autoComplete="off"
         />
         <label className={classes["label"]} htmlFor="film-duration1">
@@ -91,17 +93,26 @@ export const AddFilmPopupView = ({
           required
           autoComplete="off"
         />
-				{fileTooBig && <p className={classes["file-too-big"]}>Файл слишком большой, не более 3 МБ</p>}
+        {formatError && (
+          <p className={classes["error"]}>
+            Ошибка формата, файл должен быть .png и не более 3 МБ
+          </p>
+        )}
+        {fileTooBig && (
+          <p className={classes["file-too-big"]}>
+            Файл слишком большой, не более 3 МБ
+          </p>
+        )}
         <div className={classes["btns-wrapper"]}>
           <button className={classes["submit"] + " " + "button"} type="submit">
-						{isLoading ? <Loader /> : "Добавить фильм"}
+            {isLoading ? <Loader /> : "Добавить фильм"}
           </button>
           <label
             className={classes["load-poster"] + " " + "button"}
             htmlFor="poster1"
           >
             Загрузить постер
-						<span className={classes['only-png']}>only .png, max 3 MB</span>
+            <span className={classes["only-png"]}>only .png, max 3 MB</span>
           </label>
           <input
             className={classes["input-file"] + " " + "vh"}
