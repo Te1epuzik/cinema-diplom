@@ -38,7 +38,7 @@ export const ScheduleView = ({
           <span className={classes["hall-name"]}>{grid.hallName}</span>
           <div className={classes["time-line"]}>
             {grid.timeLine.map((seance: TCurSeance) => (
-              <div
+              <button
                 key={seance.id}
 								id={seance.id.toString()}
                 className={classes["seance"] + " " + "seance"}
@@ -60,7 +60,7 @@ export const ScheduleView = ({
                   {seance.filmName}
                 </span>
                 <span className={classes["time"]}>{seance.time}</span>
-              </div>
+              </button>
             ))}
           </div>
         </div>

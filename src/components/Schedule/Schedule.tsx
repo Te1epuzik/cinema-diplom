@@ -45,7 +45,7 @@ export const Schedule = ({
   const [desktopBin, setDesktopBin] = useState<number | null>(null);
   const [mobileBin, setMobileBin] = useState<number | null>(null);
   const seancesRef = useRef<HTMLDivElement>(null);
-  const { isMobile } = useResize();
+  const { isMobile, isTablet } = useResize();
 
   const Colors = [
     {
@@ -102,6 +102,9 @@ export const Schedule = ({
       draggable.on("staticClick", () => {
         seance.style.zIndex = "3";
         seance.style.cursor = "grab";
+				if (isTablet) {
+					seance.focus();
+				}
       });
 
       draggable.on("dragStart", () => {
