@@ -6,27 +6,36 @@ type TProps = {
   seancesGrid: TTimeLine[];
   seancesRef: React.RefObject<HTMLDivElement>;
   desktopBin: number | null;
-	mobileBin: number | null;
+  mobileBin: number | null;
+  width: number | null;
 };
 
 export const ScheduleView = ({
   seancesGrid,
   seancesRef,
   desktopBin,
-	mobileBin,
+  mobileBin,
+  width
 }: TProps) => {
   return (
     <div className={classes["schedule"]} ref={seancesRef}>
-			<span className={classes['hint']}>Чтобы удалить сеанс, перетащите его в корзину</span>
+      <span className={classes["hint"]}>
+        Чтобы удалить сеанс,{width && width < 768 && <br />} перетащите его в корзину
+      </span>
       {seancesGrid.map((grid: TTimeLine) => (
         <div
           key={grid.hallId}
           id={grid.hallId.toString()}
           className={classes["hall"] + " " + "schedule-hall"}
         >
-          {mobileBin && mobileBin === grid.hallId && <div id={grid.hallId.toString()} className={classes["bin-mobile"] + " " + "bin"}>
-            <BinSVG />
-          </div>}
+          {mobileBin && mobileBin === grid.hallId && (
+            <div
+              id={grid.hallId.toString()}
+              className={classes["bin-mobile"] + " " + "bin"}
+            >
+              <BinSVG />
+            </div>
+          )}
           {desktopBin && desktopBin === grid.hallId && (
             <div
               id={grid.hallId.toString()}
@@ -40,9 +49,9 @@ export const ScheduleView = ({
             {grid.timeLine.map((seance: TCurSeance) => (
               <button
                 key={seance.id}
-								id={seance.id.toString()}
+                id={seance.id.toString()}
                 className={classes["seance"] + " " + "seance"}
-								data-film={seance.filmName}
+                data-film={seance.filmName}
                 style={{
                   width: `${seance.widthPercent}%`,
                   left: `${seance.startPercent}%`,

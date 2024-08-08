@@ -45,7 +45,7 @@ export const Schedule = ({
   const [desktopBin, setDesktopBin] = useState<number | null>(null);
   const [mobileBin, setMobileBin] = useState<number | null>(null);
   const seancesRef = useRef<HTMLDivElement>(null);
-  const { isMobile, isTablet } = useResize();
+  const { isMobile, isTablet, width } = useResize();
 
   const Colors = [
     {
@@ -213,6 +213,7 @@ export const Schedule = ({
       seancesRef={seancesRef}
       desktopBin={desktopBin}
       mobileBin={mobileBin}
+			width={width}
     />
   );
 };

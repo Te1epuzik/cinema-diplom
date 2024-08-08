@@ -8,6 +8,7 @@
   gap: 15px;
 
   .hint {
+    white-space: nowrap;
     pointer-events: none;
     display: block;
     width: 147px;
@@ -65,12 +66,12 @@
       align-items: center;
 
       .seance {
-				padding: 0;
-				margin: 0;
-				outline: none;
-				border-radius: 0;
-				font-weight: 400;
-				color: inherit;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        border-radius: 0;
+        font-weight: 400;
+        color: inherit;
         cursor: grab;
         position: absolute;
         display: flex;
@@ -132,10 +133,10 @@
         }
       }
 
-			.seance:focus > .film-name-vh {
-				display: block;
-				animation: showFilmName 0.15s ease-out;
-			}
+      .seance:focus > .film-name-vh {
+        display: block;
+        animation: showFilmName 0.15s ease-out;
+      }
     }
   }
 
@@ -148,11 +149,9 @@
   .schedule {
     padding: 0 15px;
 
-		
-
-		.hint {
-			right: 35px;
-		}
+    .hint {
+      right: 35px;
+    }
 
     .hall {
       padding: 0 20px;
@@ -165,7 +164,6 @@
     margin-top: 52px;
 
     .hint {
-			white-space: nowrap;
       width: 272px;
       top: 0;
       right: 35px;
@@ -185,15 +183,15 @@
           }
         }
 
-				.seance:hover > .film-name-vh {
-					display: block;
-					animation: showFilmName 0.15s ease-out;
-				}
+        .seance:hover > .film-name-vh {
+          display: block;
+          animation: showFilmName 0.15s ease-out;
+        }
 
-				.seance:focus > .film-name-vh {
-					display: none;
-					animation: none;
-				}
+        .seance:focus > .film-name-vh {
+          display: none;
+          animation: none;
+        }
       }
     }
   }
