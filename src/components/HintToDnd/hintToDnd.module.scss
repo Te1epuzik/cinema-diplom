@@ -3,7 +3,7 @@
 .hint {
 	cursor: pointer;
 	padding: 10px;
-	background-color: $color-light-gray;
+	background-color: rgba($color-light-gray, 0.5);
 	border: solid 1px $color-violet;
 	border-right: none;
 	border-top-left-radius: 20px;
@@ -15,6 +15,7 @@
 	right: 0;
 	top: 30px;
 	transform: translateX(70%);
+	transition: background-color .3s ease-in-out;
 	animation: hide .3s ease-in-out;
 
 	.hint-arrow {
@@ -44,6 +45,7 @@
 }
 
 .hint--active {
+	background-color: $color-light-gray;
 	transform: translate(0);
 	animation: show .3s ease-in-out;
 }
