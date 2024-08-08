@@ -5,6 +5,7 @@ export * from "./Popup/Popup";
 export * from "./Dropdown/Dropdown";
 export * from "./ConfirmationChanges/ConfirmationChanges";
 export * from "./DropdownList/DropdownList";
+export * from "./HintToDnd/HintToDnd";
 
 /* --------- client components --------- */
 

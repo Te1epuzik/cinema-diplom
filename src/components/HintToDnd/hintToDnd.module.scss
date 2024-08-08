@@ -1,0 +1,104 @@
+@import "@/Variables.scss";
+
+.hint {
+	cursor: pointer;
+	padding: 10px;
+	background-color: $color-light-gray;
+	border: solid 1px $color-violet;
+	border-right: none;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	position: absolute;
+	right: 0;
+	top: 30px;
+	transform: translateX(70%);
+	animation: hide .3s ease-in-out;
+
+	.hint-arrow {
+		height: 24px;
+		position: absolute;
+		left: -24px;
+		top: 50%;
+		transform: translateY(-50%);
+		animation: arrowBlink 2s ease-in-out infinite, showArrow .3s ease-in-out;
+	}
+
+	.hint-img {
+		width: 30px;
+		.hint-img-inner {
+			width: 100%;
+		}
+
+	}
+
+	.hint-text {
+		color: $color-gray-text;
+		display: block;
+		width: 100px;
+		font-size: 12px;
+		white-space: wrap;
+	}
+}
+
+.hint--active {
+	transform: translate(0);
+	animation: show .3s ease-in-out;
+}
+
+@media (min-width: 568px) {
+	.hint {
+		position: absolute;
+		border: none;
+		background-color: transparent;
+		transform: none;
+		left: 310px;
+		top: 45px;
+		animation: none;
+	
+		.hint-text {
+			width: 200px;
+		}
+	}
+}
+
+@keyframes show {
+	0% {
+		transform: translateX(70%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes hide {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(70%);
+	}
+}
+
+@keyframes arrowBlink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes showArrow {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

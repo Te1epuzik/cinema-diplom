@@ -28,6 +28,7 @@ export type TTimeLine = {
 };
 
 export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
+
   const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
 	const [deleteSeance, setDeleteSeance] = useState<{ 
 		trigger: boolean;

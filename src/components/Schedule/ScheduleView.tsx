@@ -17,6 +17,7 @@ export const ScheduleView = ({
 }: TProps) => {
   return (
     <div className={classes["schedule"]} ref={seancesRef}>
+			<span className={classes['hint']}>Чтобы удалить сеанс, перетащите его в корзину</span>
       {seancesGrid.map((grid: TTimeLine) => (
         <div
           key={grid.hallId}

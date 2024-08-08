@@ -8,6 +8,7 @@ import {
   FilmRemovePopup,
   AddSeancePopup,
   DeleteSeancePopup,
+	HintToDnd,
 } from "@/components";
 import binPNG from "@/assets/bin.png";
 
@@ -127,6 +128,7 @@ export const SessionGridView = ({
           >
             Добавить фильм
           </button>
+					<HintToDnd />
           <div className={classes["film-list"]} ref={filmsRef}>
             {availableFilms.map((film) => (
               <div
