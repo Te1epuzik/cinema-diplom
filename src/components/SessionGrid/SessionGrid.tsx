@@ -81,8 +81,9 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
 
   useEffect(() => {
     const films = filmsRef.current?.querySelectorAll(".film");
+		const sessionGrid = document.querySelector('#session-grid1');
 
-    if (!films) {
+    if (!films || !sessionGrid || !(sessionGrid instanceof HTMLElement)) {
       return;
     }
 
@@ -96,11 +97,13 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       draggable.on("pointerDown", () => {
         film.style.zIndex = "2";
         film.style.cursor = "grabbing";
+				sessionGrid.style.cursor = "grabbing";
       });
 
       draggable.on("staticClick", () => {
         film.style.zIndex = "1";
         film.style.cursor = "grab";
+				sessionGrid.style.cursor = "default";
       });
 			
       draggable.on("pointerUp", (_event: Event, pointer: MouseEvent | Touch) => {
@@ -108,6 +111,7 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
         draggable.setPosition(0, 0);
         film.style.zIndex = "1";
         film.style.cursor = "grab";
+				sessionGrid.style.cursor = "default";
 				film.style.pointerEvents = "none";
         const releasedOver = document.elementFromPoint(pointer.clientX, pointer.clientY);
 				film.style.pointerEvents = "auto";

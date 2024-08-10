@@ -119,7 +119,7 @@ export const SessionGridView = ({
           setAvailableFilms={setAvailableFilms}
         />
       )}
-      <div className={classes["session-grid"]}>
+      <div className={classes["session-grid"]} id="session-grid1">
         <div className={classes["films"]}>
           <button
             className={classes["add-film"] + " " + "button"}

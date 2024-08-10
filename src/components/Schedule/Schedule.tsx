@@ -14,7 +14,7 @@ type TProps = {
       trigger: boolean;
       id: number | null;
       film: string;
-			hallId: number | null;
+      hallId: number | null;
     }>
   >;
 };
@@ -79,12 +79,15 @@ export const Schedule = ({
 
     seances.forEach((seance) => {
       const draggable = new Draggabilly(seance);
+      const sessionGrid = document.querySelector("#session-grid1");
       const schedule = seance.parentElement?.parentElement;
 
       if (
         !(seance instanceof HTMLElement) ||
         !schedule ||
-        !(schedule instanceof HTMLElement)
+        !(schedule instanceof HTMLElement) ||
+        !sessionGrid ||
+        !(sessionGrid instanceof HTMLElement)
       ) {
         return;
       }
@@ -97,14 +100,16 @@ export const Schedule = ({
       draggable.on("pointerDown", () => {
         seance.style.zIndex = "4";
         seance.style.cursor = "grabbing";
+				sessionGrid.style.cursor = "grabbing";
       });
 
       draggable.on("staticClick", () => {
         seance.style.zIndex = "3";
         seance.style.cursor = "grab";
-				if (isTablet) {
-					seance.focus();
-				}
+        if (isTablet) {
+          seance.focus();
+        }
+				sessionGrid.style.cursor = "default";
       });
 
       draggable.on("dragStart", () => {
@@ -113,6 +118,7 @@ export const Schedule = ({
         if (isMobile) {
           setMobileBin(Number(currentHallId) || null);
           setDesktopBin(null);
+					seance.style.top = "-70px";
         } else {
           setDesktopBin(Number(currentHallId) || null);
           setMobileBin(null);
@@ -127,6 +133,7 @@ export const Schedule = ({
             pointer.clientX,
             pointer.clientY,
           );
+					sessionGrid.style.cursor = "default";
           seance.style.pointerEvents = "auto";
           const bin = releasedOver?.closest(".bin");
 
@@ -134,8 +141,8 @@ export const Schedule = ({
             setDeleteSeance({
               trigger: true,
               id: Number(seance.getAttribute("id")),
-							film: seance.getAttribute("data-film") as string,
-							hallId: Number(bin.getAttribute("id")),
+              film: seance.getAttribute("data-film") as string,
+              hallId: Number(bin.getAttribute("id")),
             });
             console.log(bin);
           }
@@ -213,7 +220,7 @@ export const Schedule = ({
       seancesRef={seancesRef}
       desktopBin={desktopBin}
       mobileBin={mobileBin}
-			width={width}
+      width={width}
     />
   );
 };
