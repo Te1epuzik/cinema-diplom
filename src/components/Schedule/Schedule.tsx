@@ -45,7 +45,7 @@ export const Schedule = ({
   const [desktopBin, setDesktopBin] = useState<number | null>(null);
   const [mobileBin, setMobileBin] = useState<number | null>(null);
   const seancesRef = useRef<HTMLDivElement>(null);
-  const { isMobile, isTablet, width } = useResize();
+  const { isMobile, width } = useResize();
 
   const Colors = [
     {
@@ -100,30 +100,39 @@ export const Schedule = ({
       draggable.on("pointerDown", () => {
         seance.style.zIndex = "4";
         seance.style.cursor = "grabbing";
-				sessionGrid.style.cursor = "grabbing";
+        sessionGrid.style.cursor = "grabbing";
       });
 
-      draggable.on("staticClick", () => {
-        seance.style.zIndex = "3";
-        seance.style.cursor = "grab";
-        if (isTablet) {
-          seance.focus();
-        }
-				sessionGrid.style.cursor = "default";
-      });
+      draggable.on(
+        "staticClick",
+        (_event: Event, pointer: MouseEvent | Touch) => {
+          seance.style.zIndex = "3";
+          seance.style.cursor = "grab";
+          if (pointer instanceof Touch) {
+            seance.focus();
+          }
+          sessionGrid.style.cursor = "default";
+        },
+      );
 
-      draggable.on("dragStart", () => {
-        const currentHallId = schedule.getAttribute("id");
+      draggable.on(
+        "dragStart",
+        (_event: Event, pointer: MouseEvent | Touch) => {
+          const currentHallId = schedule.getAttribute("id");
 
-        if (isMobile) {
-          setMobileBin(Number(currentHallId) || null);
-          setDesktopBin(null);
-					seance.style.top = "-70px";
-        } else {
-          setDesktopBin(Number(currentHallId) || null);
-          setMobileBin(null);
-        }
-      });
+          if (pointer instanceof Touch) {
+            seance.style.top = "-70px";
+          }
+
+          if (isMobile) {
+            setMobileBin(Number(currentHallId) || null);
+            setDesktopBin(null);
+          } else {
+            setDesktopBin(Number(currentHallId) || null);
+            setMobileBin(null);
+          }
+        },
+      );
 
       draggable.on(
         "pointerUp",
@@ -133,7 +142,7 @@ export const Schedule = ({
             pointer.clientX,
             pointer.clientY,
           );
-					sessionGrid.style.cursor = "default";
+          sessionGrid.style.cursor = "default";
           seance.style.pointerEvents = "auto";
           const bin = releasedOver?.closest(".bin");
 

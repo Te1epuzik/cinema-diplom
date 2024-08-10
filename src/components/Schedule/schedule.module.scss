@@ -133,6 +133,11 @@
         }
       }
 
+      .seance:hover > .film-name-vh {
+        display: block;
+        animation: showFilmName 0.15s ease-out;
+      }
+
       .seance:focus > .film-name-vh {
         display: block;
         animation: showFilmName 0.15s ease-out;
@@ -181,11 +186,6 @@
             top: -7px;
             left: 14px;
           }
-        }
-
-        .seance:hover > .film-name-vh {
-          display: block;
-          animation: showFilmName 0.15s ease-out;
         }
 
         .seance:focus > .film-name-vh {
