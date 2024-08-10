@@ -14,11 +14,11 @@ type TProps = {
   availableHalls: { id: number | null; name: string }[];
   availableFilms: TAvFilms[];
   timeRef: React.RefObject<HTMLInputElement>;
-	time: string;
-	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-	isLoading: boolean;
-	data: any;
+  time: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
+  data: any;
 };
 
 export const AddSeancePopupView = ({
@@ -32,11 +32,11 @@ export const AddSeancePopupView = ({
   availableHalls,
   availableFilms,
   timeRef,
-	time,
-	handleChange,
-	handleSubmit,
-	isLoading,
-	data,
+  time,
+  handleChange,
+  handleSubmit,
+  isLoading,
+  data,
 }: TProps) => {
   return (
     <Popup
@@ -52,15 +52,19 @@ export const AddSeancePopupView = ({
           </label>
           <DropdownList id="hallDropdown1" selectedItem={selectedHall.name}>
             <ul className={classes["dropdown-list"]}>
-              {availableHalls.map((hall) => (
-                <li
-                  key={hall.id}
-                  className={classes["item"]}
-                  onClick={() => handleSelectHall(hall.id, hall.name)}
-                >
-                  {hall.name}
-                </li>
-              ))}
+              {availableHalls.map((hall) => {
+                if (selectedHall.id !== hall.id) {
+                  return (
+                    <li
+                      key={hall.id}
+                      className={classes["item"]}
+                      onClick={() => handleSelectHall(hall.id, hall.name)}
+                    >
+                      {hall.name}
+                    </li>
+                  );
+                }
+              })}
             </ul>
           </DropdownList>
         </div>
@@ -70,15 +74,21 @@ export const AddSeancePopupView = ({
           </label>
           <DropdownList id="filmDropdown1" selectedItem={selectedFilm.name}>
             <ul className={classes["dropdown-list"]}>
-              {availableFilms.map((film) => (
-                <li
-                  key={film.filmId}
-                  className={classes["item"]}
-                  onClick={() => handleSelectFilm(film.filmId, film.filmName)}
-                >
-                  {film.filmName}
-                </li>
-              ))}
+              {availableFilms.map((film) => {
+                if (selectedFilm.id !== film.filmId) {
+                  return (
+                    <li
+                      key={film.filmId}
+                      className={classes["item"]}
+                      onClick={() =>
+                        handleSelectFilm(film.filmId, film.filmName)
+                      }
+                    >
+                      {film.filmName}
+                    </li>
+                  );
+                }
+              })}
             </ul>
           </DropdownList>
         </div>
@@ -87,9 +97,9 @@ export const AddSeancePopupView = ({
             Время начала
           </label>
           <input
-						onChange={handleChange}
+            onChange={handleChange}
             ref={timeRef}
-						value={time}
+            value={time}
             type="time"
             name="time"
             id="timeStart1"
@@ -97,7 +107,9 @@ export const AddSeancePopupView = ({
           />
           <ClockSVG />
         </div>
-				{data && !data.success && <span className={classes['error']}>{data.error}</span>}
+        {data && !data.success && (
+          <span className={classes["error"]}>{data.error}</span>
+        )}
         <div className={classes["btns-wrapper"]}>
           <button className={classes["submit"] + " " + "button"} type="submit">
             {isLoading ? <Loader /> : "Добавить сеанс"}
