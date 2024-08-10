@@ -2,6 +2,7 @@ export const ClockSVG = () => {
   return (
     <svg
       style={{
+				pointerEvents: "none",
 				width: "15px",
 				height: "15px",
 				position: "absolute",
