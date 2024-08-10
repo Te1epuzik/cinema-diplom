@@ -153,7 +153,7 @@ export const SessionGridView = ({
                   onClick={(event) =>
                     handleDeleteFilmPopup(event, film.filmId, film.filmName)
                   }
-                  onTouchStart={(event: React.TouchEvent<HTMLButtonElement>) =>
+                  onTouchEnd={(event: React.TouchEvent<HTMLButtonElement>) =>
                     handleDeleteFilmPopup(event, film.filmId, film.filmName)
                   }
                 >
