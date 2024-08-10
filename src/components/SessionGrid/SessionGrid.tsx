@@ -28,19 +28,18 @@ export type TTimeLine = {
 };
 
 export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
-
   const [seancesGrid, setSeancesGrid] = useState<TTimeLine[]>([]);
-	const [deleteSeance, setDeleteSeance] = useState<{ 
-		trigger: boolean;
-		id: number | null;
-		film: string;
-		hallId: number | null;
-	}>({
-		trigger: false,
-		id: null,
-		film: "",
-		hallId: null,
-	}); // delete seance popup trigger
+  const [deleteSeance, setDeleteSeance] = useState<{
+    trigger: boolean;
+    id: number | null;
+    film: string;
+    hallId: number | null;
+  }>({
+    trigger: false,
+    id: null,
+    film: "",
+    hallId: null,
+  }); // delete seance popup trigger
   const [addFilm, setAddFilm] = useState<boolean>(false); // add film popup trigger
   const [addSeance, setAddSeance] = useState<boolean>(false); // add seance popup trigger
   const [seanceInfo, setSeanceInfo] = useState<{
@@ -63,8 +62,8 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   const filmsRef = useRef<HTMLDivElement>(null);
   const { data, fetchData } = useDeleteFilm();
 
-	const handleDeleteSeancePopup = (event: React.MouseEvent) => {
-		if (
+  const handleDeleteSeancePopup = (event: React.MouseEvent) => {
+    if (
       popupRef &&
       popupRef.current &&
       popupRef.current.contains(event.target as Node)
@@ -72,16 +71,16 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       return;
     }
     setDeleteSeance({
-			trigger: false,
-			id: null,
-			film: "",
-			hallId: null,
+      trigger: false,
+      id: null,
+      film: "",
+      hallId: null,
     });
-	}
+  };
 
   useEffect(() => {
     const films = filmsRef.current?.querySelectorAll(".film");
-		const sessionGrid = document.querySelector('#session-grid1');
+    const sessionGrid = document.querySelector("#session-grid1");
 
     if (!films || !sessionGrid || !(sessionGrid instanceof HTMLElement)) {
       return;
@@ -97,37 +96,43 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       draggable.on("pointerDown", () => {
         film.style.zIndex = "2";
         film.style.cursor = "grabbing";
-				sessionGrid.style.cursor = "grabbing";
+        sessionGrid.style.cursor = "grabbing";
       });
 
       draggable.on("staticClick", () => {
         film.style.zIndex = "1";
         film.style.cursor = "grab";
-				sessionGrid.style.cursor = "default";
+        sessionGrid.style.cursor = "default";
       });
-			
-      draggable.on("pointerUp", (_event: Event, pointer: MouseEvent | Touch) => {
-        // @ts-ignore
-        draggable.setPosition(0, 0);
-        film.style.zIndex = "1";
-        film.style.cursor = "grab";
-				sessionGrid.style.cursor = "default";
-				film.style.pointerEvents = "none";
-        const releasedOver = document.elementFromPoint(pointer.clientX, pointer.clientY);
-				film.style.pointerEvents = "auto";
-        const hall = releasedOver?.closest(".schedule-hall");
 
-        if (hall && film) {
-          setAddSeance(true);
-          const hallId = hall && Number(hall.getAttribute("id"));
-          const filmId = film && Number(film.getAttribute("id"));
+      draggable.on(
+        "pointerUp",
+        (_event: Event, pointer: MouseEvent | Touch) => {
+          // @ts-ignore
+          draggable.setPosition(0, 0);
+          film.style.zIndex = "1";
+          film.style.cursor = "grab";
+          sessionGrid.style.cursor = "default";
+          film.style.pointerEvents = "none";
+          const releasedOver = document.elementFromPoint(
+            pointer.clientX,
+            pointer.clientY,
+          );
+          film.style.pointerEvents = "auto";
+          const hall = releasedOver?.closest(".schedule-hall");
 
-          setSeanceInfo({
-            hallId: hallId,
-            filmId: filmId,
-          });
-        }
-      });
+          if (hall && film) {
+            setAddSeance(true);
+            const hallId = hall && Number(hall.getAttribute("id"));
+            const filmId = film && Number(film.getAttribute("id"));
+
+            setSeanceInfo({
+              hallId: hallId,
+              filmId: filmId,
+            });
+          }
+        },
+      );
 
       return () => {
         draggable.destroy();
@@ -149,7 +154,7 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
   };
 
   const handleDeleteFilmPopup = (
-    event: React.MouseEvent,
+    event: React.MouseEvent | React.TouchEvent,
     filmId?: number,
     filmName?: string,
   ) => {
@@ -228,14 +233,14 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       setDeleteFilm(false);
     } else if (addSeance) {
       setAddSeance(false);
-		} else if (deleteSeance) {
-			setDeleteSeance({
-				trigger: false,
-				id: null,
-				film: "",
-				hallId: null,
-			})
-		}
+    } else if (deleteSeance) {
+      setDeleteSeance({
+        trigger: false,
+        id: null,
+        film: "",
+        hallId: null,
+      });
+    }
   };
 
   return (
@@ -259,9 +264,9 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
       addSeance={addSeance}
       seancesGrid={seancesGrid}
       setSeancesGrid={setSeancesGrid}
-			setDeleteSeance={setDeleteSeance}
-			deleteSeance={deleteSeance}
-			handleDeleteSeancePopup={handleDeleteSeancePopup}
+      setDeleteSeance={setDeleteSeance}
+      deleteSeance={deleteSeance}
+      handleDeleteSeancePopup={handleDeleteSeancePopup}
     />
   );
 };

@@ -8,7 +8,7 @@ import {
   FilmRemovePopup,
   AddSeancePopup,
   DeleteSeancePopup,
-	HintToDnd,
+  HintToDnd,
 } from "@/components";
 import binPNG from "@/assets/bin.png";
 
@@ -24,7 +24,7 @@ type TProps = {
   availableHalls: { name: string; id: number }[];
   allData: any;
   handleDeleteFilmPopup: (
-    event: React.MouseEvent,
+    event: React.MouseEvent | React.TouchEvent<HTMLButtonElement>,
     filmId?: number,
     filmName?: string,
   ) => void;
@@ -40,15 +40,15 @@ type TProps = {
     React.SetStateAction<{
       trigger: boolean;
       id: number | null;
-			film: string;
-			hallId: number | null;
+      film: string;
+      hallId: number | null;
     }>
   >;
   deleteSeance: {
     trigger: boolean;
     id: number | null;
-		film: string;
-		hallId: number | null;
+    film: string;
+    hallId: number | null;
   };
   handleDeleteSeancePopup: (event: React.MouseEvent) => void;
 };
@@ -83,12 +83,12 @@ export const SessionGridView = ({
         <DeleteSeancePopup
           handlePopup={handleDeleteSeancePopup}
           handleCancel={handleCancel}
-					popupRef={popupRef}
-					seanceId={deleteSeance.id}
-					filmName={deleteSeance.film}
-					availableFilms={availableFilms}
-					setSeancesGrid={setSeancesGrid}
-					hallId={deleteSeance.hallId}
+          popupRef={popupRef}
+          seanceId={deleteSeance.id}
+          filmName={deleteSeance.film}
+          availableFilms={availableFilms}
+          setSeancesGrid={setSeancesGrid}
+          hallId={deleteSeance.hallId}
         />
       )}
       {addSeance && (
@@ -128,7 +128,7 @@ export const SessionGridView = ({
           >
             Добавить фильм
           </button>
-					<HintToDnd />
+          <HintToDnd />
           <div className={classes["film-list"]} ref={filmsRef}>
             {availableFilms.map((film) => (
               <div
@@ -151,6 +151,9 @@ export const SessionGridView = ({
                   className={classes["delete"]}
                   type="button"
                   onClick={(event) =>
+                    handleDeleteFilmPopup(event, film.filmId, film.filmName)
+                  }
+                  onTouchStart={(event: React.TouchEvent<HTMLButtonElement>) =>
                     handleDeleteFilmPopup(event, film.filmId, film.filmName)
                   }
                 >
