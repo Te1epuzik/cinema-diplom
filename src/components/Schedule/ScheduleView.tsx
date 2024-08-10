@@ -33,7 +33,7 @@ export const ScheduleView = ({
               id={grid.hallId.toString()}
               className={classes["bin-mobile"] + " " + "bin"}
             >
-              <BinSVG />
+              <BinSVG fill="#63536C" />
             </div>
           )}
           {desktopBin && desktopBin === grid.hallId && (
