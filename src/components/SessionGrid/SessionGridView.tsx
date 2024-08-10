@@ -131,7 +131,7 @@ export const SessionGridView = ({
           <HintToDnd />
           <div className={classes["film-list"]} ref={filmsRef}>
             {availableFilms.map((film) => (
-              <div
+              <button
                 key={film.filmName}
                 id={film.filmId.toString()}
                 className={classes["film"] + " " + "film"}
@@ -142,7 +142,20 @@ export const SessionGridView = ({
                   alt={film.filmName}
                 />
                 <div className={classes["film-info"]}>
-                  <span className={classes["film-name"]}>{film.filmName}</span>
+                  {film.filmName.length > 20 ? (
+                    <>
+                      <span className={classes["film-name"]}>
+                        {film.filmName.slice(0, 20)}...
+                      </span>
+                      <span className={classes["film-name-vh"]}>
+                        {film.filmName}
+                      </span>
+                    </>
+                  ) : (
+                    <span className={classes["film-name"]}>
+                      {film.filmName}
+                    </span>
+                  )}
                   <span className={classes["film-duration"]}>
                     {film.filmDuration} минут
                   </span>
@@ -159,7 +172,7 @@ export const SessionGridView = ({
                 >
                   <img className={classes["bin"]} src={binPNG} alt="Удалить" />
                 </button>
-              </div>
+              </button>
             ))}
           </div>
         </div>

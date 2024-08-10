@@ -17,6 +17,10 @@
       gap: 15px;
 
       .film {
+				outline: none;
+				border-radius: 0;
+				padding: 0;
+				color: inherit;
 				cursor: grab;
         position: relative;
         border: solid 1px;
@@ -32,10 +36,11 @@
         }
 
         .film-info {
+					height: 50px;
           margin-left: 10px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: space-around;
           align-items: flex-start;
 
           .film-name {
@@ -44,6 +49,34 @@
             font-size: 14px;
             font-weight: 500;
           }
+
+					.film-name-vh {
+						font-weight: 400;
+						white-space: nowrap;
+						display: none;
+						font-size: 12px;
+						position: absolute;
+						top: -22px;
+						left: 50%;
+						transform: translateX(-50%);
+						padding: 0 4px;
+						background-color: $color-light-gray;
+						border: solid 1px $color-gray-text;
+						border-radius: 5px;
+					}
+	
+					.film-name-vh::after {
+						content: "";
+						position: absolute;
+						border-bottom: solid 1px $color-gray-text;
+						border-right: solid 1px $color-gray-text;
+						width: 5px;
+						height: 5px;
+						background-color: $color-light-gray;
+						bottom: -3.5px;
+						left: 50%;
+						transform: translateX(-50%) rotate(45deg);
+					}
 
           .film-duration {
             color: rgba($color-black, 0.7);
@@ -85,6 +118,16 @@
           background-color: rgba($color-white, 0.5);
         }
       }
+
+			.film:hover > .film-info > .film-name-vh {
+				display: block;
+				animation: showFullName 0.15s ease-in-out;
+			}
+
+			.film:focus > .film-info > .film-name-vh {
+				display: block;
+				animation: showFullName 0.15s ease-in-out;
+			}
 
       .film:nth-child(5n - 4) {
         background-color: $first-bg;
@@ -128,6 +171,17 @@
       width: 146px;
     }
   }
+}
+
+@keyframes showFullName {
+	0% {
+		top: 20px;
+		opacity: 0;
+	}
+	100% {
+		top: -22px;
+		opacity: 1;
+	}
 }
 
 

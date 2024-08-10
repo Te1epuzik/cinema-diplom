@@ -54,6 +54,29 @@
     .halls::-webkit-scrollbar {
       display: none;
     }
+
+		.halls::-webkit-scrollbar {
+			height: 4px;
+		}
+	
+		.halls::-webkit-scrollbar-thumb {
+			background-color: $color-violet !important;
+			border-radius: 1px !important;
+		}
+	
+		.halls::-webkit-scrollbar-thumb:hover {
+			width: 7px;
+		}
+	
+		.halls::-webkit-scrollbar-button {    
+			height: 0;
+			width: 0;
+		}
+	
+		.halls::-webkit-scrollbar-track {
+			background-color: transparent;
+			border: none;
+		}
   }
 	
 	.is-sales-open {

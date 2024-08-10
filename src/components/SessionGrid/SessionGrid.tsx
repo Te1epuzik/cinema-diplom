@@ -99,10 +99,15 @@ export const SessionGrid = ({ position, allData, availableHalls }: TProps) => {
         sessionGrid.style.cursor = "grabbing";
       });
 
-      draggable.on("staticClick", () => {
+      draggable.on("staticClick", (_event: Event, pointer: MouseEvent | Touch) => {
         film.style.zIndex = "1";
         film.style.cursor = "grab";
         sessionGrid.style.cursor = "default";
+				film.focus();
+
+				if (pointer instanceof Touch) {
+					film.focus();
+				}
       });
 
       draggable.on(
